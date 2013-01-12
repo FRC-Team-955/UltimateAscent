@@ -10,19 +10,19 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * This class is responsible for writing the bots activities to the specified 
  * file on the cRio
- * @author fauzi
+ * @author Fauzi
  */
 class Recorder {
 
     private int m_Index = 0;
     private boolean m_bRecStarted = false;
     private boolean m_bRecDone = false;
+    private String m_sFile = "";
     private Timer m_tmRecorder = new Timer();
     private Vector m_List = new Vector();
-    private BotData m_botDataAuto = new BotData();
-    private String m_sFile = "";
-    private FileWriter m_fileWriter;
-    private Robot m_bot;
+    private BotData m_botDataAuto = null;
+    private FileWriter m_fileWriter = null;
+    private Robot m_bot = null;
     
     public Recorder(Robot robot)
     {
@@ -38,15 +38,20 @@ class Recorder {
         if(!m_bRecStarted)
         {
             m_sFile = sFileName;
-            m_bot.resetEncoders();
             m_tmRecorder.start();
             m_bRecStarted = true;
         }
         
         if(!m_bRecDone)
         {
+            /*
+             * Have to reinitlalize because adding the object into the list
+             * it actually just makes a copy that also points to the original. 
+             * So if the original is changed so will the data in the object list.
+             */
             m_Index++;
-            m_botDataAuto.setValues(m_bot);
+            m_botDataAuto = new BotData();
+            m_botDataAuto.setValues(m_tmRecorder.get(), m_bot);
             m_List.addElement(m_botDataAuto);
         }
         
@@ -71,6 +76,8 @@ class Recorder {
             m_Index = 0;
             m_tmRecorder.stop();
             m_tmRecorder.reset();
+            m_sFile = "";
+            m_botDataAuto = null;
             m_bRecDone = false;
             m_bRecStarted = false;
         }
@@ -84,6 +91,7 @@ class Recorder {
         m_bRecStarted = true;
         m_bRecDone = true;
     }
+    
     /** 
      * Gets the time value of the recording, as in how long it has been 
      * replaying
@@ -105,6 +113,7 @@ class Recorder {
         for(int iPos = 0; iPos < m_Index; iPos++)
         {
             m_botDataAuto.setValues((BotData) m_List.elementAt(iPos));
+            m_fileWriter.writeDouble(m_botDataAuto.getTime());
             m_fileWriter.writeDouble(m_botDataAuto.getMtLeft());
             m_fileWriter.writeDouble(m_botDataAuto.getMtRight());
             m_fileWriter.writeBoolean(m_botDataAuto.getRetrieve());

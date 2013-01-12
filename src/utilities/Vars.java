@@ -40,7 +40,8 @@ public class Vars {
     public static final int stDigInReg = 4;
     
     // Printing to Driverstation lines, 2-6 are available only
-    public static final int prDriveStatusLine = 2;
+    public static final int prCodeVersionLine = 2;
+    public static final int prDriveStatusLine = 3;
     public static final int prEditAutoModeLine = 5;
     public static final int prAutonomousStatLine = 6;
     

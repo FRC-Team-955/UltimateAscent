@@ -4,23 +4,16 @@ import edu.wpi.first.wpilibj.*;
 
 /**
  * This is a comment!
- * @author Fauzi Kliman, Jacob Payne
+ * @author Jacob Payne
  */
 
-
 public class Drive {    
-    
-    // TODO: Find encoder channels!
-    private Encoder m_encoderRight = new Encoder(1,1);
-    private Encoder m_encoderLeft = new Encoder(1, 1);
     private Victor mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
     private Victor mtRight = new Victor(utilities.Vars.chnVicDrvRight);
     private Joystick leftJoy;
     private Joystick rightJoy;
-    private double curLeftMtSpd;
-    private double curRightMtSpd; 
     private boolean bTank = false;
-    private double increaseSpdRight;
+    //private double increaseSpdRight;
     private double increaseSpdLeft;
     private boolean bRampCheck = true; //FYI True is right
     
@@ -39,95 +32,49 @@ public class Drive {
     }
 
     private void tankDrive(){     
-        ramp(bRampCheck,0 ,0);
-        bRampCheck = !bRampCheck;
-        ramp(bRampCheck,0 ,0);
-        mtLeft.set(increaseSpdLeft); // Will this work?
-        mtRight.set(increaseSpdRight);
-     
+		mtLeft.set(ramp(mtLeft.get(), leftJoy.getY()));
+        mtRight.set(ramp(mtRight.get(), rightJoy.getY()));
     } 
-//    tank() {
-//        left target = left.get; // left target =  Y + X
-//        current = leffmotor.get;
-//        mtleft.set(ramp(target,current));
-//    }
-//    
-    private double ramp(boolean bRampCheck, double right, double left){    
-    
-        curRightMtSpd = mtRight.get(); 
-        curLeftMtSpd = mtLeft.get();
-        right = rightJoy.getY();
-        left = leftJoy.getY();
-        
-        if(bRampCheck){
-            if(curRightMtSpd-right >= 0.1){
+	
+    private double ramp(double curMtSpd, double joySpd){    
+			double speed = 0;
+            if(curMtSpd-joySpd >= 0.1){
                 //mtLeft.set(curLeftMtSpd+0.1);
-                increaseSpdRight = 0.1;
+                speed = 0.1;
             }
-            else if(curRightMtSpd-right <= -0.1){
+            else if(curMtSpd-joySpd <= -0.1){
                 //mtRight.set(curRightMtSpd-0.1);
-                increaseSpdRight = -0.1;
+                speed = -0.1;
             }
             else{
                //Do nothing!
             }
-            return increaseSpdLeft;
-        }
-        else{
-            if(curLeftMtSpd-left >= 0.1){
-                //mtLeft.set(curLeftMtSpd+0.1);
-                increaseSpdLeft = 0.1;
-            }
-            else if(curLeftMtSpd-left <= -0.1){
-                //mtRight.set(curRightMtSpd-0.1);
-                increaseSpdLeft = -0.1;
-            }
-            else{
-               //Do nothing!
-            }
-            return increaseSpdRight;
-        }
-          
-    }
+            return speed;
+	}
     
     private void arcadeDrive(){
         double y = rightJoy.getY();
         double x = leftJoy.getX();
-        ramp(bRampCheck, x, y);
-        bRampCheck = !bRampCheck;
-        ramp(bRampCheck, x, y);
-        x = increaseSpdRight;
-        y = increaseSpdLeft;
         y *= Math.abs(y); // Squared Drive
-        x *= Math.abs(y); // Squared Drive
-        mtLeft.set(y+x);
-        mtRight.set(y-x);
+        x *= Math.abs(x); // Squared Drive
+		mtRight.set(ramp(mtRight.get(), x-y));
+		mtLeft.set(ramp(mtRight.get(), x+y));
     }
     
-    /**
-     * Gets the the amount of times the left motor has fully rotated.
-     * @return 
-     */
-    public double getDistanceLeft()
+    // JACOB YOU'LL HAVE TO RE-WRTIE THESE BELOW!!! SO DO IT ~Fauzi
+    public double getMotorLeft()
     {
-        return m_encoderLeft.getDistance();
+        return mtLeft.get();
     }
     
-    /**
-     * Gets the the amount of times the right motor has fully rotated.
-     * @return 
-     */
-    public double getDistanceRight()
+    public double getMotorRight()
     {
-        return m_encoderRight.getDistance();
+        return mtRight.get();
     }
     
-    /**
-     * Resets both the encoders distance to 0
-     */
-    public void resetEncoders()
+    public void setSpeed(double dLeft, double dRight)
     {
-        m_encoderLeft.reset();
-        m_encoderRight.reset();
+        mtLeft.set(dLeft);
+        mtRight.set(dRight);
     }
 }

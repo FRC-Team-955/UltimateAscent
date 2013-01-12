@@ -45,12 +45,12 @@ public class FileReader {
         
         try
         {
-            botData.setValues(m_reader.readDouble(), m_reader.readDouble(), m_reader.readBoolean());
+            botData.setValues(m_reader.readDouble(), m_reader.readDouble(), m_reader.readDouble(), m_reader.readBoolean());
         }
         
         catch(IOException e)
         {
-            botData.setValues(0, 0, false);
+            botData.setValues(0, 0, 0, false);
         }
         
         return botData;

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Main extends IterativeRobot 
 {
+    final String sCodeVersion = "Armadillo 1.1.3";
     MyJoystick ps3Joy = new MyJoystick(1, Vars.iPs3Buttons);
     Robot bot = new Robot(ps3Joy);
     Compressor compressor = new Compressor();
@@ -32,7 +33,7 @@ public class Main extends IterativeRobot
      */
     public void robotInit() 
     {
- 
+        Vars.fnPrintToDriverstation(Vars.prCodeVersionLine, sCodeVersion);
     }
 
     // This function is called when we disable the robot.

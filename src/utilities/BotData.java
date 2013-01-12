@@ -6,6 +6,7 @@ package utilities;
  */ 
 public class BotData{
     
+    private double m_dTime = 0;
     private double m_dMtLeft = 0;
     private double m_dMtRight = 0;
     private boolean m_bRtrvStat = false;
@@ -16,8 +17,9 @@ public class BotData{
      * @param dMtRight
      * @param bRtrvStat 
      */
-    public void setValues(double dMtLeft, double dMtRight, boolean bRtrvStat)
+    public void setValues(double dTimer, double dMtLeft, double dMtRight, boolean bRtrvStat)
     {
+        m_dTime = dTimer;
         m_dMtLeft = dMtLeft;
         m_dMtRight = dMtRight;
         m_bRtrvStat = bRtrvStat;
@@ -27,9 +29,9 @@ public class BotData{
      * Sets the values.
      * @param bot 
      */
-    public void setValues(Robot bot)
+    public void setValues(double dTimer, Robot bot)
     {
-        setValues(bot.getDistanceLeft(), bot.getDistanceRight(), bot.getRetrieveStat());
+        setValues(dTimer, bot.getMotorLeft(), bot.getMotorRight(), bot.getRetrieveStat());
     }
     
     /**
@@ -38,7 +40,16 @@ public class BotData{
      */
     public void setValues(BotData emu)
     {
-        setValues(emu.getMtLeft(), emu.getMtRight(), emu.getRetrieve());
+        setValues(emu.getTime(), emu.getMtLeft(), emu.getMtRight(), emu.getRetrieve());
+    }
+    
+    /**
+     * Returns the time stamp of the data.
+     * @return 
+     */
+    public double getTime()
+    {
+        return m_dTime;
     }
     
     /**

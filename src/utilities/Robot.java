@@ -50,29 +50,21 @@ public class Robot {
     }
     
     /**
-     * Gets the the amount of times the left motor has fully rotated.
+     * Returns the speed of the left motor.
      * @return 
      */
-    public double getDistanceLeft()
+    public double getMotorLeft()
     {
-        return m_drive.getDistanceLeft();
+        return m_drive.getMotorLeft();
     }
     
     /**
-     * Gets the the amount of times the right motor has fully rotated.
+     * Returns the speed of the right motor.
      * @return 
      */
-    public double getDistanceRight()
+    public double getMotorRight()
     {
-        return m_drive.getDistanceRight();
-    }
-    
-    /**
-     * Resets the encoder's back to zero.
-     */
-    public void resetEncoders()
-    {
-        m_drive.resetEncoders();
+        return m_drive.getMotorRight();
     }
     
     /**
