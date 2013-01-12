@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author fauzi
  */
-public class MyPIDController {
+public class MyPIDDistance {
    
     // CONSTANTS
     private final double m_kP;
@@ -21,7 +21,7 @@ public class MyPIDController {
     private boolean m_bIsTimerOn = false;
     private Timer m_tmTimer = new Timer();
     
-    public MyPIDController(double dP, double dI, double dD)
+    public MyPIDDistance(double dP, double dI, double dD)
     {
         m_kP = dP;
         m_kI = dI;
@@ -89,7 +89,7 @@ public class MyPIDController {
     }
 }
 
-//public class MyPIDController {
+//public class MyPIDDistance {
 //
 //	double timerCalibration, timerValue;
 //	double kP, kI, kD;
@@ -98,7 +98,7 @@ public class MyPIDController {
 //	double lastValue = 0;
 //	double output = 0;
 //
-//	public MyPIDController(double kP, double kI, double kD) {
+//	public MyPIDDistance(double kP, double kI, double kD) {
 //		timerCalibration = Global.timer.get();
 //		this.kP = kP;
 //		this.kI = kI;

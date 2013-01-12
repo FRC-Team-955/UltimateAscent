@@ -1,89 +1,18 @@
-//package core;
-
-//import utilities.Vars;
-//import utilities.MyJoystick;
-//import edu.wpi.first.wpilibj.Victor;
-//import edu.wpi.first.wpilibj.Gyro;
-//
-///**
-// * @author fauzi
-// */
-//// TODO: Find Gyro channels
-//public class Drive {
-//    
-//    private double m_dRightSpeed = 0;
-//    private double m_dLeftSpeed = 0;
-//    private String m_sDriveStatus = "";
-//    private Victor m_mtLeft = new Victor(Vars.chnVicDrvLeft);
-//    private Victor m_mtRight = new Victor(Vars.chnVicDrvRight);
-//    private Gyro m_gyroRight = new Gyro(1);
-//    private Gyro m_gyroLeft = new Gyro(1);
-//    private MyJoystick m_joy;
-//    
-//    public Drive(MyJoystick joystick)
-//    {
-//        m_joy = joystick;
-//    }
-//    
-//    public void run()
-//    {      
-//        if(Vars.fnCanDrive())
-//            regDrive();
-//        
-//        else
-//            m_sDriveStatus = "Drive Disabled";
-//        
-//        Vars.fnPrintToDriverstation(Vars.prDriveStatusLine, m_sDriveStatus);
-//    }
-//
-//    private void regDrive()
-//    {
-//        // Setting to get regular drive Working properly on the ps3 Controller
-//        // should be 3, 2
-//        m_joy.setAxisChannel(MyJoystick.AxisType.kX, 3);
-//        m_joy.setAxisChannel(MyJoystick.AxisType.kY, 2);
-//
-//        m_sDriveStatus = "Regular Drive";
-//        double y = m_joy.getY() * Math.abs(m_joy.getY());
-//        double x = m_joy.getX() * Math.abs(m_joy.getX());
-//        
-//        m_dRightSpeed = (-y+x);
-//        m_dLeftSpeed = (y+x); 
-//        setSpeed(m_dLeftSpeed, m_dRightSpeed);
-//    }
-//    
-//    public void setSpeed(double setMtLeft, double setMtRight)
-//    {
-//        m_mtLeft.set(setMtLeft);
-//        m_mtRight.set(setMtRight);
-//    }
-//    
-//    public double getGyroLeft()
-//    {
-//        return m_gyroLeft.getAngle();
-//    }
-//    
-//    public double getGyroRight()
-//    {
-//        return m_gyroRight.getAngle();
-//    }
-//    
-//    public void resetGyros()
-//    {
-//        m_gyroLeft.reset();
-//        m_gyroRight.reset();
-//    }
-//}
 package core;
 import utilities.Vars;
 import edu.wpi.first.wpilibj.*;
 
 /**
  * This is a comment!
- * @author Jacob Payne
+ * @author Fauzi Kliman, Jacob Payne
  */
 
+
 public class Drive {    
+    
+    // TODO: Find encoder channels!
+    private Encoder m_encoderRight = new Encoder(1,1);
+    private Encoder m_encoderLeft = new Encoder(1, 1);
     private Victor mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
     private Victor mtRight = new Victor(utilities.Vars.chnVicDrvRight);
     private Joystick leftJoy;
@@ -173,5 +102,32 @@ public class Drive {
         x *= Math.abs(y); // Squared Drive
         mtLeft.set(y+x);
         mtRight.set(y-x);
+    }
+    
+    /**
+     * Gets the the amount of times the left motor has fully rotated.
+     * @return 
+     */
+    public double getDistanceLeft()
+    {
+        return m_encoderLeft.getDistance();
+    }
+    
+    /**
+     * Gets the the amount of times the right motor has fully rotated.
+     * @return 
+     */
+    public double getDistanceRight()
+    {
+        return m_encoderRight.getDistance();
+    }
+    
+    /**
+     * Resets both the encoders distance to 0
+     */
+    public void resetEncoders()
+    {
+        m_encoderLeft.reset();
+        m_encoderRight.reset();
     }
 }

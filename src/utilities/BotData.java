@@ -29,7 +29,7 @@ public class BotData{
      */
     public void setValues(Robot bot)
     {
-        setValues(bot.getGyroLeft(), bot.getGyroRight(), bot.getRetrieveStat());
+        setValues(bot.getDistanceLeft(), bot.getDistanceRight(), bot.getRetrieveStat());
     }
     
     /**

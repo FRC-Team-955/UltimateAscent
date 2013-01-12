@@ -4,7 +4,7 @@ import utilities.BotData;
 import utilities.FileReader;
 import utilities.Robot;
 import utilities.Vars;
-import utilities.MyPIDController;
+import utilities.MyPIDDistance;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -27,8 +27,8 @@ class Replayer {
     private boolean m_bRepStarted = false;
     private boolean m_bDoneReplay = false;
     private String m_sFileName = "";
-    private MyPIDController m_PIDLeft = new MyPIDController(m_KP, m_kI, m_kD);
-    private MyPIDController m_PIDRight = new MyPIDController(m_KP, m_kI, m_kD);
+    private MyPIDDistance m_PIDLeft = new MyPIDDistance(m_KP, m_kI, m_kD);
+    private MyPIDDistance m_PIDRight = new MyPIDDistance(m_KP, m_kI, m_kD);
     private Timer m_tmReplay = new Timer();
     private BotData m_botDataAuto = new BotData();
     private BotData[] m_botDataArray;
@@ -50,7 +50,7 @@ class Replayer {
         {
             Vars.fnDisableDrive();
             m_sFileName = sFileName;
-            m_bot.resetGyros();
+            m_bot.resetEncoders();
             readAllData();
             m_botDataAuto.setValues(m_botDataArray[m_iCounter++]);
             m_PIDLeft.startTimer();
@@ -68,8 +68,8 @@ class Replayer {
                 m_PIDRight.reset(false);
             }
             
-            double dMotorSpeedLeft = m_PIDLeft.getOutput(m_botDataAuto.getMtLeft(), m_bot.getGyroLeft());
-            double dMotorSpeedRight = m_PIDRight.getOutput(m_botDataAuto.getMtRight(), m_bot.getGyroRight());
+            double dMotorSpeedLeft = m_PIDLeft.getOutput(m_botDataAuto.getMtLeft(), m_bot.getDistanceLeft());
+            double dMotorSpeedRight = m_PIDRight.getOutput(m_botDataAuto.getMtRight(), m_bot.getDistanceRight());
             m_bot.setSpeed(dMotorSpeedLeft, dMotorSpeedRight);
             m_bot.setRetrieve(m_botDataAuto.getRetrieve());
             
@@ -149,8 +149,8 @@ class Replayer {
      */
     private boolean getNewData()
     {
-        if(Math.abs(Math.abs(m_botDataAuto.getMtLeft()) - Math.abs(m_bot.getGyroLeft())) <= m_dGyroTolerance && 
-            Math.abs(m_botDataAuto.getMtRight() - Math.abs(m_bot.getGyroRight())) <= m_dGyroTolerance)
+        if(Math.abs(Math.abs(m_botDataAuto.getMtLeft()) - Math.abs(m_bot.getDistanceLeft())) <= m_dGyroTolerance && 
+            Math.abs(m_botDataAuto.getMtRight() - Math.abs(m_bot.getDistanceRight())) <= m_dGyroTolerance)
                 return true;
         
         return false;

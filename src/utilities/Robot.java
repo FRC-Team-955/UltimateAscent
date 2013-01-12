@@ -50,29 +50,29 @@ public class Robot {
     }
     
     /**
-     * Gets the value of the left gyro.
+     * Gets the the amount of times the left motor has fully rotated.
      * @return 
      */
-    public double getGyroLeft()
+    public double getDistanceLeft()
     {
-        return m_drive.getGyroLeft();
+        return m_drive.getDistanceLeft();
     }
     
     /**
-     * Gets the value of the right gyro.
+     * Gets the the amount of times the right motor has fully rotated.
      * @return 
      */
-    public double getGyroRight()
+    public double getDistanceRight()
     {
-        return m_drive.getGyroRight();
+        return m_drive.getDistanceRight();
     }
     
     /**
-     * Resets the gryo's back to zero.
+     * Resets the encoder's back to zero.
      */
-    public void resetGyros()
+    public void resetEncoders()
     {
-        m_drive.resetGyros();
+        m_drive.resetEncoders();
     }
     
     /**
