@@ -8,6 +8,7 @@ import core.Retrieve;
  * This class encapsulates the robot systems.
  * @author fauzi
  */
+// TODO: Uncomment drive after teaching Jacob about axis joystick stuff.
 public class Robot {
     
     private static MyJoystick m_joy;
@@ -18,7 +19,7 @@ public class Robot {
     public Robot(MyJoystick joytick)
     {
         m_joy = joytick;
-        m_drive = new Drive(m_joy);
+        // m_drive = new Drive(m_joy);
         m_release = new Release(m_joy);
         m_retrieve = new Retrieve(m_joy);
     }

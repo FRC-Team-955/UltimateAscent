@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Main extends IterativeRobot 
 {
-    final String sCodeVersion = "Armadillo 1.1.3";
+    final String sCodeVersion = "Armadillo 1.2.1";
     MyJoystick ps3Joy = new MyJoystick(1, Vars.iPs3Buttons);
     Robot bot = new Robot(ps3Joy);
     Compressor compressor = new Compressor();
