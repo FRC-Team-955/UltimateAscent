@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 
 /**
- * This class has all the variables that are used the set the 
- * channels, slots or speed parameters for any object for BunnyBot 2012.
- * We have a separate class just so we can change the channel more easily rather
- * than searching through the class itself.
+ * This class has ALL the variables used as channels for FRC objects like 
+ * Victors or solenoids and ect. It ONLY has channel variables and useful 
+ * functions. We have a separate class just so we can change the channel more 
+ * easily rather than searching through the class itself.
  * @author Fauzi
  */
 public class Vars {

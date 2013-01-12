@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author fauzi
  */
-public class MyPIDDistance {
+public class MyPIDPosition {
    
     // CONSTANTS
     private final double m_kP;
@@ -21,7 +21,7 @@ public class MyPIDDistance {
     private boolean m_bIsTimerOn = false;
     private Timer m_tmTimer = new Timer();
     
-    public MyPIDDistance(double dP, double dI, double dD)
+    public MyPIDPosition(double dP, double dI, double dD)
     {
         m_kP = dP;
         m_kI = dI;

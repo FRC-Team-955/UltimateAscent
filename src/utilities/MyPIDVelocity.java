@@ -18,6 +18,7 @@ public class MyPIDVelocity {
     private double m_lastP = 0;
     private double m_dCurrentVal = 0;
     private double m_dLastVal = 0;
+    private double m_dOutput = 0;
     private boolean m_bIsTimerOn = false;
     private Timer m_tmTimer = new Timer();
     
@@ -29,7 +30,7 @@ public class MyPIDVelocity {
     }
     
     /**
-     * Gets output value based on arguments
+     * Gets output value based on arguments.
      * @param dTarget
      * @param dCurrent
      * @return 
@@ -41,9 +42,10 @@ public class MyPIDVelocity {
         m_I = m_I + m_P * m_dCurrentVal;
         m_D = m_P - m_lastP;
         m_lastP = m_P;
+        m_dOutput += (m_kP * m_P) + (m_kI * m_I) + (m_kD * m_D);
         m_dLastVal = m_tmTimer.get();
         
-        return (m_kP * m_P) + (m_kI * m_I) + (m_kD * m_D);
+        return m_dOutput;
     }
     
     /**
@@ -58,13 +60,14 @@ public class MyPIDVelocity {
         m_lastP = 0;
         m_dCurrentVal = 0;
         m_dLastVal = 0;
+        m_dOutput = 0;
         
         if(bResetTimer)
             resetTimer();
     }
     
     /**
-     * Starts the timer only if it's not active
+     * Starts the timer only if it's not active.
      */
     public void startTimer()
     {
@@ -76,7 +79,7 @@ public class MyPIDVelocity {
     }
     
     /**
-     * Stops and resets the timer only if it's active
+     * Stops and resets the timer only if it's active.
      */
     private void resetTimer()
     {
