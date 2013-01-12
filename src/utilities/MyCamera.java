@@ -1,7 +1,6 @@
 package utilities;
 
 import edu.wpi.first.wpilibj.camera.AxisCamera;
-//import edu.wpi.first.wpilibj.camera.AxisCamera.ResolutionT;
 import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
@@ -34,7 +33,5 @@ public class MyCamera {
             camera.writeRotation(AxisCamera.RotationT.k0);
             camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
             camera.getInstance();
-    }
-    
-    
+    }   
 }
