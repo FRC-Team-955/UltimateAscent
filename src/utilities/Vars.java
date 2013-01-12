@@ -15,7 +15,7 @@ public class Vars {
     // Victors
     public static final int chnVicDrvLeft = 1;
     public static final int chnVicDrvRight = 2;
-    public static final int chnVicRetrieve = 3;
+    public static final int chnVicShooter = 3;
 	
     // Solenoids
     // SOLENOID BUMPER CHANNEL 7 OR 8 DOES NOT WORK!!!!!!
@@ -27,8 +27,9 @@ public class Vars {
     public static final int chnDigiSensor = 14;
 
     // Button channel on the joystick
-    public static final int btReleaseBall = 1;
-    public static final int btActRetrieve = 3;
+    public static final int btFeedFrisbee = 1;
+    public static final int btVisionTrack = 2;
+    public static final int btShootFrisbee = 3;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;
@@ -42,6 +43,7 @@ public class Vars {
     // Printing to Driverstation lines, 2-6 are available only
     public static final int prCodeVersionLine = 2;
     public static final int prDriveStatusLine = 3;
+    public static final int prVisionStatusLine = 4;
     public static final int prEditAutoModeLine = 5;
     public static final int prAutonomousStatLine = 6;
     

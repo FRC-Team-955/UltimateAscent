@@ -7,25 +7,25 @@ import edu.wpi.first.wpilibj.Victor;
 /**
  * @author Fauzi
  */
-public class Retrieve {
+public class Shooter {
     
-    private boolean m_bRetrieveStatus = false;
-    private double m_dRetrieveSpeed = -1;
-    private Victor m_mtRetrieve = new Victor(Vars.chnVicRetrieve);
+    private boolean m_bShooting = false;
+    private double m_dShootSpeed = -1;
+    private Victor m_mtRetrieve = new Victor(Vars.chnVicShooter);
     private MyJoystick m_joy;
     
-    public Retrieve(MyJoystick joystick)
+    public Shooter(MyJoystick joystick)
     {
         m_joy = joystick;
     }
     
     public void run()
     {
-        if(m_joy.gotPressed(Vars.btActRetrieve))
-            m_bRetrieveStatus = !m_bRetrieveStatus;
+        if(m_joy.gotPressed(Vars.btShootFrisbee))
+            m_bShooting = !m_bShooting;
         
-        if(m_bRetrieveStatus)
-            m_mtRetrieve.set(m_dRetrieveSpeed);
+        if(m_bShooting)
+            m_mtRetrieve.set(m_dShootSpeed);
         
         else
             m_mtRetrieve.set(0);
@@ -33,13 +33,13 @@ public class Retrieve {
     
     public boolean getStatus()
     {
-        return m_bRetrieveStatus;
+        return m_bShooting;
     }
     
     public void set(boolean bStatus)
     {
         if(bStatus)
-            m_mtRetrieve.set(m_dRetrieveSpeed);
+            m_mtRetrieve.set(m_dShootSpeed);
         
         else
             m_mtRetrieve.set(0);

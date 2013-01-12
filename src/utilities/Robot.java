@@ -1,8 +1,8 @@
 package utilities;
 
 import core.Drive;
-import core.Release;;
-import core.Retrieve;
+import core.Feeder;;
+import core.Shooter;
 
 /**
  * This class encapsulates the robot systems.
@@ -13,15 +13,15 @@ public class Robot {
     
     private static MyJoystick m_joy;
     private static Drive m_drive;
-    private static Release m_release;
-    private static Retrieve m_retrieve;
+    private static Feeder m_release;
+    private static Shooter m_retrieve;
     
     public Robot(MyJoystick joytick)
     {
         m_joy = joytick;
         // m_drive = new Drive(m_joy);
-        m_release = new Release(m_joy);
-        m_retrieve = new Retrieve(m_joy);
+        m_release = new Feeder(m_joy);
+        m_retrieve = new Shooter(m_joy);
     }
     
     public void run()
