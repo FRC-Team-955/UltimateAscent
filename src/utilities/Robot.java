@@ -13,22 +13,22 @@ public class Robot {
     
     private static MyJoystick m_joy;
     private static Drive m_drive;
-    private static Feeder m_release;
-    private static Shooter m_retrieve;
+    private static Feeder m_feeder;
+    private static Shooter m_shooter;
     
     public Robot(MyJoystick joytick)
     {
         m_joy = joytick;
-        // m_drive = new Drive(m_joy);
-        m_release = new Feeder(m_joy);
-        m_retrieve = new Shooter(m_joy);
+        m_drive = new Drive(m_joy);
+        m_feeder = new Feeder(m_joy);
+        m_shooter = new Shooter(m_joy);
     }
     
     public void run()
     {
         m_drive.run();
-        m_release.run();
-        m_retrieve.run();
+        m_feeder.run();
+        m_shooter.run();
     }
     
     /**
@@ -38,7 +38,7 @@ public class Robot {
     public void stopRobot()
     {
         setSpeed(0, 0);
-        setRetrieve(false);
+        setShooter(false);
     }
     
     /**
@@ -47,7 +47,7 @@ public class Robot {
      */
     public boolean getRetrieveStat()
     {
-        return m_retrieve.getStatus();
+        return m_shooter.getStatus();
     }
     
     /**
@@ -82,8 +82,8 @@ public class Robot {
      * Sets the retriever, true means active.
      * @param bRetrieveVal 
      */
-    public void setRetrieve(boolean bRetrieveVal)
+    public void setShooter(boolean bRetrieveVal)
     {
-        m_retrieve.set(bRetrieveVal);
+        m_shooter.set(bRetrieveVal);
     }
 }
