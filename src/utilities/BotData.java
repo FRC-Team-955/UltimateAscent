@@ -12,7 +12,7 @@ public class BotData{
     private boolean m_bRtrvStat = false;
     
     /**
-     * Sets the values
+     * Sets the values.
      * @param dMtLeft
      * @param dMtRight
      * @param bRtrvStat 

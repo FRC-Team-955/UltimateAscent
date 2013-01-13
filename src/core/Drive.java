@@ -9,12 +9,16 @@ import utilities.MyJoystick;
  * #Fauzi owns drive!
  */
 
-public class Drive {    
+public class Drive {        // Ramps motor speed and set motor speed    
     private Victor mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
     private Victor mtRight = new Victor(utilities.Vars.chnVicDrvRight);
     private MyJoystick joy;
     private boolean bTank = false;
     
+    /**
+     * Initializes drive, with joy and happiness.
+     * @param joystick 
+     */
     public Drive(MyJoystick joystick) {
         joy = joystick;
     }
@@ -26,15 +30,23 @@ public class Drive {
         else
             arcadeDrive();
     }
-
+    /**
+     * Tank drive. This is not arcade drive.
+     */
     private void tankDrive(){
         joy.setAxisChannel(MyJoystick.AxisType.kX, 2);
         joy.setAxisChannel(MyJoystick.AxisType.kY, 4);
-        
-       setSpeed(ramp(mtLeft.get(), joy.getX()), ramp(mtLeft.get(), joy.getX()));
+        setSpeed(ramp(mtLeft.get(), joy.getX()), ramp(mtLeft.get(), joy.getX()));
     } 
 	
-    private double ramp(double curMtSpd, double joySpd){    
+   /**
+    *  Changes the speed such that it isn't higher than it should be.
+    * @param curMtSpd
+    * @param joySpd
+    * @return 
+    */ 
+    private double ramp(double curMtSpd, double joySpd){   
+        
         
             if(curMtSpd-joySpd <= -0.1)
                 return curMtSpd + 0.1;
@@ -45,6 +57,9 @@ public class Drive {
             return joySpd;
 	}
     
+    /**
+     * Arcade drive. This is not tank drive
+     */
     private void arcadeDrive(){
         joy.setAxisChannel(MyJoystick.AxisType.kX, 1);
         joy.setAxisChannel(MyJoystick.AxisType.kY, 3);
@@ -56,14 +71,17 @@ public class Drive {
         }
     
     public double getMotorLeft(){
+        // Returns motor speed.
         return mtLeft.get();
     }
     
     public double getMotorRight(){
+        // Sets motor speed
         return mtRight.get();
     }
     
     public void setSpeed(double leftMt, double rightMt){
+        // Sets left and right motor speed.
         mtLeft.set(leftMt);
         mtRight.set(rightMt);
         
