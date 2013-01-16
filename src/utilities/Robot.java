@@ -1,33 +1,31 @@
 package utilities;
 
 import core.Drive;
-import core.Feeder;;
 import core.Shooter;
 
 /**
  * This class encapsulates the robot systems.
  * @author fauzi
  */
-// TODO: Uncomment drive after teaching Jacob about axis joystick stuff.
 public class Robot {
     
     private static MyJoystick m_joy;
     private static Drive m_drive;
-    private static Feeder m_feeder;
     private static Shooter m_shooter;
     
     public Robot(MyJoystick joytick)
     {
         m_joy = joytick;
         m_drive = new Drive(m_joy);
-        m_feeder = new Feeder(m_joy);
         m_shooter = new Shooter(m_joy);
     }
     
+    /**
+     * Runs the robot code, as in Drive, Shooter.
+     */
     public void run()
     {
         m_drive.run();
-        m_feeder.run();
         m_shooter.run();
     }
     
@@ -37,17 +35,27 @@ public class Robot {
      */
     public void stopRobot()
     {
-        setSpeed(0, 0);
-        setShooter(false);
+        setDriveSpeed(0, 0);
+        setShooter(0);
+        setFeeder(false);
     }
     
     /**
      * Get the status of the retriever, true means active.
      * @return 
      */
-    public boolean getRetrieveStat()
+    public double getShooterSpeed()
     {
-        return m_shooter.getStatus();
+        return m_shooter.getShooterSpeed();
+    }
+    
+    /**
+     * Gets the feeder status, true means active.
+     * @return 
+     */
+    public boolean getFeederStatus()
+    {
+        return m_shooter.getFeedStatus();
     }
     
     /**
@@ -73,17 +81,26 @@ public class Robot {
      * @param dLeft
      * @param dRight 
      */
-    public void setSpeed(double dLeft, double dRight)
+    public void setDriveSpeed(double dLeft, double dRight)
     {
         m_drive.setSpeed(dLeft, dRight);
     }
     
     /**
-     * Sets the retriever, true means active.
-     * @param bRetrieveVal 
+     * Sets the shooter to the specified speed.
+     * @param dSpeed 
      */
-    public void setShooter(boolean bRetrieveVal)
+    public void setShooter(double dSpeed)
     {
-        m_shooter.set(bRetrieveVal);
+        m_shooter.setShooter(dSpeed);
+    }
+    
+    /**
+     * Sets the feeder to true or false. True means active.
+     * @param bStatus 
+     */
+    public void setFeeder(boolean bStatus)
+    {
+        m_shooter.setFeeder(bStatus);
     }
 }

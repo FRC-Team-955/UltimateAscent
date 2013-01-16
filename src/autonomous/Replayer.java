@@ -53,8 +53,9 @@ class Replayer {
             if(getNewData())
                 m_botDataAuto.setValues(m_botDataArray[m_iCounter++]);
             
-            m_bot.setSpeed(m_botDataAuto.getMtLeft(), m_botDataAuto.getMtRight());
-            m_bot.setShooter(m_botDataAuto.getRetrieve());
+            m_bot.setDriveSpeed(m_botDataAuto.getMtLeft(), m_botDataAuto.getMtRight());
+            m_bot.setShooter(m_botDataAuto.getShooterSpeed());
+            m_bot.setFeeder(m_botDataAuto.getFeederStatus());
             
             if(EndOfFile())
                 m_bDoneReplay = true;
@@ -121,7 +122,10 @@ class Replayer {
         m_botDataArray = new BotData[m_iMax];
         
         for(int index = 0; index < m_iMax; index++)
-            m_botDataArray[index] = m_fileReader.readAll();
+        {
+            m_botDataArray[index] = new BotData();
+            m_botDataArray[index].setValues(m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readBoolean());
+        }
         
         m_fileReader.close();
     }

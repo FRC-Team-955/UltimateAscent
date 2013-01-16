@@ -34,27 +34,6 @@ public class FileReader {
             System.out.println(e.getMessage());
         }
     }
-
-    /**
-     * Reads a certain set of data at a time.
-     * @return 
-     */
-    public BotData readAll()
-    {
-        BotData botData = new BotData();
-        
-        try
-        {
-            botData.setValues(m_reader.readDouble(), m_reader.readDouble(), m_reader.readDouble(), m_reader.readBoolean());
-        }
-        
-        catch(IOException e)
-        {
-            botData.setValues(0, 0, 0, false);
-        }
-        
-        return botData;
-    }
         
     /**
      * Reads an integer value from the file.
@@ -73,6 +52,39 @@ public class FileReader {
         }
     }
     
+    /**
+     * Reads a double value from the file.
+     * @return 
+     */
+    public double readDouble()
+    {
+        try
+        {
+            return m_reader.readDouble();
+        }
+        
+        catch(IOException e)
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * Reads a boolean value from the file.
+     * @return 
+     */
+    public boolean readBoolean()
+    {
+        try
+        {
+            return m_reader.readBoolean();
+        }
+        
+        catch(IOException e)
+        {
+            return false;
+        }
+    }
     /**
      * Closes the file, disabling use of it.
      */

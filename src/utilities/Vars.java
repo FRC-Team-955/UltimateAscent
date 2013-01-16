@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
  * easily rather than searching through the class itself.
  * @author Fauzi
  */
+// TODO: SET SHOOTER ENCODER CHANNEL.
 public class Vars {
     
     // Victors
@@ -19,17 +20,19 @@ public class Vars {
 	
     // Solenoids
     // SOLENOID BUMPER CHANNEL 7 OR 8 DOES NOT WORK!!!!!!
-    public static final int chnSolReleaseUp = 1;
-    public static final int chnSolReleaseDown = 2;
+    public static final int chnSolFeederUp = 1;
+    public static final int chnSolFeederDown = 2;
 	
     // Digital Sidecard 
+    public static final int chnEncShooter = 1;
     public static final int chnCompressor = 3;
     public static final int chnDigiSensor = 14;
 
     // Button channel on the joystick
-    public static final int btFeedFrisbee = 1;
-    public static final int btVisionTrack = 2;
-    public static final int btShootFrisbee = 3;
+    public static final int btIncreaseSpeed = 1;
+    public static final int btFeedFrisbee = 2;
+    public static final int btDecreaseSpeed = 3;
+    public static final int btShootFrisbee = 4;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;
