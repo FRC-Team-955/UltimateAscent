@@ -9,11 +9,12 @@ import utilities.MyJoystick;
  * #Fauzi owns drive!
  */
 
-public class Drive {        // Ramps motor speed and set motor speed    
+public class Drive {        // Ramps motor speed and set motor speed 
+    
+    private String m_sDriveStatus = "Arcade Drive";
     private Victor mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
     private Victor mtRight = new Victor(utilities.Vars.chnVicDrvRight);
     private MyJoystick joy;
-    private boolean bTank = false;
     
     /**
      * Initializes drive, with joy and happiness.
@@ -24,20 +25,29 @@ public class Drive {        // Ramps motor speed and set motor speed
     }
     
     public void run() {
-        if (bTank)  
-            tankDrive();
+        if (Vars.fnCanDrive())  
+        {
+            arcadeDrive();
+            m_sDriveStatus = "Arcade Drive";
+        }
         
         else
-            arcadeDrive();
+        {
+            setSpeed(0, 0);
+            m_sDriveStatus = "Disabled";
+        }
+        
+        Vars.fnPutDashBoardStringBox(Vars.skDriveStatus, m_sDriveStatus);
     }
+    
     /**
      * Tank drive. This is not arcade drive.
      */
-    private void tankDrive(){
-        joy.setAxisChannel(MyJoystick.AxisType.kX, 2);
-        joy.setAxisChannel(MyJoystick.AxisType.kY, 4);
-        setSpeed(ramp(mtLeft.get(), joy.getX()), ramp(mtLeft.get(), joy.getX()));
-    } 
+//    private void tankDrive(){
+//        joy.setAxisChannel(MyJoystick.AxisType.kX, 2);
+//        joy.setAxisChannel(MyJoystick.AxisType.kY, 4);
+//        setSpeed(ramp(mtLeft.get(), joy.getX()), ramp(mtLeft.get(), joy.getX()));
+//    } 
 	
    /**
     *  Changes the speed such that it isn't higher than it should be.
@@ -68,7 +78,7 @@ public class Drive {        // Ramps motor speed and set motor speed
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
 	setSpeed(ramp(mtRight.get(), x-y), ramp(mtLeft.get(), x+y) );
-        }
+    }
     
     public double getMotorLeft(){
         // Returns motor speed.

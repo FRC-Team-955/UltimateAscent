@@ -53,8 +53,8 @@ public class Autonomous {
         else
             resetAutonomous();
         
-        Vars.fnPrintToDriverstation(Vars.prEditAutoModeLine, m_sEditInfoStat);
-        Vars.fnPrintToDriverstation(Vars.prAutonomousStatLine, m_sFileTypeStat + m_sAutonmousStatus);
+        Vars.fnPutDashBoardStringBox(Vars.skEditFileStatus, m_sEditInfoStat);
+        Vars.fnPutDashBoardStringBox(Vars.skAutonomousStatus, m_sFileTypeStat + m_sAutonmousStatus);
     }
     
     /**
