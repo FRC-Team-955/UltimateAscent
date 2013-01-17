@@ -34,8 +34,8 @@ public class MySolenoid
      */
     public void turnOn()
     {
-        m_solUp.set(m_bDefaultStat);
-        m_solDown.set(!m_bDefaultStat);
+        m_solUp.set(!m_bDefaultStat);
+        m_solDown.set(m_bDefaultStat);
     }
     
     /**
@@ -43,8 +43,8 @@ public class MySolenoid
      */
     public void turnOff()
     {
-        m_solUp.set(!m_bDefaultStat);
-        m_solDown.set(m_bDefaultStat); 
+        m_solUp.set(m_bDefaultStat);
+        m_solDown.set(!m_bDefaultStat); 
     }
     
     /**
@@ -54,14 +54,21 @@ public class MySolenoid
     public void set(boolean bVal)
     {
         if(bVal)
-        {
-            m_solUp.set(m_bDefaultStat);
-            m_solDown.set(!m_bDefaultStat);
-        }
+            turnOn();
+        
         else
-        {
-            m_solUp.set(!m_bDefaultStat);
-            m_solDown.set(m_bDefaultStat);
-        }
+            turnOff();
+    }
+    
+    /**
+     * Returns the status of the solenoid, true means active.
+     * @return 
+     */
+    public boolean getStatus()
+    {
+        if(m_bDefaultStat)
+            return m_solDown.get();
+        
+        return m_solUp.get();
     }
 }

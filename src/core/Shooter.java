@@ -1,6 +1,7 @@
 package core;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import utilities.Vars;
 import utilities.MySolenoid;
 import utilities.MyPIDVelocity;
@@ -21,11 +22,13 @@ public class Shooter {
     private final double m_dK = 0;
     private final double m_dSpeedIncrease = 100;
     private final double m_dSpeedTolerance = 10;
+    private final double m_dMinTimer = 1.0;
     
     private boolean m_bGoodToShoot = false;
     private double m_dShootSpeed = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(m_dP, m_dI, m_dK);
+    private Timer m_tmFeeder = new Timer();
     private Victor m_mtShooter = new Victor(Vars.chnVicShooter);
     private Encoder m_encShooter = new Encoder(1, Vars.chnEncShooter);
     private MyJoystick m_joy;
@@ -63,9 +66,19 @@ public class Shooter {
             // Feeds one frisbee to the shooter if shooter is at the right speed.
             if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
             {
-                m_bGoodToShoot = false;
-                m_solFeeder.turnOn();
-                m_solFeeder.turnOff();
+                if(m_solFeeder.getStatus())
+                {
+                    m_tmFeeder.start();
+                    m_solFeeder.turnOn();
+                }
+                
+                if(m_tmFeeder.get() >= m_dMinTimer)
+                {
+                    m_solFeeder.turnOff();
+                    m_tmFeeder.stop();
+                    m_tmFeeder.reset();
+                    m_bGoodToShoot = false;
+                }
             }
         }
         
