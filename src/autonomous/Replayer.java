@@ -124,7 +124,7 @@ class Replayer {
         for(int index = 0; index < m_iMax; index++)
         {
             m_botDataArray[index] = new BotData();
-            m_botDataArray[index].setValues(m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readBoolean());
+            m_botDataArray[index].setValues(readData());
         }
         
         m_fileReader.close();
@@ -152,5 +152,17 @@ class Replayer {
             return false;
         
         return true;
+    }
+    
+    /**
+     * Reads one set of data and returns a BotData containing it.
+     * @return 
+     */
+    private BotData readData()
+    {
+        BotData tempBotData = new BotData();
+        
+        tempBotData.setValues(m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readBoolean(), m_fileReader.readBoolean());
+        return tempBotData;
     }
 }

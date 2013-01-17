@@ -118,6 +118,7 @@ class Recorder {
             m_fileWriter.writeDouble(m_botDataAuto.getMtRight());
             m_fileWriter.writeDouble(m_botDataAuto.getShooterSpeed());
             m_fileWriter.writeBoolean(m_botDataAuto.getFeederStatus());
+            m_fileWriter.writeBoolean(m_botDataAuto.getRetrieveStatus());
         }
 
         m_fileWriter.close();

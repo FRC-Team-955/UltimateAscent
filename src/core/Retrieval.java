@@ -43,7 +43,7 @@ public class Retrieval {
      * Returns if the retriever is on.
      * @return 
      */
-    public boolean retrieveStatus()
+    public boolean getRetrieveStatus()
     {
         return joy.getSwitch(Vars.btRetrieve);
     }

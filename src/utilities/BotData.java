@@ -11,6 +11,7 @@ public class BotData{
     private double m_dMtRight = 0;
     private double m_dShooterSpeed = 0;
     private boolean m_bFeederStatus = false;
+    private boolean m_bRetrieveStatus = false;
     
     /**
      * Sets the values.
@@ -18,13 +19,14 @@ public class BotData{
      * @param dMtRight
      * @param bFeedStatus 
      */
-    public void setValues(double dTimer, double dMtLeft, double dMtRight, double dShootSpeed, boolean bFeedStatus)
+    public void setValues(double dTimer, double dMtLeft, double dMtRight, double dShootSpeed, boolean bFeedStatus, boolean bRetrieveStatus)
     {
         m_dTime = dTimer;
         m_dMtLeft = dMtLeft;
         m_dMtRight = dMtRight;
         m_dShooterSpeed = dShootSpeed;
         m_bFeederStatus = bFeedStatus;
+        m_bRetrieveStatus = bRetrieveStatus;
     }
     
     /**
@@ -33,7 +35,7 @@ public class BotData{
      */
     public void setValues(double dTimer, Robot bot)
     {
-        setValues(dTimer, bot.getMotorLeft(), bot.getMotorRight(), bot.getShooterSpeed(), bot.getFeederStatus());
+        setValues(dTimer, bot.getMotorLeft(), bot.getMotorRight(), bot.getShooterSpeed(), bot.getFeederStatus(), bot.getRetrieveStatus());
     }
     
     /**
@@ -42,7 +44,7 @@ public class BotData{
      */
     public void setValues(BotData emu)
     {
-        setValues(emu.getTime(), emu.getMtLeft(), emu.getMtRight(), emu.getShooterSpeed(), emu.getFeederStatus());
+        setValues(emu.getTime(), emu.getMtLeft(), emu.getMtRight(), emu.getShooterSpeed(), emu.getFeederStatus(), emu.getRetrieveStatus());
     }
     
     /**
@@ -88,5 +90,10 @@ public class BotData{
     public boolean getFeederStatus()
     {
         return m_bFeederStatus;
+    }
+    
+    public boolean getRetrieveStatus()
+    {
+        return m_bRetrieveStatus;
     }
 }
