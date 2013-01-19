@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This class is responsible for writing the bots activities to the specified 
- * file on the cRio
+ * file on the cRio.
  * @author Fauzi
  */
 class Recorder {
@@ -30,7 +30,7 @@ class Recorder {
     }
     
     /**
-     * Records bots movements to specified file
+     * Records bots movements to specified file.
      * @param sFileName 
      */
     public void record(String sFileName)
@@ -65,7 +65,7 @@ class Recorder {
     }
     
     /**
-     * Resets the recorder so we can record properly next time
+     * Resets the recorder so we can record properly next time.
      */
     public void reset()
     {
@@ -84,7 +84,7 @@ class Recorder {
     }
     
     /**
-     * Stops recording, stops the robot as well.
+     * Stops recording.
      */
     public void stop()
     {
@@ -103,7 +103,7 @@ class Recorder {
     }
     
     /**
-     * Actually writes the data to file
+     * Actually writes the data to file.
      */
     private void writeDataToFile()
     {

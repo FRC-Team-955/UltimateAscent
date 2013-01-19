@@ -56,6 +56,7 @@ class Replayer {
             m_bot.setDriveSpeed(m_botDataAuto.getMtLeft(), m_botDataAuto.getMtRight());
             m_bot.setShooter(m_botDataAuto.getShooterSpeed());
             m_bot.setFeeder(m_botDataAuto.getFeederStatus());
+            m_bot.setRetrieve(m_botDataAuto.getRetrieveStatus());
             
             if(EndOfFile())
                 m_bDoneReplay = true;
