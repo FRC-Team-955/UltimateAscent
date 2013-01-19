@@ -10,15 +10,15 @@ import edu.wpi.first.wpilibj.DigitalOutput;
  */
 public class Compressor {
 	
-    private DigitalInput m_digInSensor = new DigitalInput(Vars.chnDigiSensor);
-    private DigitalOutput m_Compressor = new DigitalOutput(Vars.chnCompressor);
+    private DigitalInput m_digInSensor = new DigitalInput(Vars.chnDigiInSensor);
+    private DigitalOutput m_digOutCompressor = new DigitalOutput(Vars.chnDigiOutCompressor);
 	
     public void run()
     {
         if(m_digInSensor.get())
-            m_Compressor.set(true);
+            m_digOutCompressor.set(true);
 
         else
-            m_Compressor.set(false);
+            m_digOutCompressor.set(false);
     }
 }

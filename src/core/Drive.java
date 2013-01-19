@@ -12,8 +12,8 @@ import utilities.MyJoystick;
 public class Drive {        // Ramps motor speed and set motor speed 
     
     private String m_sDriveStatus = "Arcade Drive";
-    private Victor mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
-    private Victor mtRight = new Victor(utilities.Vars.chnVicDrvRight);
+    private Victor m_mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
+    private Victor m_mtRight = new Victor(utilities.Vars.chnVicDrvRight);
     private MyJoystick joy;
     
     /**
@@ -77,23 +77,23 @@ public class Drive {        // Ramps motor speed and set motor speed
         double x = joy.getX();
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
-	setSpeed(ramp(mtRight.get(), x-y), ramp(mtLeft.get(), x+y) );
+	setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
     }
     
     public double getMotorLeft(){
         // Returns motor speed.
-        return mtLeft.get();
+        return m_mtLeft.get();
     }
     
     public double getMotorRight(){
         // Sets motor speed
-        return mtRight.get();
+        return m_mtRight.get();
     }
     
     public void setSpeed(double leftMt, double rightMt){
         // Sets left and right motor speed.
-        mtLeft.set(leftMt);
-        mtRight.set(rightMt);
+        m_mtLeft.set(leftMt);
+        m_mtRight.set(rightMt);
         
     }
 }

@@ -27,8 +27,8 @@ public class Vars {
 	
     // Digital Sidecard 
     public static final int chnEncShooter = 1;
-    public static final int chnCompressor = 3;
-    public static final int chnDigiSensor = 14;
+    public static final int chnDigiOutCompressor = 3;
+    public static final int chnDigiInSensor = 14;
 
     // Button channel on the joystick
     public static final int btIncreaseSpeed = 1;

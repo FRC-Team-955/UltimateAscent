@@ -17,11 +17,11 @@ public class Retrieval {
     // CONSTANTS
     private double m_dRetrieveSpeed = 0.5;
     
-    private Victor mtRetrieve = new Victor(Vars.chnVicRetriver);
-    private MyJoystick joy;
+    private Victor m_mtRetrieve = new Victor(Vars.chnVicRetriver);
+    private MyJoystick m_joy;
   
     public Retrieval(MyJoystick joystick){
-        joy = joystick;
+        m_joy = joystick;
     }
     
     /**
@@ -29,14 +29,14 @@ public class Retrieval {
      */
     public void run(){
         
-        if(joy.gotPressed(Vars.btRetrieve))
-            joy.flipSwitch(Vars.btRetrieve);
+        if(m_joy.gotPressed(Vars.btRetrieve))
+            m_joy.flipSwitch(Vars.btRetrieve);
         
-        if(joy.getSwitch(Vars.btRetrieve))
-            mtRetrieve.set(m_dRetrieveSpeed);
+        if(m_joy.getSwitch(Vars.btRetrieve))
+            m_mtRetrieve.set(m_dRetrieveSpeed);
         
         else
-            mtRetrieve.set(0);      
+            m_mtRetrieve.set(0);      
     }
     
     /**
@@ -45,7 +45,7 @@ public class Retrieval {
      */
     public boolean getRetrieveStatus()
     {
-        return joy.getSwitch(Vars.btRetrieve);
+        return m_joy.getSwitch(Vars.btRetrieve);
     }
     
     /**
@@ -55,9 +55,9 @@ public class Retrieval {
     public void setRetrieve(boolean bStatus)
     {
         if(bStatus)
-            mtRetrieve.set(m_dRetrieveSpeed);
+            m_mtRetrieve.set(m_dRetrieveSpeed);
         
         else
-            mtRetrieve.set(0);
+            m_mtRetrieve.set(0);
     }
 }
