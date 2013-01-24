@@ -39,6 +39,7 @@ public class Vars {
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;
+    public static final int btTrack = 13;
     
     // DriverStation Autonomous Button Channels
     public static final int stDigInAutoCtr = 1;
@@ -63,6 +64,8 @@ public class Vars {
     
     // Other
     public static final int iPs3Buttons = 13;
+    public static final double dCameraCenterX = 0;
+    public static final double dCameraCenterY = 0;
     private static boolean bDrive = true;
     
     /**
