@@ -9,10 +9,12 @@ public class MyCamera {
     // CONSTANTS
     final int m_iBrightness = 0;
     final int m_iCompression = 0;
+    final double m_dDistanceConst = 0;
     final ResolutionT m_rResolution = ResolutionT.k320x240;
     
     double m_dX = 0;
     double m_dY = 0;
+    double m_dDistance;
     AxisCamera camera;
     ColorImage image = null;
     BinaryImage binaryImage = null;
@@ -28,7 +30,7 @@ public class MyCamera {
         camera.getInstance();
     }
 
-    private void run() 
+    public void run() 
     {
         image = null;
         report = null;
@@ -45,14 +47,17 @@ public class MyCamera {
                 {
                     report = binaryImage.getOrderedParticleAnalysisReports(1);
                     m_rFinal = report[0];
-                    m_dX = m_rFinal.center_mass_x_normalized;
-                    m_dY = m_rFinal.center_mass_y_normalized;
+                    
+                    m_dX = m_rFinal.center_mass_x;
+                    m_dY = m_rFinal.center_mass_y;
+                    m_dDistance = calcDistance(m_rFinal);
                 }
                 
                 else
                 {
                     m_dX = Vars.dCameraCenterX;
                     m_dY = Vars.dCameraCenterY;
+                    m_dDistance = 0;
                 }
             }
         } 
@@ -90,5 +95,15 @@ public class MyCamera {
     public double getPicY()
     {
         return m_dY;
+    }
+    
+    public double getDistance()
+    {
+        return m_dDistance;
+    }
+    
+    private double calcDistance(ParticleAnalysisReport rArg)
+    {
+        return m_dDistanceConst / (rArg.boundingRectWidth);
     }
 }

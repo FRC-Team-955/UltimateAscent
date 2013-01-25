@@ -6,36 +6,32 @@ package utilities;
  */ 
 public class BotData{
     
-    private double m_dTime = 0;
-    private double m_dMtLeft = 0;
-    private double m_dMtRight = 0;
+    private double m_dEncoderLeft = 0;
+    private double m_dEncoderRight = 0;
     private double m_dShooterSpeed = 0;
     private boolean m_bFeederStatus = false;
-    private boolean m_bRetrieveStatus = false;
     
     /**
      * Sets the values.
-     * @param dMtLeft
+     * @param dEncoderLeft
      * @param dMtRight
      * @param bFeedStatus 
      */
-    public void setValues(double dTimer, double dMtLeft, double dMtRight, double dShootSpeed, boolean bFeedStatus, boolean bRetrieveStatus)
+    public void setValues(double dEncoderLeft, double dEncoderRight, double dShootSpeed, boolean bFeedStatus)
     {
-        m_dTime = dTimer;
-        m_dMtLeft = dMtLeft;
-        m_dMtRight = dMtRight;
+        m_dEncoderLeft = dEncoderLeft;
+        m_dEncoderRight = dEncoderRight;
         m_dShooterSpeed = dShootSpeed;
         m_bFeederStatus = bFeedStatus;
-        m_bRetrieveStatus = bRetrieveStatus;
     }
     
     /**
      * Sets the values.
      * @param bot 
      */
-    public void setValues(double dTimer, Robot bot)
+    public void setValues(Robot bot)
     {
-        setValues(dTimer, bot.getMotorLeft(), bot.getMotorRight(), bot.getShooterSpeed(), bot.getFeederStatus(), bot.getRetrieveStatus());
+        setValues(bot.getEncoderLeft(), bot.getEncoderRight(), bot.getShooterSpeed(), bot.getFeederStatus());
     }
     
     /**
@@ -44,34 +40,25 @@ public class BotData{
      */
     public void setValues(BotData emu)
     {
-        setValues(emu.getTime(), emu.getMtLeft(), emu.getMtRight(), emu.getShooterSpeed(), emu.getFeederStatus(), emu.getRetrieveStatus());
-    }
-    
-    /**
-     * Returns the time stamp of the data.
-     * @return 
-     */
-    public double getTime()
-    {
-        return m_dTime;
+        setValues(emu.getEncoderLeft(), emu.getEncoderRight(), emu.getShooterSpeed(), emu.getFeederStatus());
     }
     
     /**
      * Gets the motor value on the left side
      * @return 
      */
-    public double getMtLeft()
+    public double getEncoderLeft()
     {
-        return m_dMtLeft;
+        return m_dEncoderLeft;
     }
     
     /**
      * Gets the motor value on the right side.
      * @return 
      */
-    public double getMtRight()
+    public double getEncoderRight()
     {
-        return m_dMtRight;
+        return m_dEncoderRight;
     }
     
     /**
@@ -90,10 +77,5 @@ public class BotData{
     public boolean getFeederStatus()
     {
         return m_bFeederStatus;
-    }
-    
-    public boolean getRetrieveStatus()
-    {
-        return m_bRetrieveStatus;
     }
 }

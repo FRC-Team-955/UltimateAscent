@@ -18,7 +18,6 @@ public class Vars {
     public static final int chnVicDrvLeft = 1;
     public static final int chnVicDrvRight = 2;
     public static final int chnVicShooter = 3;
-    public static final int chnVicRetriver = 4;
 	
     // Solenoids
     // SOLENOID BUMPER CHANNEL 7 OR 8 DOES NOT WORK!!!!!!
@@ -27,15 +26,16 @@ public class Vars {
 	
     // Digital Sidecard 
     public static final int chnEncShooter = 1;
-    public static final int chnDigiOutCompressor = 3;
-    public static final int chnDigiInSensor = 14;
+    public static final int chnEncMotorLeft = 2;
+    public static final int chnEncMotorRight = 3;
+    public static final int chnDigiOutCompressor = 4;
+    public static final int chnDigiInSensor = 5;
 
     // Button channel on the joystick
     public static final int btIncreaseSpeed = 1;
     public static final int btFeedFrisbee = 2;
     public static final int btDecreaseSpeed = 3;
     public static final int btShootFrisbee = 4;
-    public static final int btRetrieve = 8;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;

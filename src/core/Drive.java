@@ -1,7 +1,8 @@
 package core;
 import utilities.Vars;
-import edu.wpi.first.wpilibj.Victor;
 import utilities.MyJoystick;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Encoder;
 
 /**
  * This is a comment!
@@ -14,6 +15,8 @@ public class Drive {        // Ramps motor speed and set motor speed
     private String m_sDriveStatus = "Arcade Drive";
     private Victor m_mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
     private Victor m_mtRight = new Victor(utilities.Vars.chnVicDrvRight);
+    private Encoder m_encMotorLeft = new Encoder(1, Vars.chnEncMotorLeft);
+    private Encoder m_encMotorRight = new Encoder(1, Vars.chnEncMotorRight);
     private MyJoystick joy;
     
     /**
@@ -39,15 +42,6 @@ public class Drive {        // Ramps motor speed and set motor speed
         
         Vars.fnPutDashBoardStringBox(Vars.skDriveStatus, m_sDriveStatus);
     }
-    
-    /**
-     * Tank drive. This is not arcade drive.
-     */
-//    private void tankDrive(){
-//        joy.setAxisChannel(MyJoystick.AxisType.kX, 2);
-//        joy.setAxisChannel(MyJoystick.AxisType.kY, 4);
-//        setSpeed(ramp(mtLeft.get(), joy.getX()), ramp(mtLeft.get(), joy.getX()));
-//    } 
 	
    /**
     *  Changes the speed such that it isn't higher than it should be.
@@ -57,15 +51,14 @@ public class Drive {        // Ramps motor speed and set motor speed
     */ 
     private double ramp(double curMtSpd, double joySpd){   
         
-        
-            if(curMtSpd-joySpd <= -0.1)
-                return curMtSpd + 0.1;
-            
-            else if(curMtSpd-joySpd >= 0.1)
-                return curMtSpd - 0.1;
-            
-            return joySpd;
-	}
+        if(curMtSpd-joySpd <= -0.1)
+            return curMtSpd + 0.1;
+
+        else if(curMtSpd-joySpd >= 0.1)
+            return curMtSpd - 0.1;
+
+        return joySpd;
+    }
     
     /**
      * Arcade drive. This is not tank drive
@@ -80,20 +73,30 @@ public class Drive {        // Ramps motor speed and set motor speed
 	setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
     }
     
-    public double getMotorLeft(){
-        // Returns motor speed.
-        return m_mtLeft.get();
+    /**
+     * Returns the encoder rate speed on the left side of the robot.
+     * @return 
+     */
+    public double getEncoderLeft(){
+        return m_encMotorLeft.getRate();
     }
     
-    public double getMotorRight(){
-        // Sets motor speed
-        return m_mtRight.get();
+    /**
+     * Returns the encoder rate speed on the right side of the robot.
+     * @return 
+     */
+    public double getEncoderRight(){
+        return m_encMotorRight.getRate();
     }
     
+    /**
+     * Sets the motor's speed to the desired speed.
+     * @param leftMt
+     * @param rightMt 
+     */
     public void setSpeed(double leftMt, double rightMt){
         // Sets left and right motor speed.
         m_mtLeft.set(leftMt);
         m_mtRight.set(rightMt);
-        
     }
 }

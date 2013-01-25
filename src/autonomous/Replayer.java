@@ -4,6 +4,7 @@ import utilities.BotData;
 import utilities.FileReader;
 import utilities.Robot;
 import utilities.Vars;
+import utilities.MyPIDPosition;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -14,12 +15,18 @@ import edu.wpi.first.wpilibj.Timer;
 class Replayer {
   
     // CONSTANTS
+    private final double m_kDriveP = 0;
+    private final double m_kDriveI = 0;
+    private final double m_kDriveD = 0;
+    private final double m_dDriveTolerance = .1;
     private final double m_dTimeTolerance = .01;
     
     private int m_iMax = 0;
     private int m_iCounter = 0;
     private boolean m_bRepStarted = false;
     private boolean m_bDoneReplay = false;
+    private MyPIDPosition m_PIDLeft = new MyPIDPosition(m_kDriveP, m_kDriveI, m_kDriveP);
+    private MyPIDPosition m_PIDRight = new MyPIDPosition(m_kDriveP, m_kDriveI, m_kDriveP);
     private String m_sFileName = "";
     private Timer m_tmReplay = new Timer();
     private BotData m_botDataAuto = null;
@@ -37,7 +44,7 @@ class Replayer {
      * @param sFileName
      */
     public void replay(String sFileName)
-    {        
+    {                
         if(!m_bRepStarted)
         {
             Vars.fnDisableDrive();
@@ -51,12 +58,17 @@ class Replayer {
         if(!m_bDoneReplay)
         {                    
             if(getNewData())
+            {
                 m_botDataAuto.setValues(m_botDataArray[m_iCounter++]);
+                m_PIDLeft.reset(true);
+                m_PIDRight.reset(true);
+            }
             
-            m_bot.setDriveSpeed(m_botDataAuto.getMtLeft(), m_botDataAuto.getMtRight());
+            double dLeftSpeed = m_PIDLeft.getOutput(m_botDataAuto.getEncoderLeft(), m_bot.getEncoderLeft());
+            double dRightSpeed = m_PIDRight.getOutput(m_botDataAuto.getEncoderRight(), m_bot.getEncoderRight());
+            m_bot.setDriveSpeed(dLeftSpeed, dRightSpeed);
             m_bot.setShooter(m_botDataAuto.getShooterSpeed());
             m_bot.setFeeder(m_botDataAuto.getFeederStatus());
-            m_bot.setRetrieve(m_botDataAuto.getRetrieveStatus());
             
             if(EndOfFile())
                 m_bDoneReplay = true;
@@ -80,6 +92,8 @@ class Replayer {
             Vars.fnEnableDrive();
             m_tmReplay.stop();
             m_tmReplay.reset();
+            m_PIDLeft.reset(true);
+            m_PIDRight.reset(true);
             m_sFileName = "";
             m_botDataAuto = null;
             m_botDataArray = null;
@@ -137,8 +151,9 @@ class Replayer {
      */
     private boolean getNewData()
     {
-        if(m_tmReplay.get() >= m_botDataAuto.getTime())
-                return true;
+        if(Math.abs(m_bot.getEncoderLeft()) <= m_dDriveTolerance && 
+                Math.abs(m_bot.getEncoderRight()) <= m_dDriveTolerance)
+                    return true;
         
         return false;
     }
@@ -163,7 +178,7 @@ class Replayer {
     {
         BotData tempBotData = new BotData();
         
-        tempBotData.setValues(m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readBoolean(), m_fileReader.readBoolean());
+        tempBotData.setValues(m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readDouble(), m_fileReader.readBoolean());
         return tempBotData;
     }
 }

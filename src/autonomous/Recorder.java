@@ -51,7 +51,7 @@ class Recorder {
              */
             m_Index++;
             m_botDataAuto = new BotData();
-            m_botDataAuto.setValues(m_tmRecorder.get(), m_bot);
+            m_botDataAuto.setValues(m_bot);
             m_List.addElement(m_botDataAuto);
         }
         
@@ -113,12 +113,10 @@ class Recorder {
         for(int iPos = 0; iPos < m_Index; iPos++)
         {
             m_botDataAuto.setValues((BotData) m_List.elementAt(iPos));
-            m_fileWriter.writeDouble(m_botDataAuto.getTime());
-            m_fileWriter.writeDouble(m_botDataAuto.getMtLeft());
-            m_fileWriter.writeDouble(m_botDataAuto.getMtRight());
+            m_fileWriter.writeDouble(m_botDataAuto.getEncoderLeft());
+            m_fileWriter.writeDouble(m_botDataAuto.getEncoderRight());
             m_fileWriter.writeDouble(m_botDataAuto.getShooterSpeed());
             m_fileWriter.writeBoolean(m_botDataAuto.getFeederStatus());
-            m_fileWriter.writeBoolean(m_botDataAuto.getRetrieveStatus());
         }
 
         m_fileWriter.close();

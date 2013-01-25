@@ -107,6 +107,15 @@ public class Shooter {
     }
     
     /**
+     * Returns the shooters encoder rate.
+     * @return 
+     */
+    public double getShooterEncoder()
+    {
+        return m_encShooter.getRate();
+    }
+    
+    /**
      * Returns the feeder status.
      * @return 
      */
