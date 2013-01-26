@@ -38,6 +38,7 @@ class Recorder {
         if(!m_bRecStarted)
         {
             m_sFile = sFileName;
+            m_bot.resetEncoders();
             m_tmRecorder.start();
             m_bRecStarted = true;
         }

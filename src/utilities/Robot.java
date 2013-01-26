@@ -39,21 +39,21 @@ public class Robot {
     }
     
     /**
-     * Returns the rate of the left encoder.
+     * Returns the distance the left encoder has traveled.
      * @return 
      */
-    public double getEncoderLeft()
+    public double getEncoderLeftDistance()
     {
-        return m_drive.getEncoderLeft();
+        return m_drive.getEncoderLeftDistance();
     }
     
     /**
-     * Returns the rate of the right encoder.
+     * Returns the distance the right encoder has traveled.
      * @return 
      */
-    public double getEncoderRight()
+    public double getEncoderRightDistance()
     {
-        return m_drive.getEncoderRight();
+        return m_drive.getEncoderRightDistance();
     }
     
     public double getEncoderShooter()
@@ -105,5 +105,10 @@ public class Robot {
     public void setFeeder(boolean bStatus)
     {
         m_shooter.setFeeder(bStatus);
+    }
+    
+    public void resetEncoders()
+    {
+        m_drive.resetEncoders();
     }
 }

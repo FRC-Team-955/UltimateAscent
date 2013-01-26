@@ -28,17 +28,11 @@ public class Drive {        // Ramps motor speed and set motor speed
     }
     
     public void run() {
-        if (Vars.fnCanDrive())  
-        {
+        if (Vars.fnCanDrive()) 
             arcadeDrive();
-            m_sDriveStatus = "Arcade Drive";
-        }
         
         else
-        {
-            setSpeed(0, 0);
             m_sDriveStatus = "Disabled";
-        }
         
         Vars.fnPutDashBoardStringBox(Vars.skDriveStatus, m_sDriveStatus);
     }
@@ -71,24 +65,30 @@ public class Drive {        // Ramps motor speed and set motor speed
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
 	setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
+        m_sDriveStatus = "Arcade Drive";
     }
     
     /**
-     * Returns the encoder rate speed on the left side of the robot.
+     * Returns the encoder distance on the left side of the robot.
      * @return 
      */
-    public double getEncoderLeft(){
-        return m_encMotorLeft.getRate();
+    public double getEncoderLeftDistance(){
+        return m_encMotorLeft.getDistance();
     }
     
     /**
-     * Returns the encoder rate speed on the right side of the robot.
+     * Returns the encoder distance on the right side of the robot.
      * @return 
      */
-    public double getEncoderRight(){
-        return m_encMotorRight.getRate();
+    public double getEncoderRightDistance(){
+        return m_encMotorRight.getDistance();
     }
     
+    public void resetEncoders()
+    {
+        m_encMotorLeft.reset();
+        m_encMotorRight.reset();
+    }
     /**
      * Sets the motor's speed to the desired speed.
      * @param leftMt

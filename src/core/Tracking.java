@@ -30,6 +30,7 @@ public class Tracking
 
     private double m_dDriveSpeed = 0;
     private double m_dShootSpeed = 0;
+    private boolean m_bJustShoot = false;
     private MyPIDPosition m_PIDDrive = new MyPIDPosition(m_dDriveP, m_dDriveI, m_dDriveD);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(m_dShootP, m_dShootI, m_dShootD);
     private MyCamera m_Camera = new MyCamera();
@@ -44,7 +45,7 @@ public class Tracking
     
     public void run()
     {
-        if(m_joy.gotPressed(Vars.btTrack))
+        if(m_joy.gotPressed(Vars.btTrack) && !m_joy.getSwitch(Vars.btRecord) && !m_joy.getSwitch(Vars.btReplay))
             m_joy.flipSwitch(Vars.btTrack);
         
         // If true, it means we're doing auto tracking.
@@ -54,31 +55,34 @@ public class Tracking
             m_Camera.run();
             
             // If we're witiing range, commence auto tracking.
-            if(m_Camera.getDistance() > m_dMiniumDistance)
+            if(m_Camera.getDistance() < m_dMiniumDistance)
             {
                 // Disable the ability for the user to controll the robot.
                 Vars.fnDisableDrive();
+                Vars.fnDisableShooting();
                 m_dDriveSpeed = m_PIDDrive.getOutput(m_Camera.getPicX(), Vars.dCameraCenterX);
                 m_dShootSpeed = m_PIDShooter.getOutput(m_dShootSpeed, m_bot.getEncoderShooter());
                 
                 if(Math.abs(m_dDriveSpeed) >= m_dDriveTolerance)
-                {
                     m_bot.setDriveSpeed(m_dDriveSpeed, -m_dDriveSpeed);
-                    m_bot.setShooter(m_dShootSpeed);
-                }
                 
-                if(Math.abs(m_dShootSpeed) >= m_dShootTolerance)
+                if(Math.abs(m_bot.getEncoderShooter()-m_dShootSpeed) >= m_dShootTolerance)
                     m_bot.setShooter(m_dShootSpeed);
                 
-                else if((Math.abs(m_dDriveSpeed) < m_dDriveTolerance) && (Math.abs(m_dShootSpeed) >= m_dShootTolerance))
+                else if((Math.abs(m_dDriveSpeed) < m_dDriveTolerance) && (Math.abs(m_bot.getEncoderShooter()-m_dShootSpeed) < m_dShootTolerance))
                 {
+                    m_bot.setDriveSpeed(0, 0);
                     m_PIDDrive.reset(true);
                     m_PIDShooter.reset(true);
+                    
                 }
             }
         }
         
         else
+        {    
             Vars.fnEnableDrive();
+            Vars.fnEnableShooting();
+        }
     }
 }

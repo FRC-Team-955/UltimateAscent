@@ -51,6 +51,7 @@ class Replayer {
             m_sFileName = sFileName;
             readAllData();
             m_botDataAuto = m_botDataArray[m_iCounter++];
+            m_bot.resetEncoders();
             m_tmReplay.start();
             m_bRepStarted = true;
         }
@@ -64,8 +65,8 @@ class Replayer {
                 m_PIDRight.reset(true);
             }
             
-            double dLeftSpeed = m_PIDLeft.getOutput(m_botDataAuto.getEncoderLeft(), m_bot.getEncoderLeft());
-            double dRightSpeed = m_PIDRight.getOutput(m_botDataAuto.getEncoderRight(), m_bot.getEncoderRight());
+            double dLeftSpeed = m_PIDLeft.getOutput(m_botDataAuto.getEncoderLeft(), m_bot.getEncoderLeftDistance());
+            double dRightSpeed = m_PIDRight.getOutput(m_botDataAuto.getEncoderRight(), m_bot.getEncoderRightDistance());
             m_bot.setDriveSpeed(dLeftSpeed, dRightSpeed);
             m_bot.setShooter(m_botDataAuto.getShooterSpeed());
             m_bot.setFeeder(m_botDataAuto.getFeederStatus());
@@ -151,8 +152,8 @@ class Replayer {
      */
     private boolean getNewData()
     {
-        if(Math.abs(m_bot.getEncoderLeft()) <= m_dDriveTolerance && 
-                Math.abs(m_bot.getEncoderRight()) <= m_dDriveTolerance)
+        if(Math.abs(m_bot.getEncoderLeftDistance()) <= m_dDriveTolerance && 
+                Math.abs(m_bot.getEncoderRightDistance()) <= m_dDriveTolerance)
                     return true;
         
         return false;

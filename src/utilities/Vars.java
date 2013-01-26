@@ -66,6 +66,7 @@ public class Vars {
     public static final int iPs3Buttons = 13;
     public static final double dCameraCenterX = 0;
     public static final double dCameraCenterY = 0;
+    private static boolean bShoot = true;
     private static boolean bDrive = true;
     
     /**
@@ -93,13 +94,35 @@ public class Vars {
     }
     
     /**
-     * Checks if the user has as the ability to drive the robot.
+     * Disables the user to be able to shoot the frisbees.
+     */
+    public static void fnDisableShooting()
+    {
+        bShoot = false;
+    }
+    
+    /**
+     * Enables the user to be able to shoot the frisbees.
+     */
+    public static void fnEnableShooting()
+    {
+        bShoot = true;
+    }
+    /**
+     * Checks if the user has the ability to drive the robot.
      */
     public static boolean fnCanDrive()
     {
         return bDrive;
     }
     
+    /** 
+     * Checks if the user has the ability to shoot manually.
+     */
+    public static boolean fnCanShoot()
+    {
+        return bShoot;
+    }
     /**
      * Gets the button status from the driverstation, 1 - 8 available.
      * @param iChan

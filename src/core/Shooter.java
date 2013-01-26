@@ -40,61 +40,64 @@ public class Shooter {
     
     public void run()
     {
-        // When pressed, starts velocity controller so shooter motor can turn on.
-        if(m_joy.gotPressed(Vars.btShootFrisbee))
+        if(Vars.fnCanShoot())
         {
-            m_joy.flipSwitch(Vars.btShootFrisbee);
-            
-            if(m_joy.getSwitch(Vars.btShootFrisbee))
-                m_PIDShooter.startTimer();
-            
-            else
-                m_PIDShooter.reset(true);
-        }
-        
-        // Sets the shooter to the specified speed.
-        if(m_joy.getSwitch(Vars.btShootFrisbee))
-        {
-            m_mtShooter.set(m_PIDShooter.getOutput(m_dShootSpeed, m_encShooter.getRate()));
-            
-            if(Math.abs(m_dShootSpeed - m_encShooter.getRate()) <= m_dSpeedTolerance)
-                m_bGoodToShoot = true;
-        
-            else
-                m_bGoodToShoot = false;
-
-            // Feeds one frisbee to the shooter if shooter is at the right speed.
-            if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
+            // When pressed, starts velocity controller so shooter motor can turn on.
+            if(m_joy.gotPressed(Vars.btShootFrisbee))
             {
-                if(m_solFeeder.getStatus())
-                {
-                    m_tmFeeder.start();
-                    m_solFeeder.turnOn();
-                }
-                
-                if(m_tmFeeder.get() >= m_dMinTimer)
-                {
-                    m_solFeeder.turnOff();
-                    m_tmFeeder.stop();
-                    m_tmFeeder.reset();
+                m_joy.flipSwitch(Vars.btShootFrisbee);
+
+                if(m_joy.getSwitch(Vars.btShootFrisbee))
+                    m_PIDShooter.startTimer();
+
+                else
+                    m_PIDShooter.reset(true);
+            }
+
+            // Sets the shooter to the specified speed.
+            if(m_joy.getSwitch(Vars.btShootFrisbee))
+            {
+                m_mtShooter.set(m_PIDShooter.getOutput(m_dShootSpeed, m_encShooter.getRate()));
+
+                if(Math.abs(m_dShootSpeed - m_encShooter.getRate()) <= m_dSpeedTolerance)
+                    m_bGoodToShoot = true;
+
+                else
                     m_bGoodToShoot = false;
+
+                // Feeds one frisbee to the shooter if shooter is at the right speed.
+                if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
+                {
+                    if(m_solFeeder.getStatus())
+                    {
+                        m_tmFeeder.start();
+                        m_solFeeder.turnOn();
+                    }
+
+                    if(m_tmFeeder.get() >= m_dMinTimer)
+                    {
+                        m_solFeeder.turnOff();
+                        m_tmFeeder.stop();
+                        m_tmFeeder.reset();
+                        m_bGoodToShoot = false;
+                    }
                 }
             }
+
+            // If we're not shooting, shooter should be zero.
+            else if(!m_joy.getSwitch(Vars.btShootFrisbee))
+                m_mtShooter.set(0);
+
+            // Sets the shooter speed when the increase or decrease button is pressed
+            if(m_joy.gotPressed(Vars.btIncreaseSpeed))
+                m_dShootSpeed += m_dSpeedIncrease;
+
+            if(m_joy.gotPressed(Vars.btDecreaseSpeed))
+                m_dShootSpeed -= m_dSpeedIncrease;
+        
+            Vars.fnPutDashBoardNumberBox(Vars.skShooterSpeed, m_dShootSpeed);
+            Vars.fnPutDashBoardButton(Vars.skCanFeed, m_bGoodToShoot);
         }
-        
-        // If we're not shooting, shooter should be zero.
-        else if(!m_joy.getSwitch(Vars.btShootFrisbee))
-            m_mtShooter.set(0);
-          
-        // Sets the shooter speed when the increase or decrease button is pressed
-        if(m_joy.gotPressed(Vars.btIncreaseSpeed))
-            m_dShootSpeed += m_dSpeedIncrease;
-        
-        if(m_joy.gotPressed(Vars.btDecreaseSpeed))
-            m_dShootSpeed -= m_dSpeedIncrease;
-        
-        Vars.fnPutDashBoardNumberBox(Vars.skShooterSpeed, m_dShootSpeed);
-        Vars.fnPutDashBoardButton(Vars.skCanFeed, m_bGoodToShoot);
     }
     
     /**

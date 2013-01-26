@@ -135,11 +135,11 @@ public class Autonomous {
     private void setButtonStat()
     {
         if(m_joy.gotPressed(Vars.btReplay))
-            if(!m_joy.getSwitch(Vars.btRecord))
+            if(!m_joy.getSwitch(Vars.btRecord) && !m_joy.getSwitch(Vars.btTrack))
                 m_joy.flipSwitch(Vars.btReplay);
                 
         else if(m_joy.gotPressed(Vars.btRecord))
-            if(!m_joy.getSwitch(Vars.btReplay))
+            if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btTrack))
                 m_joy.flipSwitch(Vars.btRecord);
                         
         if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btRecord))

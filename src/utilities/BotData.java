@@ -31,7 +31,7 @@ public class BotData{
      */
     public void setValues(Robot bot)
     {
-        setValues(bot.getEncoderLeft(), bot.getEncoderRight(), bot.getShooterSpeed(), bot.getFeederStatus());
+        setValues(bot.getEncoderLeftDistance(), bot.getEncoderRightDistance(), bot.getShooterSpeed(), bot.getFeederStatus());
     }
     
     /**
