@@ -21,11 +21,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Main extends IterativeRobot 
 {
-    final String sCodeVersion = "Welcome to Bubblefish!";
-    MyJoystick ps3Joy = new MyJoystick(1, Vars.iPs3Buttons);
+    final String sCodeVersion = "Welcome to Crane 3.4!";
+    MyJoystick ps3Joy = new MyJoystick(Vars.iPs3Port, Vars.iPs3Buttons);
     Robot bot = new Robot(ps3Joy);
     Compressor compressor = new Compressor();
     Autonomous autonomous = new Autonomous(ps3Joy, bot);
+    Tracking trakcer = new Tracking(ps3Joy, bot);
     
     /*
      * This function is run when the robot is first started up and should be
@@ -68,5 +69,6 @@ public class Main extends IterativeRobot
         bot.run();
         compressor.run();
         autonomous.run();
+        trakcer.run();
     }
 }

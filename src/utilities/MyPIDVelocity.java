@@ -37,6 +37,7 @@ public class MyPIDVelocity {
      */
     public double getOutput(double dTarget, double dCurrent)
     {        
+        startTimer();
         m_dCurrentVal = m_tmTimer.get() - m_dLastVal;
         m_P = dTarget - dCurrent;
         m_I = m_I + m_P * m_dCurrentVal;
@@ -69,7 +70,7 @@ public class MyPIDVelocity {
     /**
      * Starts the timer only if it's not active.
      */
-    public void startTimer()
+    private void startTimer()
     {
         if(!m_bIsTimerOn)
         {

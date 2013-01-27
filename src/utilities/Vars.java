@@ -1,7 +1,6 @@
 package utilities;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -11,19 +10,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * easily rather than searching through the class itself.
  * @author Fauzi
  */
-// TODO: SET SHOOTER ENCODER CHANNEL.
+// TODO: SET SHOOTER ENCODER CHANNEL, PID STUFF TOO!
 public class Vars {
     
+/******************************************************************************/
     // Victors
     public static final int chnVicDrvLeft = 1;
     public static final int chnVicDrvRight = 2;
     public static final int chnVicShooter = 3;
 	
+/******************************************************************************/
     // Solenoids
     // SOLENOID BUMPER CHANNEL 7 OR 8 DOES NOT WORK!!!!!!
     public static final int chnSolFeederUp = 1;
     public static final int chnSolFeederDown = 2;
 	
+/******************************************************************************/
     // Digital Sidecard 
     public static final int chnEncShooter = 1;
     public static final int chnEncMotorLeft = 2;
@@ -31,6 +33,7 @@ public class Vars {
     public static final int chnDigiOutCompressor = 4;
     public static final int chnDigiInSensor = 5;
 
+/******************************************************************************/
     // Button channel on the joystick
     public static final int btIncreaseSpeed = 1;
     public static final int btFeedFrisbee = 2;
@@ -41,19 +44,14 @@ public class Vars {
     public static final int btReplay = 12;
     public static final int btTrack = 13;
     
+/******************************************************************************/
     // DriverStation Autonomous Button Channels
     public static final int stDigInAutoCtr = 1;
     public static final int stDigInAutoLft = 2;
     public static final int stDigInAutoRght = 3;
     public static final int stDigInReg = 4;
     
-    // Printing to Driverstation lines, 2-6 are available only
-//    public static final int prCodeVersionLine = 2;
-//    public static final int prDriveStatusLine = 3;
-//    public static final int prVisionStatusLine = 4;
-//    public static final int prEditAutoModeLine = 5;
-//    public static final int prAutonomousStatLine = 6;
-    
+/******************************************************************************/
     // Smartdashboard keys
     public static final String skCodeVersion = "Code Version";
     public static final String skDriveStatus = "Drive Status";
@@ -62,12 +60,32 @@ public class Vars {
     public static final String skShooterSpeed = "Shooter speed";
     public static final String skCanFeed = "Can we Feed?";
     
-    // Other
+/******************************************************************************/
+    // Ints
+    public static final int iPs3Port = 1;
     public static final int iPs3Buttons = 13;
+    
+/******************************************************************************/
+    // Doubles
     public static final double dCameraCenterX = 0;
     public static final double dCameraCenterY = 0;
+    public static final double dMinFeedTime = 1.0;
+    public static final double dShootTolerance = 10;
+    public static final double dDriveTolerance = .1;
+    public static final double kDriveP = 0;
+    public static final double kDriveI = 0;
+    public static final double kDriveD = 0;
+    public static final double kShooterP = 0;
+    public static final double kShooterI = 0;
+    public static final double kShooterD = 0;    
+    
+/******************************************************************************/
+    // Booloeans
     private static boolean bShoot = true;
     private static boolean bDrive = true;
+    
+/******************************************************************************/
+    // Functions
     
     /**
      * Sets the double to be only at the hundreth's place, ex. 12.34.

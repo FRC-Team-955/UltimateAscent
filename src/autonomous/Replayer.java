@@ -15,18 +15,14 @@ import edu.wpi.first.wpilibj.Timer;
 class Replayer {
   
     // CONSTANTS
-    private final double m_kDriveP = 0;
-    private final double m_kDriveI = 0;
-    private final double m_kDriveD = 0;
-    private final double m_dDriveTolerance = .1;
     private final double m_dTimeTolerance = .01;
     
     private int m_iMax = 0;
     private int m_iCounter = 0;
     private boolean m_bRepStarted = false;
     private boolean m_bDoneReplay = false;
-    private MyPIDPosition m_PIDLeft = new MyPIDPosition(m_kDriveP, m_kDriveI, m_kDriveP);
-    private MyPIDPosition m_PIDRight = new MyPIDPosition(m_kDriveP, m_kDriveI, m_kDriveP);
+    private MyPIDPosition m_PIDLeft = new MyPIDPosition(Vars.kDriveP, Vars.kDriveI, Vars.kDriveD);
+    private MyPIDPosition m_PIDRight = new MyPIDPosition(Vars.kDriveP, Vars.kDriveI, Vars.kDriveD);
     private String m_sFileName = "";
     private Timer m_tmReplay = new Timer();
     private BotData m_botDataAuto = null;
@@ -80,6 +76,8 @@ class Replayer {
             m_bot.stopRobot();
             m_tmReplay.stop();
             m_tmReplay.reset();
+            m_PIDLeft.reset(true);
+            m_PIDRight.reset(true);
         }
     }
     
@@ -152,8 +150,8 @@ class Replayer {
      */
     private boolean getNewData()
     {
-        if(Math.abs(m_bot.getEncoderLeftDistance()) <= m_dDriveTolerance && 
-                Math.abs(m_bot.getEncoderRightDistance()) <= m_dDriveTolerance)
+        if(Math.abs(m_bot.getEncoderLeftDistance()) <= Vars.dDriveTolerance && 
+                Math.abs(m_bot.getEncoderRightDistance()) <= Vars.dDriveTolerance)
                     return true;
         
         return false;

@@ -17,17 +17,12 @@ import edu.wpi.first.wpilibj.Victor;
 public class Shooter {
     
     // CONSTANTS
-    private final double m_dP = 0;
-    private final double m_dI = 0;
-    private final double m_dK = 0;
     private final double m_dSpeedIncrease = 100;
-    private final double m_dSpeedTolerance = 10;
-    private final double m_dMinTimer = 1.0;
     
     private boolean m_bGoodToShoot = false;
     private double m_dShootSpeed = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
-    private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(m_dP, m_dI, m_dK);
+    private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
     private Timer m_tmFeeder = new Timer();
     private Victor m_mtShooter = new Victor(Vars.chnVicShooter);
     private Encoder m_encShooter = new Encoder(1, Vars.chnEncShooter);
@@ -46,11 +41,8 @@ public class Shooter {
             if(m_joy.gotPressed(Vars.btShootFrisbee))
             {
                 m_joy.flipSwitch(Vars.btShootFrisbee);
-
-                if(m_joy.getSwitch(Vars.btShootFrisbee))
-                    m_PIDShooter.startTimer();
-
-                else
+                
+                if(!m_joy.getSwitch(Vars.btShootFrisbee))
                     m_PIDShooter.reset(true);
             }
 
@@ -59,7 +51,7 @@ public class Shooter {
             {
                 m_mtShooter.set(m_PIDShooter.getOutput(m_dShootSpeed, m_encShooter.getRate()));
 
-                if(Math.abs(m_dShootSpeed - m_encShooter.getRate()) <= m_dSpeedTolerance)
+                if(Math.abs(m_dShootSpeed - m_encShooter.getRate()) <= Vars.dShootTolerance)
                     m_bGoodToShoot = true;
 
                 else
@@ -68,13 +60,13 @@ public class Shooter {
                 // Feeds one frisbee to the shooter if shooter is at the right speed.
                 if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
                 {
-                    if(m_solFeeder.getStatus())
+                    if(!m_solFeeder.getStatus())
                     {
                         m_tmFeeder.start();
                         m_solFeeder.turnOn();
                     }
 
-                    if(m_tmFeeder.get() >= m_dMinTimer)
+                    if(m_tmFeeder.get() >= Vars.dMinFeedTime)
                     {
                         m_solFeeder.turnOff();
                         m_tmFeeder.stop();

@@ -56,6 +56,10 @@ public class Robot {
         return m_drive.getEncoderRightDistance();
     }
     
+    /**
+     * Returns the rate of the shooter.
+     * @return 
+     */
     public double getEncoderShooter()
     {
         return m_shooter.getShooterEncoder();

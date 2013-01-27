@@ -29,13 +29,14 @@ public class MyPIDPosition {
     }
     
     /**
-     * Gets output value based on arguments
+     * Gets output value based on arguments.
      * @param dTarget
      * @param dCurrent
      * @return 
      */
     public double getOutput(double dTarget, double dCurrent)
-    {        
+    {  
+        startTimer();
         m_dCurrentVal = m_tmTimer.get() - m_dLastVal;
         m_P = dTarget - dCurrent;
         m_I = m_I + m_P * m_dCurrentVal;
@@ -64,9 +65,9 @@ public class MyPIDPosition {
     }
     
     /**
-     * Starts the timer only if it's not active
+     * Starts the timer only if it's not active.
      */
-    public void startTimer()
+    private void startTimer()
     {
         if(!m_bIsTimerOn)
         {
@@ -76,7 +77,7 @@ public class MyPIDPosition {
     }
     
     /**
-     * Stops and resets the timer only if it's active
+     * Stops and resets the timer only if it's active.
      */
     private void resetTimer()
     {
