@@ -20,13 +20,13 @@ import utilities.Vars;
 public class Tracking 
 {
     // CONSTANTS
-    private final int m_iMaxFrisbee = 3;
     private final double m_dMiniumDistance = 0;
 
+    private boolean m_bGoodToShoot = true;
+    private boolean m_bLinedUp = true;
     private double m_dDriveSpeed = 0;
     private double m_dShootSpeed = 0;
     private int m_iFrisbeeCount = 0;
-    private boolean m_bIsTimerOn = false;
     private Timer m_tmFeeder = new Timer();
     private MyPIDPosition m_PIDDrive = new MyPIDPosition(Vars.kDriveP, Vars.kDriveI, Vars.kDriveD);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
@@ -83,36 +83,27 @@ public class Tracking
                     if(m_joy.gotPressed(Vars.btFeedFrisbee))
                         m_joy.flipSwitch(Vars.btFeedFrisbee);
                     
-                    // If switch is true, start automatic shooting.
                     if(m_joy.getSwitch(Vars.btFeedFrisbee))
-                    {
-                        if(!m_bIsTimerOn)
+                    {    
+                        if(!m_bot.getFeederStatus())
                         {
                             m_tmFeeder.start();
-                            m_bIsTimerOn = true;
+                            m_bot.setFeeder(true);
                         }
-                        
-                        m_bot.setFeeder(true);
-                        m_iFrisbeeCount++;
-                    }
-                    
-                    // If timer is one is greater than minium feed time, disable feeder.
-                    if(m_bIsTimerOn)
-                    {
+
                         if(m_tmFeeder.get() >= Vars.dMinFeedTime)
                         {
+                            m_bot.setFeeder(false);
                             m_tmFeeder.stop();
                             m_tmFeeder.reset();
-                            m_bot.setFeeder(false);
-                            m_bIsTimerOn = false;
+                            m_iFrisbeeCount++;
                         }
-                    }
-                    
-                    // Stops automatic feeding when shot all frisbees.
-                    if(m_iFrisbeeCount >= m_iMaxFrisbee)
-                    {
-                        m_iFrisbeeCount = 0;
-                        m_joy.setSwitch(Vars.btFeedFrisbee, false);
+
+                        if(m_iFrisbeeCount >= Vars.iMaxFrisbee)
+                        {
+                            m_iFrisbeeCount = 0;
+                            m_joy.setSwitch(Vars.btFeedFrisbee, false);
+                        }
                     }
                 }
             }

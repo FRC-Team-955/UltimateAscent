@@ -64,6 +64,7 @@ public class Vars {
     // Ints
     public static final int iPs3Port = 1;
     public static final int iPs3Buttons = 13;
+    public static final int iMaxFrisbee = 3;
     
 /******************************************************************************/
     // Doubles

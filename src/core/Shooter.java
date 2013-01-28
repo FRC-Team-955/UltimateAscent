@@ -20,6 +20,7 @@ public class Shooter {
     private final double m_dSpeedIncrease = 100;
     
     private boolean m_bGoodToShoot = false;
+    private int m_iFrisbeeShot = 0;
     private double m_dShootSpeed = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
@@ -59,8 +60,11 @@ public class Shooter {
 
                 // Feeds one frisbee to the shooter if shooter is at the right speed.
                 if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
-                {
-                    if(!m_solFeeder.getStatus())
+                    m_joy.flipSwitch(Vars.btFeedFrisbee);
+                
+                if(m_joy.getSwitch(Vars.btFeedFrisbee))
+                {    
+                    if(!m_solFeeder.getStatus() && m_bGoodToShoot)
                     {
                         m_tmFeeder.start();
                         m_solFeeder.turnOn();
@@ -71,7 +75,14 @@ public class Shooter {
                         m_solFeeder.turnOff();
                         m_tmFeeder.stop();
                         m_tmFeeder.reset();
+                        m_iFrisbeeShot++;
                         m_bGoodToShoot = false;
+                    }
+                    
+                    if(m_iFrisbeeShot >= Vars.iMaxFrisbee)
+                    {
+                        m_iFrisbeeShot = 0;
+                        m_joy.setSwitch(Vars.btFeedFrisbee, false);
                     }
                 }
             }
