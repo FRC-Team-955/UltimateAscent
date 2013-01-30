@@ -58,6 +58,8 @@ public class Tracking
                 // Disable the ability for the user to controll the robot.
                 Vars.fnDisableDrive();
                 Vars.fnDisableShooting();
+                m_bLinedUp = true;
+                m_bGoodToShoot = true;
                 
                 // Get shoot and drive speed from PID controllers
                 m_dDriveSpeed = m_PIDDrive.getOutput(m_Camera.getPicX(), Vars.dCameraCenterX);
@@ -65,14 +67,20 @@ public class Tracking
                 
                 // Check if we're not lined up yet.
                 if(Math.abs(Vars.dCameraCenterX - m_Camera.getPicX()) >= Vars.dDriveTolerance)
+                {
                     m_bot.setDriveSpeed(m_dDriveSpeed, -m_dDriveSpeed);
+                    m_bLinedUp = false;
+                }
                 
                 // Check if the shooter is not up to speed yet.
                 if(Math.abs(m_bot.getEncoderShooter() - m_dShootSpeed) >= Vars.dShootTolerance)
+                {
                     m_bot.setShooter(m_dShootSpeed);
+                    m_bGoodToShoot = false;
+                }
                 
                 // If we're lined up AND shooter is up to speed.
-                else if((Math.abs(Vars.dCameraCenterX - m_Camera.getPicX()) < Vars.dDriveTolerance) && (Math.abs(m_bot.getEncoderShooter() - m_dShootSpeed) < Vars.dShootTolerance))
+                else if(m_bLinedUp && m_bGoodToShoot)
                 {
                     // Set motors to 0, reset PID controllers.
                     m_bot.setDriveSpeed(0, 0);
@@ -114,6 +122,15 @@ public class Tracking
                 Vars.fnEnableDrive();
                 Vars.fnEnableShooting();
             }
+            
+        Vars.fnPutDashBoardNumberBox(Vars.skDistance, m_Camera.getDistance());
+        Vars.fnPutDashBoardButton(Vars.skLinedUp, m_bLinedUp);
+        Vars.fnPutDashBoardButton(Vars.skCanFeed, m_bGoodToShoot);
         }
+        
+        Vars.fnEnableDrive();
+        Vars.fnEnableShooting();
+        
+        Vars.fnPutDashBoardButton(Vars.skTrackingStatus, m_joy.getSwitch(Vars.btTrack));
     }
 }
