@@ -13,12 +13,8 @@ import edu.wpi.first.wpilibj.Encoder;
 public class Drive {        // Ramps motor speed and set motor speed 
     
     private String m_sDriveStatus = "Arcade Drive";
-    private Victor m_mtLeft1 = new Victor(utilities.Vars.chnVicDrvLeft1);
-    private Victor m_mtLeft2 = new Victor(utilities.Vars.chnVicDrvLeft2);
-    private Victor m_mtLeft3 = new Victor(utilities.Vars.chnVicDrvLeft3);
-    private Victor m_mtRight1 = new Victor(utilities.Vars.chnVicDrvRight1);
-    private Victor m_mtRight2 = new Victor(utilities.Vars.chnVicDrvRight2);
-    private Victor m_mtRight3 = new Victor(utilities.Vars.chnVicDrvRight3);
+    private Victor m_mtLeft = new Victor(utilities.Vars.chnVicDrvLeft);
+    private Victor m_mtRight = new Victor(utilities.Vars.chnVicDrvRight);
     private Encoder m_encMotorLeft = new Encoder(1, Vars.chnEncMotorLeft);
     private Encoder m_encMotorRight = new Encoder(1, Vars.chnEncMotorRight);
     private MyJoystick joy;
@@ -40,17 +36,6 @@ public class Drive {        // Ramps motor speed and set motor speed
         
         Vars.fnPutDashBoardStringBox(Vars.skDriveStatus, m_sDriveStatus);
     }
-    public void setLeft (double set){
-        m_mtLeft1.set(set);
-        m_mtLeft2.set(set);
-        m_mtLeft3.set(set);
-    }
-     public void setRight (double set){
-        m_mtRight1.set(set);
-        m_mtRight2.set(set);
-        m_mtRight3.set(set);
-    }
-    
 	
    /**
     *  Changes the speed such that it isn't higher than it should be.
@@ -79,7 +64,7 @@ public class Drive {        // Ramps motor speed and set motor speed
         double x = joy.getX();
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
-	setSpeed(ramp(m_mtRight1.get(), x-y), ramp(m_mtLeft1.get(), x+y) );
+	setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
         m_sDriveStatus = "Arcade Drive";
     }
     
@@ -111,7 +96,7 @@ public class Drive {        // Ramps motor speed and set motor speed
      */
     public void setSpeed(double leftMt, double rightMt){
         // Sets left and right motor speed.
-        setLeft(leftMt);
-        setRight(rightMt);
+        m_mtLeft.set(leftMt);
+        m_mtRight.set(rightMt);
     }
 }

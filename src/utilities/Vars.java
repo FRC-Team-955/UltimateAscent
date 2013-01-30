@@ -15,13 +15,8 @@ public class Vars {
     
 /******************************************************************************/
     // Victors
-    public static final int chnVicDrvLeft1 = 1;
-    public static final int chnVicDrvLeft2= 2;
-    public static final int chnVicDrvLeft3 = 3;    
-    public static final int chnVicDrvRight1 = 4;
-    public static final int chnVicDrvRight2 = 5;
-    public static final int chnVicDrvRight3 = 6;
-
+    public static final int chnVicDrvLeft = 1;
+    public static final int chnVicDrvRight = 2;
     public static final int chnVicShooter = 3;
 	
 /******************************************************************************/
@@ -64,9 +59,6 @@ public class Vars {
     public static final String skAutonomousStatus = "Autonomous Status";
     public static final String skShooterSpeed = "Shooter speed";
     public static final String skCanFeed = "Can we Feed?";
-    public static final String skTrackingStatus = "Are we in Track Mode?";
-    public static final String skDistance = "Distance from Target";
-    public static final String skLinedUp = "Lined Up?";
     
 /******************************************************************************/
     // Ints

@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Main extends IterativeRobot 
 {
-    final String sCodeVersion = "Welcome to Dragon Fly 4 Series!!!";
+    final String sCodeVersion = "Welcome to Crane 3.4!";
     MyJoystick ps3Joy = new MyJoystick(Vars.iPs3Port, Vars.iPs3Buttons);
     Robot bot = new Robot(ps3Joy);
     Compressor compressor = new Compressor();
