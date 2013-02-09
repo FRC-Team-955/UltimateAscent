@@ -18,7 +18,6 @@ public class Shooter {
     
     // CONSTANTS
     private final double m_dSpeedIncrease = 100;
-    private final int m_iPulses = 500;
     
     private boolean m_bGoodToShoot = false;
     private int m_iFrisbeeShot = 0;
@@ -29,7 +28,7 @@ public class Shooter {
     private Timer m_tmFeeder = new Timer();
     private Timer m_tmPulser = new Timer();
     private Talon m_mtShooter = new Talon(Vars.chnVicShooter);
-    private Encoder m_encShooter = new Encoder(1, Vars.chnEncShooter);
+    private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB);
     private MyJoystick m_joy;
     
     public Shooter(MyJoystick joystick)
@@ -59,9 +58,9 @@ public class Shooter {
             // Sets the shooter to the specified speed.
             if(m_joy.getSwitch(Vars.btShootFrisbee))
             {
-                m_mtShooter.set(m_PIDShooter.getOutput(m_dShootSpeed, m_encShooter.getRate()));
+                m_mtShooter.set(m_PIDShooter.getOutput(m_dShootSpeed, getShooterEncoder()));
 
-                if(Math.abs(m_dShootSpeed - m_encShooter.getRate()) <= Vars.dShootTolerance)
+                if(Math.abs(m_dShootSpeed - getShooterEncoder()) <= Vars.dShootTolerance)
                     m_bGoodToShoot = true;
 
                 else

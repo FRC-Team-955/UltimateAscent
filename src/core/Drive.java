@@ -15,8 +15,8 @@ public class Drive {        // Ramps motor speed and set motor speed
     private String m_sDriveStatus = "Arcade Drive";
     private Talon m_mtLeft = new Talon(utilities.Vars.chnVicDrvLeft);
     private Talon m_mtRight = new Talon(utilities.Vars.chnVicDrvRight);
-    private Encoder m_encMotorLeft = new Encoder(1, Vars.chnEncMotorLeft);
-    private Encoder m_encMotorRight = new Encoder(1, Vars.chnEncMotorRight);
+    private Encoder m_encMotorLeft = new Encoder(Vars.chnEncMotorLeftA, Vars.chnEncMotorLeftB);
+    private Encoder m_encMotorRight = new Encoder(Vars.chnEncMotorRightA, Vars.chnEncMotorRightB);
     private MyJoystick joy;
     
     /**
