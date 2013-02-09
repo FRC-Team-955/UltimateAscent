@@ -23,6 +23,7 @@ public class Shooter {
     private boolean m_bGoodToShoot = false;
     private int m_iFrisbeeShot = 0;
     private double m_dShootSpeed = 0;
+    private double m_dPrevPulseTime = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
     private Timer m_tmFeeder = new Timer();
@@ -34,6 +35,7 @@ public class Shooter {
     public Shooter(MyJoystick joystick)
     {
         m_joy = joystick;
+        m_tmPulser.start();
     }
     
     public void run()
@@ -125,7 +127,15 @@ public class Shooter {
      */
     public double getShooterEncoder()
     {
-        return m_encShooter.getRate();
+        double dReturn = 0;
+        double dCurrent = m_tmPulser.get();
+        int iCount = m_encShooter.get();
+
+        m_encShooter.reset();
+        // NOTE:  60 seconds per minute;   250 counts per rotation
+        dReturn = (60.0 / 250.0) * iCount / (dCurrent - m_dPrevPulseTime);
+        m_dPrevPulseTime = dCurrent;
+        return dReturn;
     }
     
     /**
@@ -154,21 +164,4 @@ public class Shooter {
     {
         m_solFeeder.set(bStatus);
     }
-    
-//    private void getPulse()
-//    {
-//        
-//    }
-//    
-//    public void getRate() 
-//    {
-//        double power;
-//
-//        double now = Timer.getFPGATimestamp();
-//        int count = wheelEncoder.get();
-//
-//        wheelEncoder.reset();
-//        // NOTE:  60 seconds per minute;   250 counts per rotation
-//        actualWheelSpeed = (60.0 / 250.0) * count / (now - prevWheelTime);
-//    }
 }
