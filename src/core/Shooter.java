@@ -6,7 +6,7 @@ import utilities.Vars;
 import utilities.MySolenoid;
 import utilities.MyPIDVelocity;
 import utilities.MyJoystick;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Talon;
 
 /**
  * This class is responsible for controlling the shooter and feeder.
@@ -18,6 +18,7 @@ public class Shooter {
     
     // CONSTANTS
     private final double m_dSpeedIncrease = 100;
+    private final int m_iPulses = 500;
     
     private boolean m_bGoodToShoot = false;
     private int m_iFrisbeeShot = 0;
@@ -25,7 +26,8 @@ public class Shooter {
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
     private Timer m_tmFeeder = new Timer();
-    private Victor m_mtShooter = new Victor(Vars.chnVicShooter);
+    private Timer m_tmPulser = new Timer();
+    private Talon m_mtShooter = new Talon(Vars.chnVicShooter);
     private Encoder m_encShooter = new Encoder(1, Vars.chnEncShooter);
     private MyJoystick m_joy;
     
@@ -41,10 +43,15 @@ public class Shooter {
             // When pressed, starts velocity controller so shooter motor can turn on.
             if(m_joy.gotPressed(Vars.btShootFrisbee))
             {
-                m_joy.flipSwitch(Vars.btShootFrisbee);
                 
+                m_joy.flipSwitch(Vars.btShootFrisbee);
+                m_tmPulser.start();
                 if(!m_joy.getSwitch(Vars.btShootFrisbee))
+                {
                     m_PIDShooter.reset(true);
+                    m_tmPulser.stop();
+                    m_tmPulser.reset();
+                }
             }
 
             // Sets the shooter to the specified speed.
@@ -147,4 +154,21 @@ public class Shooter {
     {
         m_solFeeder.set(bStatus);
     }
+    
+//    private void getPulse()
+//    {
+//        
+//    }
+//    
+//    public void getRate() 
+//    {
+//        double power;
+//
+//        double now = Timer.getFPGATimestamp();
+//        int count = wheelEncoder.get();
+//
+//        wheelEncoder.reset();
+//        // NOTE:  60 seconds per minute;   250 counts per rotation
+//        actualWheelSpeed = (60.0 / 250.0) * count / (now - prevWheelTime);
+//    }
 }
