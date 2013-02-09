@@ -71,8 +71,6 @@ public class Vars {
     
 /******************************************************************************/
     // Doubles
-    public static final double dCameraCenterX = 0;
-    public static final double dCameraCenterY = 0;
     public static final double dMinFeedTime = 1.0;
     public static final double dShootTolerance = 10;
     public static final double dDriveTolerance = .1;
@@ -85,7 +83,6 @@ public class Vars {
     
 /******************************************************************************/
     // Booloeans
-    private static boolean bShoot = true;
     private static boolean bDrive = true;
     
 /******************************************************************************/
@@ -114,22 +111,7 @@ public class Vars {
     {
         bDrive = true;
     }
-    
-    /**
-     * Disables the user to be able to shoot the frisbees.
-     */
-    public static void fnDisableShooting()
-    {
-        bShoot = false;
-    }
-    
-    /**
-     * Enables the user to be able to shoot the frisbees.
-     */
-    public static void fnEnableShooting()
-    {
-        bShoot = true;
-    }
+   
     /**
      * Checks if the user has the ability to drive the robot.
      */
@@ -138,13 +120,6 @@ public class Vars {
         return bDrive;
     }
     
-    /** 
-     * Checks if the user has the ability to shoot manually.
-     */
-    public static boolean fnCanShoot()
-    {
-        return bShoot;
-    }
     /**
      * Gets the button status from the driverstation, 1 - 8 available.
      * @param iChan

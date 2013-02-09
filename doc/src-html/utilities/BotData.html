@@ -14,97 +14,79 @@
 <span class="sourceLineNo">006</span> */ <a name="line.6"></a>
 <span class="sourceLineNo">007</span>public class BotData{<a name="line.7"></a>
 <span class="sourceLineNo">008</span>    <a name="line.8"></a>
-<span class="sourceLineNo">009</span>    private double m_dTime = 0;<a name="line.9"></a>
-<span class="sourceLineNo">010</span>    private double m_dMtLeft = 0;<a name="line.10"></a>
-<span class="sourceLineNo">011</span>    private double m_dMtRight = 0;<a name="line.11"></a>
-<span class="sourceLineNo">012</span>    private double m_dShooterSpeed = 0;<a name="line.12"></a>
-<span class="sourceLineNo">013</span>    private boolean m_bFeederStatus = false;<a name="line.13"></a>
-<span class="sourceLineNo">014</span>    private boolean m_bRetrieveStatus = false;<a name="line.14"></a>
-<span class="sourceLineNo">015</span>    <a name="line.15"></a>
-<span class="sourceLineNo">016</span>    /**<a name="line.16"></a>
-<span class="sourceLineNo">017</span>     * Sets the values.<a name="line.17"></a>
-<span class="sourceLineNo">018</span>     * @param dMtLeft<a name="line.18"></a>
-<span class="sourceLineNo">019</span>     * @param dMtRight<a name="line.19"></a>
-<span class="sourceLineNo">020</span>     * @param bFeedStatus <a name="line.20"></a>
-<span class="sourceLineNo">021</span>     */<a name="line.21"></a>
-<span class="sourceLineNo">022</span>    public void setValues(double dTimer, double dMtLeft, double dMtRight, double dShootSpeed, boolean bFeedStatus, boolean bRetrieveStatus)<a name="line.22"></a>
-<span class="sourceLineNo">023</span>    {<a name="line.23"></a>
-<span class="sourceLineNo">024</span>        m_dTime = dTimer;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>        m_dMtLeft = dMtLeft;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>        m_dMtRight = dMtRight;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>        m_dShooterSpeed = dShootSpeed;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>        m_bFeederStatus = bFeedStatus;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>        m_bRetrieveStatus = bRetrieveStatus;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>    }<a name="line.30"></a>
-<span class="sourceLineNo">031</span>    <a name="line.31"></a>
-<span class="sourceLineNo">032</span>    /**<a name="line.32"></a>
-<span class="sourceLineNo">033</span>     * Sets the values.<a name="line.33"></a>
-<span class="sourceLineNo">034</span>     * @param bot <a name="line.34"></a>
-<span class="sourceLineNo">035</span>     */<a name="line.35"></a>
-<span class="sourceLineNo">036</span>    public void setValues(double dTimer, Robot bot)<a name="line.36"></a>
-<span class="sourceLineNo">037</span>    {<a name="line.37"></a>
-<span class="sourceLineNo">038</span>        setValues(dTimer, bot.getMotorLeft(), bot.getMotorRight(), bot.getShooterSpeed(), bot.getFeederStatus(), bot.getRetrieveStatus());<a name="line.38"></a>
-<span class="sourceLineNo">039</span>    }<a name="line.39"></a>
-<span class="sourceLineNo">040</span>    <a name="line.40"></a>
-<span class="sourceLineNo">041</span>    /**<a name="line.41"></a>
-<span class="sourceLineNo">042</span>     * Sets the values.<a name="line.42"></a>
-<span class="sourceLineNo">043</span>     * @param emu <a name="line.43"></a>
-<span class="sourceLineNo">044</span>     */<a name="line.44"></a>
-<span class="sourceLineNo">045</span>    public void setValues(BotData emu)<a name="line.45"></a>
-<span class="sourceLineNo">046</span>    {<a name="line.46"></a>
-<span class="sourceLineNo">047</span>        setValues(emu.getTime(), emu.getMtLeft(), emu.getMtRight(), emu.getShooterSpeed(), emu.getFeederStatus(), emu.getRetrieveStatus());<a name="line.47"></a>
-<span class="sourceLineNo">048</span>    }<a name="line.48"></a>
-<span class="sourceLineNo">049</span>    <a name="line.49"></a>
-<span class="sourceLineNo">050</span>    /**<a name="line.50"></a>
-<span class="sourceLineNo">051</span>     * Returns the time stamp of the data.<a name="line.51"></a>
-<span class="sourceLineNo">052</span>     * @return <a name="line.52"></a>
-<span class="sourceLineNo">053</span>     */<a name="line.53"></a>
-<span class="sourceLineNo">054</span>    public double getTime()<a name="line.54"></a>
-<span class="sourceLineNo">055</span>    {<a name="line.55"></a>
-<span class="sourceLineNo">056</span>        return m_dTime;<a name="line.56"></a>
-<span class="sourceLineNo">057</span>    }<a name="line.57"></a>
-<span class="sourceLineNo">058</span>    <a name="line.58"></a>
-<span class="sourceLineNo">059</span>    /**<a name="line.59"></a>
-<span class="sourceLineNo">060</span>     * Gets the motor value on the left side<a name="line.60"></a>
-<span class="sourceLineNo">061</span>     * @return <a name="line.61"></a>
-<span class="sourceLineNo">062</span>     */<a name="line.62"></a>
-<span class="sourceLineNo">063</span>    public double getMtLeft()<a name="line.63"></a>
-<span class="sourceLineNo">064</span>    {<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        return m_dMtLeft;<a name="line.65"></a>
-<span class="sourceLineNo">066</span>    }<a name="line.66"></a>
-<span class="sourceLineNo">067</span>    <a name="line.67"></a>
-<span class="sourceLineNo">068</span>    /**<a name="line.68"></a>
-<span class="sourceLineNo">069</span>     * Gets the motor value on the right side.<a name="line.69"></a>
-<span class="sourceLineNo">070</span>     * @return <a name="line.70"></a>
-<span class="sourceLineNo">071</span>     */<a name="line.71"></a>
-<span class="sourceLineNo">072</span>    public double getMtRight()<a name="line.72"></a>
-<span class="sourceLineNo">073</span>    {<a name="line.73"></a>
-<span class="sourceLineNo">074</span>        return m_dMtRight;<a name="line.74"></a>
-<span class="sourceLineNo">075</span>    }<a name="line.75"></a>
-<span class="sourceLineNo">076</span>    <a name="line.76"></a>
-<span class="sourceLineNo">077</span>    /**<a name="line.77"></a>
-<span class="sourceLineNo">078</span>     * Gets the shooter speed.<a name="line.78"></a>
-<span class="sourceLineNo">079</span>     * @return <a name="line.79"></a>
-<span class="sourceLineNo">080</span>     */<a name="line.80"></a>
-<span class="sourceLineNo">081</span>    public double getShooterSpeed()<a name="line.81"></a>
-<span class="sourceLineNo">082</span>    {<a name="line.82"></a>
-<span class="sourceLineNo">083</span>        return m_dShooterSpeed;<a name="line.83"></a>
-<span class="sourceLineNo">084</span>    }<a name="line.84"></a>
-<span class="sourceLineNo">085</span>    <a name="line.85"></a>
-<span class="sourceLineNo">086</span>    /**<a name="line.86"></a>
-<span class="sourceLineNo">087</span>     * Gets the feeder status.<a name="line.87"></a>
-<span class="sourceLineNo">088</span>     * @return <a name="line.88"></a>
-<span class="sourceLineNo">089</span>     */<a name="line.89"></a>
-<span class="sourceLineNo">090</span>    public boolean getFeederStatus()<a name="line.90"></a>
-<span class="sourceLineNo">091</span>    {<a name="line.91"></a>
-<span class="sourceLineNo">092</span>        return m_bFeederStatus;<a name="line.92"></a>
-<span class="sourceLineNo">093</span>    }<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    <a name="line.94"></a>
-<span class="sourceLineNo">095</span>    public boolean getRetrieveStatus()<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    {<a name="line.96"></a>
-<span class="sourceLineNo">097</span>        return m_bRetrieveStatus;<a name="line.97"></a>
-<span class="sourceLineNo">098</span>    }<a name="line.98"></a>
-<span class="sourceLineNo">099</span>}<a name="line.99"></a>
+<span class="sourceLineNo">009</span>    private double m_dEncoderLeft = 0;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>    private double m_dEncoderRight = 0;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>    private double m_dShooterSpeed = 0;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>    private boolean m_bFeederStatus = false;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>    <a name="line.13"></a>
+<span class="sourceLineNo">014</span>    /**<a name="line.14"></a>
+<span class="sourceLineNo">015</span>     * Sets the values.<a name="line.15"></a>
+<span class="sourceLineNo">016</span>     * @param dEncoderLeft<a name="line.16"></a>
+<span class="sourceLineNo">017</span>     * @param dMtRight<a name="line.17"></a>
+<span class="sourceLineNo">018</span>     * @param bFeedStatus <a name="line.18"></a>
+<span class="sourceLineNo">019</span>     */<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    public void setValues(double dEncoderLeft, double dEncoderRight, double dShootSpeed, boolean bFeedStatus)<a name="line.20"></a>
+<span class="sourceLineNo">021</span>    {<a name="line.21"></a>
+<span class="sourceLineNo">022</span>        m_dEncoderLeft = dEncoderLeft;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>        m_dEncoderRight = dEncoderRight;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>        m_dShooterSpeed = dShootSpeed;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>        m_bFeederStatus = bFeedStatus;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>    }<a name="line.26"></a>
+<span class="sourceLineNo">027</span>    <a name="line.27"></a>
+<span class="sourceLineNo">028</span>    /**<a name="line.28"></a>
+<span class="sourceLineNo">029</span>     * Sets the values.<a name="line.29"></a>
+<span class="sourceLineNo">030</span>     * @param bot <a name="line.30"></a>
+<span class="sourceLineNo">031</span>     */<a name="line.31"></a>
+<span class="sourceLineNo">032</span>    public void setValues(Robot bot)<a name="line.32"></a>
+<span class="sourceLineNo">033</span>    {<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        setValues(bot.getEncoderLeftDistance(), bot.getEncoderRightDistance(), bot.getShooterSpeed(), bot.getFeederStatus());<a name="line.34"></a>
+<span class="sourceLineNo">035</span>    }<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    <a name="line.36"></a>
+<span class="sourceLineNo">037</span>    /**<a name="line.37"></a>
+<span class="sourceLineNo">038</span>     * Sets the values.<a name="line.38"></a>
+<span class="sourceLineNo">039</span>     * @param emu <a name="line.39"></a>
+<span class="sourceLineNo">040</span>     */<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    public void setValues(BotData emu)<a name="line.41"></a>
+<span class="sourceLineNo">042</span>    {<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        setValues(emu.getEncoderLeft(), emu.getEncoderRight(), emu.getShooterSpeed(), emu.getFeederStatus());<a name="line.43"></a>
+<span class="sourceLineNo">044</span>    }<a name="line.44"></a>
+<span class="sourceLineNo">045</span>    <a name="line.45"></a>
+<span class="sourceLineNo">046</span>    /**<a name="line.46"></a>
+<span class="sourceLineNo">047</span>     * Gets the motor value on the left side<a name="line.47"></a>
+<span class="sourceLineNo">048</span>     * @return <a name="line.48"></a>
+<span class="sourceLineNo">049</span>     */<a name="line.49"></a>
+<span class="sourceLineNo">050</span>    public double getEncoderLeft()<a name="line.50"></a>
+<span class="sourceLineNo">051</span>    {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        return m_dEncoderLeft;<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    }<a name="line.53"></a>
+<span class="sourceLineNo">054</span>    <a name="line.54"></a>
+<span class="sourceLineNo">055</span>    /**<a name="line.55"></a>
+<span class="sourceLineNo">056</span>     * Gets the motor value on the right side.<a name="line.56"></a>
+<span class="sourceLineNo">057</span>     * @return <a name="line.57"></a>
+<span class="sourceLineNo">058</span>     */<a name="line.58"></a>
+<span class="sourceLineNo">059</span>    public double getEncoderRight()<a name="line.59"></a>
+<span class="sourceLineNo">060</span>    {<a name="line.60"></a>
+<span class="sourceLineNo">061</span>        return m_dEncoderRight;<a name="line.61"></a>
+<span class="sourceLineNo">062</span>    }<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    <a name="line.63"></a>
+<span class="sourceLineNo">064</span>    /**<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     * Gets the shooter speed.<a name="line.65"></a>
+<span class="sourceLineNo">066</span>     * @return <a name="line.66"></a>
+<span class="sourceLineNo">067</span>     */<a name="line.67"></a>
+<span class="sourceLineNo">068</span>    public double getShooterSpeed()<a name="line.68"></a>
+<span class="sourceLineNo">069</span>    {<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        return m_dShooterSpeed;<a name="line.70"></a>
+<span class="sourceLineNo">071</span>    }<a name="line.71"></a>
+<span class="sourceLineNo">072</span>    <a name="line.72"></a>
+<span class="sourceLineNo">073</span>    /**<a name="line.73"></a>
+<span class="sourceLineNo">074</span>     * Gets the feeder status.<a name="line.74"></a>
+<span class="sourceLineNo">075</span>     * @return <a name="line.75"></a>
+<span class="sourceLineNo">076</span>     */<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    public boolean getFeederStatus()<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    {<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        return m_bFeederStatus;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>    }<a name="line.80"></a>
+<span class="sourceLineNo">081</span>}<a name="line.81"></a>
 
 
 
