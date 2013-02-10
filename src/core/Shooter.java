@@ -104,8 +104,8 @@ public class Shooter {
         if(m_joy.gotPressed(Vars.btDecreaseSpeed))
             m_dShootSpeed -= m_dSpeedIncrease;
 
-        Vars.fnPutDashBoardNumberBox(Vars.skShooterSpeed, m_dShootSpeed);
-        Vars.fnPutDashBoardButton(Vars.skCanFeed, m_bGoodToShoot);
+        Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
+        Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
     }
     
     /**

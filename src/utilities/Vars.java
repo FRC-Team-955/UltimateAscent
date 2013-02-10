@@ -1,7 +1,7 @@
 package utilities;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStationLCD;
 
 /**
  * This class has ALL the variables used as channels for FRC objects like 
@@ -55,13 +55,11 @@ public class Vars {
     public static final int stDigInReg = 4;
     
 /******************************************************************************/
-    // Smartdashboard keys
-    public static final String skCodeVersion = "Code Version";
-    public static final String skDriveStatus = "Drive Status";
-    public static final String skEditFileStatus = "File Status";
-    public static final String skAutonomousStatus = "Autonomous Status";
-    public static final String skShooterSpeed = "Shooter speed";
-    public static final String skCanFeed = "Can we Feed?";
+    // Dashboard keys
+    public static final int drFile = 2;
+    public static final int drAutonomous = 3;
+    public static final int drShooterSpeed = 4;
+    public static final int drCanFeed = 5;
     
 /******************************************************************************/
     // Ints
@@ -130,28 +128,55 @@ public class Vars {
         return DriverStation.getInstance().getDigitalIn(iChan);
     }
     
-    public static void fnPutDashBoardStringBox(String sName, String sData)
+     /**
+     * Prints specified message to the driver station on the corresponding line
+     * 2-6 are available.
+     */
+    public static void fnPrintToDriverstation(int iLine, String sMessage)
     {
-        SmartDashboard.putString(sName, sData);
-    }
-    
-    public static void fnPutDashBoardNumberBox(String sName, double dDefaultVal)
-    {
-        SmartDashboard.putNumber(sName, dDefaultVal);
-    }
-    
-    public static double fnGetDashBoardNumberBox(String sName)
-    {
-        return SmartDashboard.getNumber(sName);
-    }
-    
-    public static void fnPutDashBoardButton(String sName, boolean bDefaultVal)
-    {
-        SmartDashboard.putBoolean(sName, bDefaultVal);
-    }
-    
-    public static boolean fnGetDashBoardButton(String sName)
-    {
-        return SmartDashboard.getBoolean(sName);
+        switch(iLine)
+        {
+            case 2:
+            {
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "");
+                DriverStationLCD.getInstance().updateLCD(); 
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, sMessage);
+                break;
+            }
+                
+            case 3:
+            {
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "");
+                DriverStationLCD.getInstance().updateLCD(); 
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, sMessage);
+                break;
+            }
+                
+            case 4:
+            {
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "");
+                DriverStationLCD.getInstance().updateLCD(); 
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, sMessage);
+                break;
+            }
+                
+            case 5:
+            {
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "");
+                DriverStationLCD.getInstance().updateLCD(); 
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, sMessage);
+                break;
+            }
+                
+            case 6:
+            {
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "");
+                DriverStationLCD.getInstance().updateLCD(); 
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, sMessage);
+                break;
+            }
+        }
+        
+        DriverStationLCD.getInstance().updateLCD(); 
     }
 }

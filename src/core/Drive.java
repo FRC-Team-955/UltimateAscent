@@ -10,9 +10,8 @@ import edu.wpi.first.wpilibj.Encoder;
  * #Fauzi owns drive!
  */
 
-public class Drive {        // Ramps motor speed and set motor speed 
+public class Drive {       
     
-    private String m_sDriveStatus = "Arcade Drive";
     private Talon m_mtLeft = new Talon(utilities.Vars.chnVicDrvLeft);
     private Talon m_mtRight = new Talon(utilities.Vars.chnVicDrvRight);
     private Encoder m_encMotorLeft = new Encoder(Vars.chnEncMotorLeftA, Vars.chnEncMotorLeftB);
@@ -31,11 +30,6 @@ public class Drive {        // Ramps motor speed and set motor speed
     {
         if (Vars.fnCanDrive()) 
             arcadeDrive();
-        
-        else
-            m_sDriveStatus = "Disabled";
-        
-        Vars.fnPutDashBoardStringBox(Vars.skDriveStatus, m_sDriveStatus);
     }
 	
    /**
@@ -67,7 +61,6 @@ public class Drive {        // Ramps motor speed and set motor speed
         x *= Math.abs(x); // Squared Drive
         setSpeed(x + y, x - y);
 	//setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
-        m_sDriveStatus = "Arcade Drive";
     }
     
     /**
@@ -96,7 +89,8 @@ public class Drive {        // Ramps motor speed and set motor speed
      * @param leftMt
      * @param rightMt 
      */
-    public void setSpeed(double leftMt, double rightMt){
+    public void setSpeed(double leftMt, double rightMt)
+    {
         // Sets left and right motor speed.
         m_mtLeft.set(leftMt);
         m_mtRight.set(rightMt);

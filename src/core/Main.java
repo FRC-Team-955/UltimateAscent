@@ -33,7 +33,6 @@ public class Main extends IterativeRobot
      */
     public void robotInit() 
     {
-        Vars.fnPutDashBoardStringBox(Vars.skCodeVersion, sCodeVersion);
     }
 
     // This function is called when we disable the robot.

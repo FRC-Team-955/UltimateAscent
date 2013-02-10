@@ -112,8 +112,8 @@
 <span class="sourceLineNo">104</span>        if(m_joy.gotPressed(Vars.btDecreaseSpeed))<a name="line.104"></a>
 <span class="sourceLineNo">105</span>            m_dShootSpeed -= m_dSpeedIncrease;<a name="line.105"></a>
 <span class="sourceLineNo">106</span><a name="line.106"></a>
-<span class="sourceLineNo">107</span>        Vars.fnPutDashBoardNumberBox(Vars.skShooterSpeed, m_dShootSpeed);<a name="line.107"></a>
-<span class="sourceLineNo">108</span>        Vars.fnPutDashBoardButton(Vars.skCanFeed, m_bGoodToShoot);<a name="line.108"></a>
+<span class="sourceLineNo">107</span>        Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);<a name="line.108"></a>
 <span class="sourceLineNo">109</span>    }<a name="line.109"></a>
 <span class="sourceLineNo">110</span>    <a name="line.110"></a>
 <span class="sourceLineNo">111</span>    /**<a name="line.111"></a>
