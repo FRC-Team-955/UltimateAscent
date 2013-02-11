@@ -34,8 +34,8 @@ public class MyJoystick extends Joystick{
      */
     public boolean gotPressed(int iChan)
     {
-        boolean bOutput = (!m_bLast[iChan] && getRawButton(iChan));
-        m_bLast[iChan] = getRawButton(iChan);
+        boolean bOutput = (!m_bLast[iChan - 1] && getRawButton(iChan));
+        m_bLast[iChan - 1] = getRawButton(iChan);
         return bOutput;
     }
     
@@ -46,7 +46,7 @@ public class MyJoystick extends Joystick{
      */
     public boolean getSwitch(int iChan)
     {
-        return m_bSwitch[iChan];
+        return m_bSwitch[iChan - 1];
     }
     
     /**
@@ -56,7 +56,7 @@ public class MyJoystick extends Joystick{
      */
     public void setSwitch(int iChan, boolean bVal)
     {
-        m_bSwitch[iChan] = bVal;
+        m_bSwitch[iChan - 1] = bVal;
     }
     
     /**
@@ -65,7 +65,7 @@ public class MyJoystick extends Joystick{
      */
     public void flipSwitch(int iChan)
     {
-        m_bSwitch[iChan] = !m_bSwitch[iChan];
+        m_bSwitch[iChan - 1] = !m_bSwitch[iChan - 1];
     }
     
     /**

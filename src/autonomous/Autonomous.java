@@ -65,16 +65,16 @@ public class Autonomous {
         m_replayer.replay(m_sFileName);
         
         if(m_replayer.getReplayTime() > 0.00 && !overTimeLimit(m_replayer.getReplayTime()))
-            m_sAutonmousStatus = "Replaying: " + m_replayer.getReplayTime();
+            m_sAutonmousStatus = "Rep: " + m_replayer.getReplayTime();
         
         else if(overTimeLimit(m_replayer.getReplayTime()))
         {
             m_replayer.stop();
-            m_sAutonmousStatus = "Over Replay Limit";
+            m_sAutonmousStatus = "Replay Timeout";
         }
         
         else
-            m_sAutonmousStatus = "Finished Replaying";
+            m_sAutonmousStatus = "Done";
     }
     
     /**
@@ -85,16 +85,16 @@ public class Autonomous {
         m_recorder.record(m_sFileName);
         
         if(canEdit() && !overTimeLimit(m_recorder.getRecordTime()))
-            m_sAutonmousStatus = "Recording: " + m_recorder.getRecordTime();
+            m_sAutonmousStatus = "Rec: " + m_recorder.getRecordTime();
         
         else if(overTimeLimit(m_recorder.getRecordTime()))
         {
             m_recorder.stop();
-            m_sAutonmousStatus = "Over Record Limit";
+            m_sAutonmousStatus = "Record Timeout";
         }
         
         else
-            m_sAutonmousStatus = "Can't Edit File";
+            m_sAutonmousStatus = "N/A";
     }
     
     /**
@@ -102,7 +102,7 @@ public class Autonomous {
      */
     public void resetAutonomous()   
     {
-        m_sAutonmousStatus = "Doing Nothing";
+        m_sAutonmousStatus = "Nothing";
         m_joy.setSwitch(Vars.btReplay, false);
         m_joy.setSwitch(Vars.btRecord, false);
         m_replayer.reset();
@@ -135,12 +135,18 @@ public class Autonomous {
     private void setButtonStat()
     {
         if(m_joy.gotPressed(Vars.btReplay))
-            if(!m_joy.getSwitch(Vars.btRecord) && !m_joy.getSwitch(Vars.btTrack))
-                m_joy.flipSwitch(Vars.btReplay);
+            if(!m_joy.getSwitch(Vars.btRecord))
+			{
+				m_joy.flipSwitch(Vars.btReplay);
+				System.out.println("Replaying!!!");
+			}
                 
-        else if(m_joy.gotPressed(Vars.btRecord))
-            if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btTrack))
-                m_joy.flipSwitch(Vars.btRecord);
+        if(m_joy.gotPressed(Vars.btRecord))
+            if(!m_joy.getSwitch(Vars.btReplay))
+			{
+				m_joy.flipSwitch(Vars.btRecord);
+				System.out.println("Recording!!!");
+			}
                         
         if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btRecord))
         {
@@ -181,21 +187,21 @@ public class Autonomous {
         {
             case Vars.stDigInAutoCtr:   // 1
             {
-                m_sFileTypeStat = "AutoCenter: ";
+                m_sFileTypeStat = "AutoC: ";
                 m_sFileName = m_sAutoCenter; 
                 break;
             } 
 
             case Vars.stDigInAutoLft:   // 2
             {
-                m_sFileTypeStat = "AutoLeft: ";
+                m_sFileTypeStat = "AutoL: ";
                 m_sFileName = m_sAutoLeft;
                 break;
             }
 
             case Vars.stDigInAutoRght:  // 3
             {
-                m_sFileTypeStat = "AutoRight: ";
+                m_sFileTypeStat = "AutoR: ";
                 m_sFileName = m_sAutoRight; 
                 break;
             }

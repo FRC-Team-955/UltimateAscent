@@ -20,8 +20,9 @@ public class Shooter {
     private final double m_dSpeedIncrease = 100;
     
     private boolean m_bGoodToShoot = false;
+	private boolean m_bShooterOn = false;
     private int m_iFrisbeeShot = 0;
-    private double m_dShootSpeed = 0;
+    private double m_dShootSpeed = Vars.shooterValue;
     private double m_dPrevPulseTime = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
@@ -48,6 +49,7 @@ public class Shooter {
             m_tmPulser.start();
             if(!m_joy.getSwitch(Vars.btShootFrisbee))
             {
+				m_bShooterOn = false;
                 m_PIDShooter.reset(true);
                 m_tmPulser.stop();
                 m_tmPulser.reset();
@@ -57,7 +59,8 @@ public class Shooter {
         // Sets the shooter to the specified speed.
         if(m_joy.getSwitch(Vars.btShootFrisbee))
         {
-            setShootor(m_PIDShooter.getOutput(m_dShootSpeed, getShooterEncoder()));
+			m_bShooterOn = true;
+            setShooter(m_PIDShooter.getOutput(m_dShootSpeed, getShooterEncoder()));
 
             if(Math.abs(m_dShootSpeed - getShooterEncoder()) <= Vars.dShootTolerance)
                 m_bGoodToShoot = true;
@@ -96,17 +99,19 @@ public class Shooter {
 
         // If we're not shooting, shooter should be zero.
         else if(!m_joy.getSwitch(Vars.btShootFrisbee))
-            setShootor(0);
+            setShooter(0);
+		if (!Vars.oneSpot){
+			// Sets the shooter speed when the increase or decrease button is pressed
+			if(m_joy.gotPressed(Vars.btIncreaseSpeed))
+				m_dShootSpeed += m_dSpeedIncrease;
 
-        // Sets the shooter speed when the increase or decrease button is pressed
-        if(m_joy.gotPressed(Vars.btIncreaseSpeed))
-            m_dShootSpeed += m_dSpeedIncrease;
+			if(m_joy.gotPressed(Vars.btDecreaseSpeed) && (m_dShootSpeed - m_dSpeedIncrease) > 0)
+				m_dShootSpeed -= m_dSpeedIncrease;
 
-        if(m_joy.gotPressed(Vars.btDecreaseSpeed))
-            m_dShootSpeed -= m_dSpeedIncrease;
-
-        Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
-        Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
+			Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
+			Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
+			Vars.fnPrintToDriverstation(Vars.drShooterOn, "ShooterOn: " + m_bShooterOn);
+		}
     }
     
     /**
@@ -150,7 +155,8 @@ public class Shooter {
      */
     public void setShooter(double dSpeed)
     {
-        setShootor(dSpeed);
+        m_mtShooter1.set(dSpeed);
+		m_mtShooter2.set(dSpeed);
     }
     
     /**
@@ -161,9 +167,4 @@ public class Shooter {
     {
         m_solFeeder.set(bStatus);
     }
-	public void setShootor (double value){
-		m_mtShooter1.set(value);
-		m_mtShooter2.set(value);
-
-	}
 }

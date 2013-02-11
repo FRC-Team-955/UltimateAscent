@@ -51,7 +51,6 @@ public class Vars {
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;
-    public static final int btTrack = 13;
     
 /******************************************************************************/
     // DriverStation Autonomous Button Channels
@@ -66,6 +65,7 @@ public class Vars {
     public static final int drAutonomous = 3;
     public static final int drShooterSpeed = 4;
     public static final int drCanFeed = 5;
+	public static final int drShooterOn = 6;
     
 /******************************************************************************/
     // Ints
@@ -83,11 +83,13 @@ public class Vars {
     public static final double kDriveD = 0;
     public static final double kShooterP = 0;
     public static final double kShooterI = 0;
-    public static final double kShooterD = 0;    
+    public static final double kShooterD = 0; 
+	public static final double shooterValue =  10;
     
 /******************************************************************************/
     // Booloeans
     private static boolean bDrive = true;
+    public static boolean oneSpot = false;
     
 /******************************************************************************/
     // Functions
@@ -144,7 +146,7 @@ public class Vars {
         {
             case 2:
             {
-                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "");
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, "                   ");
                 DriverStationLCD.getInstance().updateLCD(); 
                 DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser2, 1, sMessage);
                 break;
@@ -152,7 +154,7 @@ public class Vars {
                 
             case 3:
             {
-                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "");
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, "                   ");
                 DriverStationLCD.getInstance().updateLCD(); 
                 DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser3, 1, sMessage);
                 break;
@@ -160,7 +162,7 @@ public class Vars {
                 
             case 4:
             {
-                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "");
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, "                   ");
                 DriverStationLCD.getInstance().updateLCD(); 
                 DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser4, 1, sMessage);
                 break;
@@ -168,7 +170,7 @@ public class Vars {
                 
             case 5:
             {
-                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "");
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, "                   ");
                 DriverStationLCD.getInstance().updateLCD(); 
                 DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser5, 1, sMessage);
                 break;
@@ -176,7 +178,7 @@ public class Vars {
                 
             case 6:
             {
-                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "");
+                DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, "                   ");
                 DriverStationLCD.getInstance().updateLCD(); 
                 DriverStationLCD.getInstance().println(DriverStationLCD.Line.kUser6, 1, sMessage);
                 break;
