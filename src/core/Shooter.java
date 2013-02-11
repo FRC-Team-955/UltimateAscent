@@ -27,7 +27,8 @@ public class Shooter {
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
     private Timer m_tmFeeder = new Timer();
     private Timer m_tmPulser = new Timer();
-    private Talon m_mtShooter = new Talon(Vars.chnVicShooter);
+    private Talon m_mtShooter1 = new Talon(Vars.chnVicShooter1);
+	 private Talon m_mtShooter2 = new Talon(Vars.chnVicShooter2);
     private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB);
     private MyJoystick m_joy;
     
@@ -56,7 +57,7 @@ public class Shooter {
         // Sets the shooter to the specified speed.
         if(m_joy.getSwitch(Vars.btShootFrisbee))
         {
-            m_mtShooter.set(m_PIDShooter.getOutput(m_dShootSpeed, getShooterEncoder()));
+            setShootor(m_PIDShooter.getOutput(m_dShootSpeed, getShooterEncoder()));
 
             if(Math.abs(m_dShootSpeed - getShooterEncoder()) <= Vars.dShootTolerance)
                 m_bGoodToShoot = true;
@@ -95,7 +96,7 @@ public class Shooter {
 
         // If we're not shooting, shooter should be zero.
         else if(!m_joy.getSwitch(Vars.btShootFrisbee))
-            m_mtShooter.set(0);
+            setShootor(0);
 
         // Sets the shooter speed when the increase or decrease button is pressed
         if(m_joy.gotPressed(Vars.btIncreaseSpeed))
@@ -149,7 +150,7 @@ public class Shooter {
      */
     public void setShooter(double dSpeed)
     {
-        m_mtShooter.set(dSpeed);
+        setShootor(dSpeed);
     }
     
     /**
@@ -160,4 +161,9 @@ public class Shooter {
     {
         m_solFeeder.set(bStatus);
     }
+	public void setShootor (double value){
+		m_mtShooter1.set(value);
+		m_mtShooter2.set(value);
+
+	}
 }

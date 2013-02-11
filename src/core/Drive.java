@@ -12,8 +12,14 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class Drive {       
     
-    private Talon m_mtLeft = new Talon(utilities.Vars.chnVicDrvLeft);
-    private Talon m_mtRight = new Talon(utilities.Vars.chnVicDrvRight);
+    private Talon m_mtLeft1 = new Talon(utilities.Vars.chnVicDrvLeft1);
+	private Talon m_mtLeft2 = new Talon(utilities.Vars.chnVicDrvLeft2);
+	private Talon m_mtLeft3 = new Talon(utilities.Vars.chnVicDrvLeft3);
+	
+    private Talon m_mtRight1 = new Talon(utilities.Vars.chnVicDrvRight1);
+	private Talon m_mtRight2 = new Talon(utilities.Vars.chnVicDrvRight2);
+	private Talon m_mtRight3 = new Talon(utilities.Vars.chnVicDrvRight3);
+
     private Encoder m_encMotorLeft = new Encoder(Vars.chnEncMotorLeftA, Vars.chnEncMotorLeftB);
     private Encoder m_encMotorRight = new Encoder(Vars.chnEncMotorRightA, Vars.chnEncMotorRightB);
     private MyJoystick joy;
@@ -92,7 +98,12 @@ public class Drive {
     public void setSpeed(double leftMt, double rightMt)
     {
         // Sets left and right motor speed.
-        m_mtLeft.set(leftMt);
-        m_mtRight.set(rightMt);
+        m_mtLeft1.set(leftMt);
+		m_mtLeft2.set(leftMt);
+		m_mtLeft3.set(leftMt);
+
+        m_mtRight1.set(rightMt);
+		m_mtRight2.set(rightMt);
+		m_mtRight3.set(rightMt);
     }
 }

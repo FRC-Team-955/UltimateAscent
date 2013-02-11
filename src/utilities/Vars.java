@@ -15,9 +15,15 @@ public class Vars {
     
 /******************************************************************************/
     // Victors
-    public static final int chnVicDrvLeft = 1;
-    public static final int chnVicDrvRight = 2;
-    public static final int chnVicShooter = 3;
+    public static final int chnVicDrvLeft1 = 1;
+	public static final int chnVicDrvLeft2= 2;
+	public static final int chnVicDrvLeft3 = 3;
+    public static final int chnVicDrvRight1 = 4;
+	public static final int chnVicDrvRight2 = 5;
+	public static final int chnVicDrvRight3 = 6;
+    public static final int chnVicShooter1 = 7;
+	public static final int chnVicShooter2 = 8;
+
 	
 /******************************************************************************/
     // Solenoids
