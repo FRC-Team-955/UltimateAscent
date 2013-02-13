@@ -33,14 +33,14 @@ public class Vars {
 	
 /******************************************************************************/
     // Digital Sidecard 
-    public static final int chnEncShooterA = 1;
-    public static final int chnEncShooterB = 2;
+    public static final int chnEncShooterA = 8;
+    public static final int chnEncShooterB = 9;
     public static final int chnEncMotorLeftA = 4;
     public static final int chnEncMotorLeftB = 5;
     public static final int chnEncMotorRightA = 6;
     public static final int chnEncMotorRightB = 7;
     public static final int chnDigiOutCompressor = 3;
-    public static final int chnDigiInSensor = 8;
+    public static final int chnDigiInSensor = 1;
 
 /******************************************************************************/
     // Button channel on the joystick
@@ -84,12 +84,12 @@ public class Vars {
     public static final double kShooterP = 1;
     public static final double kShooterI = 1;
     public static final double kShooterD = 1; 
-	public static final double shooterValue =  10;
+	public static final double shooterValue =  300;
     
 /******************************************************************************/
     // Booloeans
     private static boolean bDrive = true;
-    public static boolean oneSpot = false;
+    public static boolean oneSpot = true;
     
 /******************************************************************************/
     // Functions

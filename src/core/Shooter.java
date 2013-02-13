@@ -40,81 +40,83 @@ public class Shooter {
     {
         m_joy = joystick;
         m_tmPulser.start();
+		m_encShooter.start();
     }
     
     public void run()
     {
-        // When pressed, starts velocity controller so shooter motor can turn on.
-        if(m_joy.gotPressed(Vars.btShootFrisbee))
-        {
-
-            m_joy.flipSwitch(Vars.btShootFrisbee);
-            m_tmPulser.start();
-            if(!m_joy.getSwitch(Vars.btShootFrisbee))
-            {
-				m_bShooterOn = false;
-                m_PIDShooter.reset(true);
-                m_tmPulser.stop();
-                m_tmPulser.reset();
-            }
-        }
-
-        // Sets the shooter to the specified speed.
-        if(m_joy.getSwitch(Vars.btShootFrisbee))
-        {
-			m_bShooterOn = true;
-            setShooter(m_PIDShooter.getOutput(m_dShootSpeed, getRate()));
-
-            if(Math.abs(m_dShootSpeed - getRate()) <= Vars.dShootTolerance)
-                m_bGoodToShoot = true;
-
-            else
-                m_bGoodToShoot = false;
-
-            // Feeds one frisbee to the shooter if shooter is at the right speed.
-            if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
-                m_joy.flipSwitch(Vars.btFeedFrisbee);
-
-            if(m_joy.getSwitch(Vars.btFeedFrisbee))
-            {    
-                if(!m_solFeeder.getStatus() && m_bGoodToShoot)
-                {
-                    m_tmFeeder.start();
-                    m_solFeeder.turnOn();
-                }
-
-                if(m_tmFeeder.get() >= Vars.dMinFeedTime)
-                {
-                    m_solFeeder.turnOff();
-                    m_tmFeeder.stop();
-                    m_tmFeeder.reset();
-                    m_iFrisbeeShot++;
-                    m_bGoodToShoot = false;
-                }
-
-                if(m_iFrisbeeShot >= Vars.iMaxFrisbee)
-                {
-                    m_iFrisbeeShot = 0;
-                    m_joy.setSwitch(Vars.btFeedFrisbee, false);
-                }
-            }
-        }
-
-        // If we're not shooting, shooter should be zero.
-        else if(!m_joy.getSwitch(Vars.btShootFrisbee))
-            setShooter(0);
-		if (!Vars.oneSpot){
-			// Sets the shooter speed when the increase or decrease button is pressed
-			if(m_joy.gotPressed(Vars.btIncreaseSpeed))
-				m_dShootSpeed += m_dSpeedIncrease;
-
-			if(m_joy.gotPressed(Vars.btDecreaseSpeed) && (m_dShootSpeed - m_dSpeedIncrease) > 0)
-				m_dShootSpeed -= m_dSpeedIncrease;
-
-			Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
-			Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
-			Vars.fnPrintToDriverstation(Vars.drShooterOn, "ShooterOn: " + m_bShooterOn);
-		}
+		setShooter(1);
+//        // When pressed, starts velocity controller so shooter motor can turn on.
+//        if(m_joy.gotPressed(Vars.btShootFrisbee))
+//        {
+//
+//            m_joy.flipSwitch(Vars.btShootFrisbee);
+//            m_tmPulser.start();
+//            if(!m_joy.getSwitch(Vars.btShootFrisbee))
+//            {
+//				m_bShooterOn = false;
+//                m_PIDShooter.reset(true);
+//                m_tmPulser.stop();
+//                m_tmPulser.reset();
+//            }
+//        }
+//
+//        // Sets the shooter to the specified speed.
+//        if(m_joy.getSwitch(Vars.btShootFrisbee))
+//        {
+//			m_bShooterOn = true;
+//            setShooter(m_PIDShooter.getOutput(m_dShootSpeed, getRate()));
+//
+//            if(Math.abs(m_dShootSpeed - getRate()) <= Vars.dShootTolerance)
+//                m_bGoodToShoot = true;
+//
+//            else
+//                m_bGoodToShoot = false;
+//
+//            // Feeds one frisbee to the shooter if shooter is at the right speed.
+//            if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
+//                m_joy.flipSwitch(Vars.btFeedFrisbee);
+//
+//            if(m_joy.getSwitch(Vars.btFeedFrisbee))
+//            {    
+//                if(!m_solFeeder.getStatus() && m_bGoodToShoot)
+//                {
+//                    m_tmFeeder.start();
+//                    m_solFeeder.turnOn();
+//                }
+//
+//                if(m_tmFeeder.get() >= Vars.dMinFeedTime)
+//                {
+//                    m_solFeeder.turnOff();
+//                    m_tmFeeder.stop();
+//                    m_tmFeeder.reset();
+//                    m_iFrisbeeShot++;
+//                    m_bGoodToShoot = false;
+//                }
+//
+//                if(m_iFrisbeeShot >= Vars.iMaxFrisbee)
+//                {
+//                    m_iFrisbeeShot = 0;
+//                    m_joy.setSwitch(Vars.btFeedFrisbee, false);
+//                }
+//            }
+//        }
+//
+//        // If we're not shooting, shooter should be zero.
+//        else if(!m_joy.getSwitch(Vars.btShootFrisbee))
+//            setShooter(0);
+//		if (!Vars.oneSpot){
+//			// Sets the shooter speed when the increase or decrease button is pressed
+//			if(m_joy.gotPressed(Vars.btIncreaseSpeed))
+//				m_dShootSpeed += m_dSpeedIncrease;
+//
+//			if(m_joy.gotPressed(Vars.btDecreaseSpeed) && (m_dShootSpeed - m_dSpeedIncrease) > 0)
+//				m_dShootSpeed -= m_dSpeedIncrease;
+//
+//			Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
+//			Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
+//			Vars.fnPrintToDriverstation(Vars.drShooterOn, "ShooterOn: " + m_bShooterOn);
+//		}
     }
     
     /**
@@ -185,4 +187,7 @@ public class Shooter {
     {
         m_solFeeder.set(bStatus);
     }
+	public void print() {
+		System.out.println(getRate());
+	}
 }

@@ -23,10 +23,11 @@ public class Robot {
      */
     public void run()
     {
-        m_drive.run();
-		m_drive.print();
-		m_drive.printDistance();
-        //m_shooter.run();
+        //m_drive.run();
+		//m_drive.print();
+		//m_drive.printDistance();
+        m_shooter.run();
+		m_shooter.print();
     }
     
     /**
