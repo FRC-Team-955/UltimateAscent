@@ -1,5 +1,6 @@
 package core;
 
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import utilities.Vars;
@@ -22,6 +23,8 @@ public class Shooter {
     private boolean m_bGoodToShoot = false;
 	private boolean m_bShooterOn = false;
     private int m_iFrisbeeShot = 0;
+	private double lastTime;
+	private double rate = 0;
     private double m_dShootSpeed = Vars.shooterValue;
     private double m_dPrevPulseTime = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
@@ -30,7 +33,7 @@ public class Shooter {
     private Timer m_tmPulser = new Timer();
     private Talon m_mtShooter1 = new Talon(Vars.chnVicShooter1);
 	 private Talon m_mtShooter2 = new Talon(Vars.chnVicShooter2);
-    private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB);
+    private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB,false, CounterBase.EncodingType.k1X);
     private MyJoystick m_joy;
     
     public Shooter(MyJoystick joystick)
@@ -60,9 +63,9 @@ public class Shooter {
         if(m_joy.getSwitch(Vars.btShootFrisbee))
         {
 			m_bShooterOn = true;
-            setShooter(m_PIDShooter.getOutput(m_dShootSpeed, getShooterEncoder()));
+            setShooter(m_PIDShooter.getOutput(m_dShootSpeed, getRate()));
 
-            if(Math.abs(m_dShootSpeed - getShooterEncoder()) <= Vars.dShootTolerance)
+            if(Math.abs(m_dShootSpeed - getRate()) <= Vars.dShootTolerance)
                 m_bGoodToShoot = true;
 
             else
@@ -127,18 +130,33 @@ public class Shooter {
      * Returns the shooters encoder rate.
      * @return 
      */
-    public double getShooterEncoder()
-    {
-        double dReturn = 0;
-        double dCurrent = m_tmPulser.get();
-        int iCount = m_encShooter.get();
-
-        m_encShooter.reset();
-        // NOTE:  60 seconds per minute;   250 counts per rotation
-        dReturn = (60.0 / 250.0) * iCount / (dCurrent - m_dPrevPulseTime);
-        m_dPrevPulseTime = dCurrent;
-        return dReturn;
-    }
+//    public double getShooterEncoder()
+//    {
+//        double dReturn = 0;
+//        double dCurrent = m_tmPulser.get();
+//        int iCount = m_encShooter.get();
+//
+//        m_encShooter.reset();
+//        // NOTE:  60 seconds per minute;   250 counts per rotation
+//        dReturn = (60.0 / 250.0) * iCount / (dCurrent - m_dPrevPulseTime);
+//        m_dPrevPulseTime = dCurrent;
+//        return dReturn;
+//    }
+	/**
+	 * Returns the current encoder rate.
+	 * Updates every .10 seconds
+	 * @return 
+	 */
+	public double getRate() {
+		double count;
+		double time = m_tmPulser.get();
+		if((time - lastTime) >= 0.10){
+			count = m_encShooter.getDistance();
+			rate = count / (time-lastTime);
+			lastTime = time;
+		}
+		return rate;
+	}
     
     /**
      * Returns the feeder status.
@@ -146,7 +164,7 @@ public class Shooter {
      */
     public boolean getFeedStatus()
     {
-        return m_joy.getSwitch(Vars.btFeedFrisbee);
+        return m_solFeeder.getStatus();//m_joy.getSwitch(Vars.btFeedFrisbee);
     }
     
     /**

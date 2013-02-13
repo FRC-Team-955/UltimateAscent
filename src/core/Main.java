@@ -65,7 +65,13 @@ public class Main extends IterativeRobot
     public void teleopPeriodic()
     {
         bot.run();
+		
+		// Testing
+		// Testing!!!
+//		if(ps3Joy.gotPressed(7))
+//			bot.setFeeder(!bot.getFeederStatus());
+		
 //        compressor.run();
-//        autonomous.run();
+        autonomous.run();
     }
 }

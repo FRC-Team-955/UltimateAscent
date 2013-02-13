@@ -68,7 +68,7 @@ public class Drive {
         double x = joy.getX();
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
-        setSpeed(x + y, x - y);
+        setSpeed(y - x, y + x);
 	//setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
     }
     
@@ -101,7 +101,10 @@ public class Drive {
     public void setSpeed(double leftMt, double rightMt)
     {
         // Sets left and right motor speed.
-        m_mtLeft1.set(leftMt);
+		rightMt = -rightMt;
+		leftMt = leftMt;  
+		
+		m_mtLeft1.set(leftMt);
 		m_mtLeft2.set(leftMt);
 		m_mtLeft3.set(leftMt);
 

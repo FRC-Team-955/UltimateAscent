@@ -26,7 +26,7 @@ public class Robot {
         m_drive.run();
 		m_drive.print();
 		m_drive.printDistance();
-//        m_shooter.run();
+        //m_shooter.run();
     }
     
     /**
@@ -64,7 +64,7 @@ public class Robot {
      */
     public double getEncoderShooter()
     {
-        return m_shooter.getShooterEncoder();
+        return m_shooter.getRate();
     }
     
     /**

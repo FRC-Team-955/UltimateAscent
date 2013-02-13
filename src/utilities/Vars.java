@@ -78,12 +78,12 @@ public class Vars {
     public static final double dMinFeedTime = 1.0;
     public static final double dShootTolerance = 10;
     public static final double dDriveTolerance = .1;
-    public static final double kDriveP = 0;
-    public static final double kDriveI = 0;
-    public static final double kDriveD = 0;
-    public static final double kShooterP = 0;
-    public static final double kShooterI = 0;
-    public static final double kShooterD = 0; 
+    public static final double kDriveP = 1;
+    public static final double kDriveI = 1;
+    public static final double kDriveD = 1;
+    public static final double kShooterP = 1;
+    public static final double kShooterI = 1;
+    public static final double kShooterD = 1; 
 	public static final double shooterValue =  10;
     
 /******************************************************************************/
