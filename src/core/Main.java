@@ -65,7 +65,7 @@ public class Main extends IterativeRobot
     public void teleopPeriodic()
     {
         bot.run();
-        compressor.run();
-        autonomous.run();
+//        compressor.run();
+//        autonomous.run();
     }
 }

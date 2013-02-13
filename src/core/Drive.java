@@ -30,6 +30,9 @@ public class Drive {
      */
     public Drive(MyJoystick joystick) {
         joy = joystick;
+		m_encMotorRight.start();
+		m_encMotorLeft.start();
+
     }
     
     public void run()
@@ -106,4 +109,11 @@ public class Drive {
 		m_mtRight2.set(rightMt);
 		m_mtRight3.set(rightMt);
     }
+	public void print() {
+		System.out.println("Raw Value:  " +m_encMotorLeft.get() + "		" + m_encMotorRight.get( ));
+	}
+	
+	public void printDistance() {
+		System.out.println("Distance:  " +m_encMotorLeft.getDistance() + "		" + m_encMotorRight.getDistance( ));
+	}
 }
