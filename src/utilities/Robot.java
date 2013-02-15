@@ -2,6 +2,7 @@ package utilities;
 
 import core.Drive;
 import core.Shooter;
+import core.Lifter;
 
 /**
  * This class encapsulates the robot systems.
@@ -11,11 +12,13 @@ public class Robot {
     
     private static Drive m_drive;
     private static Shooter m_shooter;
+	private static Lifter m_lifter;
     
     public Robot(MyJoystick joytick)
     {
         m_drive = new Drive(joytick);
         m_shooter = new Shooter(joytick);
+		m_lifter = new Lifter(joytick);
     }
     
     /**
@@ -23,11 +26,11 @@ public class Robot {
      */
     public void run()
     {
-        //m_drive.run();
-		//m_drive.print();
-		//m_drive.printDistance();
+        m_drive.run();
+
         m_shooter.run();
-		m_shooter.print();
+		
+		m_lifter.run();
     }
     
     /**
@@ -65,7 +68,8 @@ public class Robot {
      */
     public double getEncoderShooter()
     {
-        return m_shooter.getRate();
+		m_shooter.getRate();
+        return m_shooter.rate;
     }
     
     /**

@@ -21,7 +21,7 @@ public class Vars {
     public static final int chnVicDrvRight1 = 1;
 	public static final int chnVicDrvRight2 = 2;
 	public static final int chnVicDrvRight3 = 3;
-    public static final int chnVicShooter1 = 7;
+    public static final int chnVicShooter1 = 9;
 	public static final int chnVicShooter2 = 8;
 
 	
@@ -30,6 +30,8 @@ public class Vars {
     // SOLENOID BUMPER CHANNEL 7 OR 8 DOES NOT WORK!!!!!!
     public static final int chnSolFeederUp = 1;
     public static final int chnSolFeederDown = 2;
+	public static final int chnSolLifterUp = 3;
+	public static final int chnSolLifterDown = 4;
 	
 /******************************************************************************/
     // Digital Sidecard 
@@ -39,8 +41,8 @@ public class Vars {
     public static final int chnEncMotorLeftB = 5;
     public static final int chnEncMotorRightA = 6;
     public static final int chnEncMotorRightB = 7;
-    public static final int chnDigiOutCompressor = 3;
-    public static final int chnDigiInSensor = 1;
+    public static final int chnDigiOutCompressor = 1;
+    public static final int chnDigiInSensor = 3;
 
 /******************************************************************************/
     // Button channel on the joystick
@@ -48,6 +50,8 @@ public class Vars {
     public static final int btFeedFrisbee = 2;
     public static final int btDecreaseSpeed = 3;
     public static final int btShootFrisbee = 4;
+	public static final int btSlow = 7;
+	public static final int btLift = 8;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;
@@ -94,6 +98,20 @@ public class Vars {
 /******************************************************************************/
     // Functions
     
+	/**
+	 * 
+	 * @param input
+	 * @param a = upperbound
+	 * @param b = lowerbound
+	 * @return 
+	 */
+	public static double mod (double input, double a, double b) {
+		if (input > a)
+			input = a;
+		if (input < b)
+			input = b;
+		return input;
+	}
     /**
      * Sets the double to be only at the hundreth's place, ex. 12.34.
      */

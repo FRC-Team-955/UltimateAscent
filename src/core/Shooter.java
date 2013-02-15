@@ -1,6 +1,7 @@
 package core;
 
 import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import utilities.Vars;
@@ -18,14 +19,14 @@ import edu.wpi.first.wpilibj.Talon;
 public class Shooter {
     
     // CONSTANTS
-    private final double m_dSpeedIncrease = 100;
+    private final double m_dSpeedIncrease = 500;
     
     private boolean m_bGoodToShoot = false;
 	private boolean m_bShooterOn = false;
     private int m_iFrisbeeShot = 0;
 	private double lastTime;
-	private double rate = 0;
     private double m_dShootSpeed = Vars.shooterValue;
+	public double rate = 0;
     private double m_dPrevPulseTime = 0;
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private MyPIDVelocity m_PIDShooter = new MyPIDVelocity(Vars.kShooterP, Vars.kShooterI, Vars.kShooterD);
@@ -33,7 +34,7 @@ public class Shooter {
     private Timer m_tmPulser = new Timer();
     private Talon m_mtShooter1 = new Talon(Vars.chnVicShooter1);
 	 private Talon m_mtShooter2 = new Talon(Vars.chnVicShooter2);
-    private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB,false, CounterBase.EncodingType.k1X);
+    private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB,false, CounterBase.EncodingType.k4X);
     private MyJoystick m_joy;
     
     public Shooter(MyJoystick joystick)
@@ -45,35 +46,42 @@ public class Shooter {
     
     public void run()
     {
-		setShooter(1);
-//        // When pressed, starts velocity controller so shooter motor can turn on.
-//        if(m_joy.gotPressed(Vars.btShootFrisbee))
-//        {
-//
-//            m_joy.flipSwitch(Vars.btShootFrisbee);
-//            m_tmPulser.start();
-//            if(!m_joy.getSwitch(Vars.btShootFrisbee))
-//            {
-//				m_bShooterOn = false;
-//                m_PIDShooter.reset(true);
-//                m_tmPulser.stop();
-//                m_tmPulser.reset();
-//            }
-//        }
-//
-//        // Sets the shooter to the specified speed.
-//        if(m_joy.getSwitch(Vars.btShootFrisbee))
-//        {
-//			m_bShooterOn = true;
-//            setShooter(m_PIDShooter.getOutput(m_dShootSpeed, getRate()));
-//
-//            if(Math.abs(m_dShootSpeed - getRate()) <= Vars.dShootTolerance)
+		//getRate();
+//		
+//		if(m_joy.gotPressed(7))
+//			m_joy.flipSwitch(7);
+//		
+//		m_solFeeder.set(m_joy.getSwitch(7));
+//		
+		
+        // When pressed, starts velocity controller so shooter motor can turn on.
+        if(m_joy.gotPressed(Vars.btShootFrisbee))
+        {
+            m_joy.flipSwitch(Vars.btShootFrisbee);
+            m_tmPulser.start();
+			
+            if(!m_joy.getSwitch(Vars.btShootFrisbee))
+            {
+				m_bShooterOn = false;
+                //m_PIDShooter.reset(true);
+                m_tmPulser.stop();
+                m_tmPulser.reset();
+            }
+        }
+
+        // Sets the shooter to the specified speed.
+        if(m_joy.getSwitch(Vars.btShootFrisbee))
+        {
+			m_bShooterOn = true;
+            setShooter(5000*12.0/DriverStation.getInstance().getBatteryVoltage()/6200.0);
+			System.out.println("Shooting NOW!!!");
+//            if(Math.abs(m_dShootSpeed - rate) <= Vars.dShootTolerance)
 //                m_bGoodToShoot = true;
 //
 //            else
 //                m_bGoodToShoot = false;
-//
-//            // Feeds one frisbee to the shooter if shooter is at the right speed.
+
+            // Feeds one frisbee to the shooter if shooter is at the right speed.
 //            if(m_joy.gotPressed(Vars.btFeedFrisbee) && m_bGoodToShoot)
 //                m_joy.flipSwitch(Vars.btFeedFrisbee);
 //
@@ -100,23 +108,27 @@ public class Shooter {
 //                    m_joy.setSwitch(Vars.btFeedFrisbee, false);
 //                }
 //            }
-//        }
-//
-//        // If we're not shooting, shooter should be zero.
-//        else if(!m_joy.getSwitch(Vars.btShootFrisbee))
-//            setShooter(0);
-//		if (!Vars.oneSpot){
-//			// Sets the shooter speed when the increase or decrease button is pressed
-//			if(m_joy.gotPressed(Vars.btIncreaseSpeed))
-//				m_dShootSpeed += m_dSpeedIncrease;
-//
-//			if(m_joy.gotPressed(Vars.btDecreaseSpeed) && (m_dShootSpeed - m_dSpeedIncrease) > 0)
-//				m_dShootSpeed -= m_dSpeedIncrease;
-//
-//			Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
-//			Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
-//			Vars.fnPrintToDriverstation(Vars.drShooterOn, "ShooterOn: " + m_bShooterOn);
-//		}
+			if (m_joy.gotPressed(Vars.btFeedFrisbee))
+				m_joy.flipSwitch(Vars.btFeedFrisbee);
+			
+			m_solFeeder.set(m_joy.getSwitch(Vars.btFeedFrisbee));
+        }
+
+        // If we're not shooting, shooter should be zero.
+        else if(!m_joy.getSwitch(Vars.btShootFrisbee))
+            setShooter(0);
+		if (!Vars.oneSpot){
+			// Sets the shooter speed when the increase or decrease button is pressed
+			if(m_joy.gotPressed(Vars.btIncreaseSpeed))
+				m_dShootSpeed += m_dSpeedIncrease;
+
+			if(m_joy.gotPressed(Vars.btDecreaseSpeed) && (m_dShootSpeed - m_dSpeedIncrease) > 0)
+				m_dShootSpeed -= m_dSpeedIncrease;
+
+			Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Speed: " + m_dShootSpeed);
+			Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
+			Vars.fnPrintToDriverstation(Vars.drShooterOn, "ShooterOn: " + m_bShooterOn);
+		}
     }
     
     /**
@@ -125,7 +137,7 @@ public class Shooter {
      */
     public double getShooterSpeed()
     {
-        return m_dShootSpeed;
+        return rate;
     }
     
     /**
@@ -149,15 +161,16 @@ public class Shooter {
 	 * Updates every .10 seconds
 	 * @return 
 	 */
-	public double getRate() {
+	public void getRate() {
 		double count;
 		double time = m_tmPulser.get();
 		if((time - lastTime) >= 0.10){
 			count = m_encShooter.getDistance();
 			rate = count / (time-lastTime);
 			lastTime = time;
+			m_encShooter.reset();
+			
 		}
-		return rate;
 	}
     
     /**
@@ -188,6 +201,12 @@ public class Shooter {
         m_solFeeder.set(bStatus);
     }
 	public void print() {
-		System.out.println(getRate());
+		System.out.println(rate);
 	}
+//	public void varaibleSet() {
+//		getRate();
+//		m_joy.setAxisChannel(MyJoystick.AxisType.kX, 3);
+//        m_joy.setAxisChannel(MyJoystick.AxisType.kY, 2);
+//		setShooter(-m_joy.getY());
+//	}
 }

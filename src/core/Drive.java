@@ -22,6 +22,9 @@ public class Drive {
 
     private Encoder m_encMotorLeft = new Encoder(Vars.chnEncMotorLeftA, Vars.chnEncMotorLeftB);
     private Encoder m_encMotorRight = new Encoder(Vars.chnEncMotorRightA, Vars.chnEncMotorRightB);
+	
+	private boolean m_bSlowMode = false;
+	private double m_dSlowSpeed = .1;
     private MyJoystick joy;
     
     /**
@@ -39,6 +42,9 @@ public class Drive {
     {
         if (Vars.fnCanDrive()) 
             arcadeDrive();
+		
+		if(joy.gotPressed(Vars.btSlow))
+			m_bSlowMode = !m_bSlowMode;
     }
 	
    /**
@@ -66,9 +72,22 @@ public class Drive {
         joy.setAxisChannel(MyJoystick.AxisType.kY, 2);
         double y = joy.getY();
         double x = joy.getX();
+	
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
-        setSpeed(y - x, y + x);
+		if(m_bSlowMode){
+			y = Vars.mod(y,1,-1);
+			x = Vars.mod(x,1,-1);
+			x /=10;
+			y /= 10;
+			System.out.println("SLOW MODE!!!");
+		}
+		double leftSpeed = y-x;
+		double rightSpeed = y+x;
+		
+		
+		
+        setSpeed(leftSpeed, rightSpeed);
 	//setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
     }
     
@@ -100,6 +119,7 @@ public class Drive {
      */
     public void setSpeed(double leftMt, double rightMt)
     {
+		System.out.println(leftMt + " " + rightMt);
         // Sets left and right motor speed.
 		rightMt = -rightMt;
 		leftMt = leftMt;  
@@ -112,6 +132,7 @@ public class Drive {
 		m_mtRight2.set(rightMt);
 		m_mtRight3.set(rightMt);
     }
+	
 	public void print() {
 		System.out.println("Raw Value:  " +m_encMotorLeft.get() + "		" + m_encMotorRight.get( ));
 	}
@@ -119,4 +140,6 @@ public class Drive {
 	public void printDistance() {
 		System.out.println("Distance:  " +m_encMotorLeft.getDistance() + "		" + m_encMotorRight.getDistance( ));
 	}
+	
+	
 }
