@@ -38,7 +38,6 @@ class Recorder {
         if(!m_bRecStarted)
         {
             m_sFile = sFileName;
-            m_bot.resetEncoders();
             m_tmRecorder.start();
             m_bRecStarted = true;
         }
@@ -52,7 +51,7 @@ class Recorder {
              */
             m_Index++;
             m_botDataAuto = new BotData();
-            m_botDataAuto.setValues(m_bot);
+            m_botDataAuto.setValues(m_tmRecorder.get(), m_bot);
             m_List.addElement(m_botDataAuto);
         }
         
@@ -114,8 +113,9 @@ class Recorder {
         for(int iPos = 0; iPos < m_Index; iPos++)
         {
             m_botDataAuto.setValues((BotData) m_List.elementAt(iPos));
-            m_fileWriter.writeDouble(m_botDataAuto.getEncoderLeft());
-            m_fileWriter.writeDouble(m_botDataAuto.getEncoderRight());
+            m_fileWriter.writeDouble(m_botDataAuto.getTimer());
+            m_fileWriter.writeDouble(m_botDataAuto.getMotorLeftSpeed());
+            m_fileWriter.writeDouble(m_botDataAuto.getMotorRightSpeed());
             m_fileWriter.writeDouble(m_botDataAuto.getShooterSpeed());
             m_fileWriter.writeBoolean(m_botDataAuto.getFeederStatus());
         }

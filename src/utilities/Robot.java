@@ -12,13 +12,13 @@ public class Robot {
     
     private static Drive m_drive;
     private static Shooter m_shooter;
-	private static Lifter m_lifter;
+    private static Lifter m_lifter;
     
     public Robot(MyJoystick joytick)
     {
         m_drive = new Drive(joytick);
         m_shooter = new Shooter(joytick);
-		m_lifter = new Lifter(joytick);
+        m_lifter = new Lifter(joytick);
     }
     
     /**
@@ -30,7 +30,7 @@ public class Robot {
 
         m_shooter.run();
 		
-		m_lifter.run();
+        m_lifter.run();
     }
     
     /**
@@ -48,28 +48,18 @@ public class Robot {
      * Returns the distance the left encoder has traveled.
      * @return 
      */
-    public double getEncoderLeftDistance()
+    public double getMotorLeftSpeed()
     {
-        return m_drive.getEncoderLeftDistance();
+        return m_drive.getMotorLeftSpeed();
     }
     
     /**
      * Returns the distance the right encoder has traveled.
      * @return 
      */
-    public double getEncoderRightDistance()
+    public double getMotorRightSpeed()
     {
-        return m_drive.getEncoderRightDistance();
-    }
-    
-    /**
-     * Returns the rate of the shooter.
-     * @return 
-     */
-    public double getEncoderShooter()
-    {
-		m_shooter.getRate();
-        return m_shooter.rate;
+        return m_drive.getMotorRightSpeed();
     }
     
     /**
@@ -116,10 +106,5 @@ public class Robot {
     public void setFeeder(boolean bStatus)
     {
         m_shooter.setFeeder(bStatus);
-    }
-    
-    public void resetEncoders()
-    {
-        m_drive.resetEncoders();
     }
 }

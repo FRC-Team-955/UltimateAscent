@@ -19,12 +19,9 @@ public class Drive {
     private Talon m_mtRight1 = new Talon(utilities.Vars.chnVicDrvRight1);
 	private Talon m_mtRight2 = new Talon(utilities.Vars.chnVicDrvRight2);
 	private Talon m_mtRight3 = new Talon(utilities.Vars.chnVicDrvRight3);
-
-    private Encoder m_encMotorLeft = new Encoder(Vars.chnEncMotorLeftA, Vars.chnEncMotorLeftB);
-    private Encoder m_encMotorRight = new Encoder(Vars.chnEncMotorRightA, Vars.chnEncMotorRightB);
 	
-	private boolean m_bSlowMode = false;
-	private double m_dSlowSpeed = .1;
+    private boolean m_bSlowMode = false;
+    private double m_dSlowSpeed = 10;
     private MyJoystick joy;
     
     /**
@@ -33,9 +30,6 @@ public class Drive {
      */
     public Drive(MyJoystick joystick) {
         joy = joystick;
-		m_encMotorRight.start();
-		m_encMotorLeft.start();
-
     }
     
     public void run()
@@ -75,17 +69,18 @@ public class Drive {
 	
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
-		if(m_bSlowMode){
-			y = Vars.mod(y,1,-1);
-			x = Vars.mod(x,1,-1);
-			x /=10;
-			y /= 10;
-			System.out.println("SLOW MODE!!!");
-		}
-		double leftSpeed = y-x;
-		double rightSpeed = y+x;
-		
-		
+        
+        if(m_bSlowMode)
+        {
+                y = Vars.mod(y,1,-1);
+                x = Vars.mod(x,1,-1);
+                x /= m_dSlowSpeed;
+                y /= m_dSlowSpeed;
+                System.out.println("SLOW MODE!!!");
+        }
+        
+        double leftSpeed = y-x;
+        double rightSpeed = y+x;
 		
         setSpeed(leftSpeed, rightSpeed);
 	//setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
@@ -95,23 +90,18 @@ public class Drive {
      * Returns the encoder distance on the left side of the robot.
      * @return 
      */
-    public double getEncoderLeftDistance(){
-        return m_encMotorLeft.getDistance();
+    public double getMotorLeftSpeed(){
+        return m_mtLeft1.get();
     }
     
     /**
      * Returns the encoder distance on the right side of the robot.
      * @return 
      */
-    public double getEncoderRightDistance(){
-        return m_encMotorRight.getDistance();
-    }
+    public double getMotorRightSpeed(){
+        return m_mtRight1.get();
+    }  
     
-    public void resetEncoders()
-    {
-        m_encMotorLeft.reset();
-        m_encMotorRight.reset();
-    }
     /**
      * Sets the motor's speed to the desired speed.
      * @param leftMt
@@ -131,15 +121,5 @@ public class Drive {
         m_mtRight1.set(rightMt);
 		m_mtRight2.set(rightMt);
 		m_mtRight3.set(rightMt);
-    }
-	
-	public void print() {
-		System.out.println("Raw Value:  " +m_encMotorLeft.get() + "		" + m_encMotorRight.get( ));
-	}
-	
-	public void printDistance() {
-		System.out.println("Distance:  " +m_encMotorLeft.getDistance() + "		" + m_encMotorRight.getDistance( ));
-	}
-	
-	
+    }	
 }

@@ -4,23 +4,25 @@ package utilities;
  * Holds data corresponding to the values of the robot.
  * @author Fauzi
  */ 
-public class BotData{
-    
-    private double m_dEncoderLeft = 0;
-    private double m_dEncoderRight = 0;
+public class BotData
+{
+    private double m_dTime = 0;
+    private double m_dLeftSpeed = 0;
+    private double m_dRightSpeed = 0;
     private double m_dShooterSpeed = 0;
     private boolean m_bFeederStatus = false;
     
     /**
      * Sets the values.
-     * @param dEncoderLeft
+     * @param dLeftSpeed
      * @param dMtRight
      * @param bFeedStatus 
      */
-    public void setValues(double dEncoderLeft, double dEncoderRight, double dShootSpeed, boolean bFeedStatus)
+    public void setValues(double dTimer, double dLeftSpeed, double dRightSpeed, double dShootSpeed, boolean bFeedStatus)
     {
-        m_dEncoderLeft = dEncoderLeft;
-        m_dEncoderRight = dEncoderRight;
+        m_dTime = dTimer;
+        m_dLeftSpeed = dLeftSpeed;
+        m_dRightSpeed = dRightSpeed;
         m_dShooterSpeed = dShootSpeed;
         m_bFeederStatus = bFeedStatus;
     }
@@ -29,9 +31,9 @@ public class BotData{
      * Sets the values.
      * @param bot 
      */
-    public void setValues(Robot bot)
+    public void setValues(double dTime, Robot bot)
     {
-        setValues(bot.getEncoderLeftDistance(), bot.getEncoderRightDistance(), bot.getShooterSpeed(), bot.getFeederStatus());
+        setValues(dTime, bot.getMotorLeftSpeed(), bot.getMotorRightSpeed(), bot.getShooterSpeed(), bot.getFeederStatus());
     }
     
     /**
@@ -40,25 +42,34 @@ public class BotData{
      */
     public void setValues(BotData emu)
     {
-        setValues(emu.getEncoderLeft(), emu.getEncoderRight(), emu.getShooterSpeed(), emu.getFeederStatus());
+        setValues(emu.getTimer(), emu.getMotorLeftSpeed(), emu.getMotorRightSpeed(), emu.getShooterSpeed(), emu.getFeederStatus());
+    }
+    
+    /**
+     * Returns time stamp of the data.
+     * @return 
+     */
+    public double getTimer()
+    {
+        return m_dTime;
     }
     
     /**
      * Gets the motor value on the left side
      * @return 
      */
-    public double getEncoderLeft()
+    public double getMotorLeftSpeed()
     {
-        return m_dEncoderLeft;
+        return m_dLeftSpeed;
     }
     
     /**
      * Gets the motor value on the right side.
      * @return 
      */
-    public double getEncoderRight()
+    public double getMotorRightSpeed()
     {
-        return m_dEncoderRight;
+        return m_dRightSpeed;
     }
     
     /**

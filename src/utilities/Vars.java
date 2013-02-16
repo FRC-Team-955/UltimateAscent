@@ -37,10 +37,6 @@ public class Vars {
     // Digital Sidecard 
     public static final int chnEncShooterA = 8;
     public static final int chnEncShooterB = 9;
-    public static final int chnEncMotorLeftA = 4;
-    public static final int chnEncMotorLeftB = 5;
-    public static final int chnEncMotorRightA = 6;
-    public static final int chnEncMotorRightB = 7;
     public static final int chnDigiOutCompressor = 1;
     public static final int chnDigiInSensor = 3;
 
@@ -50,8 +46,8 @@ public class Vars {
     public static final int btFeedFrisbee = 2;
     public static final int btDecreaseSpeed = 3;
     public static final int btShootFrisbee = 4;
-	public static final int btSlow = 7;
-	public static final int btLift = 8;
+    public static final int btSlow = 7;
+    public static final int btLift = 8;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
     public static final int btReplay = 12;
@@ -69,7 +65,7 @@ public class Vars {
     public static final int drAutonomous = 3;
     public static final int drShooterSpeed = 4;
     public static final int drCanFeed = 5;
-	public static final int drShooterOn = 6;
+    public static final int drSlowMode = 6;
     
 /******************************************************************************/
     // Ints
@@ -80,15 +76,7 @@ public class Vars {
 /******************************************************************************/
     // Doubles
     public static final double dMinFeedTime = 1.0;
-    public static final double dShootTolerance = 10;
-    public static final double dDriveTolerance = .1;
-    public static final double kDriveP = 1;
-    public static final double kDriveI = 1;
-    public static final double kDriveD = 1;
-    public static final double kShooterP = 1;
-    public static final double kShooterI = 1;
-    public static final double kShooterD = 1; 
-	public static final double shooterValue =  300;
+    public static final double shooterValue =  300;
     
 /******************************************************************************/
     // Booloeans

@@ -17,9 +17,9 @@ public class Compressor {
     public void run()
     {
         if(m_digInSensor.get())
-            m_digOutCompressor.set(Relay.Value.kForward);
+            m_digOutCompressor.set(Relay.Value.kOff);
 
         else
-            m_digOutCompressor.set(Relay.Value.kOff);
+            m_digOutCompressor.set(Relay.Value.kForward);
     }
 }
