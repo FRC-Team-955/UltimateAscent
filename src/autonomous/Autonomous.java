@@ -74,7 +74,7 @@ public class Autonomous {
         }
         
         else
-            m_sAutonmousStatus = "Finished";
+            m_sAutonmousStatus = "Done";
     }
     
     /**
@@ -94,7 +94,7 @@ public class Autonomous {
         }
         
         else
-            m_sAutonmousStatus = "Can't Edit!!!";
+            m_sAutonmousStatus = "Can't Edit";
     }
     
     /**
@@ -136,11 +136,17 @@ public class Autonomous {
     {
         if(m_joy.gotPressed(Vars.btReplay))
             if(!m_joy.getSwitch(Vars.btRecord))
+			{
 				m_joy.flipSwitch(Vars.btReplay);
+				System.out.println("Replaying!!!");
+			}
                 
         if(m_joy.gotPressed(Vars.btRecord))
             if(!m_joy.getSwitch(Vars.btReplay))
+			{
 				m_joy.flipSwitch(Vars.btRecord);
+				System.out.println("Recording!!!");
+			}
                         
         if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btRecord))
         {

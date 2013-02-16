@@ -58,7 +58,7 @@ public class Main extends IterativeRobot
     // This function is called periodically during autonomous
     public void autonomousPeriodic() 
     {
-//        autonomous.replay();
+        autonomous.replay();
     }
 
     // This function is called periodically during operator control
@@ -66,12 +66,8 @@ public class Main extends IterativeRobot
     {
         bot.run();
 		
-		// Testing
-		// Testing!!!
-//		if(ps3Joy.gotPressed(7))
-//			bot.setFeeder(!bot.getFeederStatus());
-		
         compressor.run();
-//        autonomous.run();
+		
+        autonomous.run();
     }
 }

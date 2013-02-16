@@ -50,6 +50,7 @@ public class Vars {
     public static final int btLift = 8;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
+	public static final int btAutoShoot = 11;
     public static final int btReplay = 12;
     
 /******************************************************************************/

@@ -21,7 +21,7 @@ public class Drive {
 	private Talon m_mtRight3 = new Talon(utilities.Vars.chnVicDrvRight3);
 	
     private boolean m_bSlowMode = false;
-    private double m_dSlowSpeed = 10;
+    private double m_dSlowSpeed = 5;
     private MyJoystick joy;
     
     /**
@@ -39,6 +39,8 @@ public class Drive {
 		
 		if(joy.gotPressed(Vars.btSlow))
 			m_bSlowMode = !m_bSlowMode;
+		
+		Vars.fnPrintToDriverstation(Vars.drSlowMode, "Slow Mode: " + m_bSlowMode);
     }
 	
    /**
@@ -72,18 +74,16 @@ public class Drive {
         
         if(m_bSlowMode)
         {
-                y = Vars.mod(y,1,-1);
-                x = Vars.mod(x,1,-1);
-                x /= m_dSlowSpeed;
-                y /= m_dSlowSpeed;
-                System.out.println("SLOW MODE!!!");
+			y = Vars.mod(y,1,-1);
+			x = Vars.mod(x,1,-1);
+			x /= m_dSlowSpeed;
+			y /= m_dSlowSpeed;
         }
         
         double leftSpeed = y-x;
         double rightSpeed = y+x;
 		
         setSpeed(leftSpeed, rightSpeed);
-	//setSpeed(ramp(m_mtRight.get(), x-y), ramp(m_mtLeft.get(), x+y) );
     }
     
     /**
@@ -109,7 +109,7 @@ public class Drive {
      */
     public void setSpeed(double leftMt, double rightMt)
     {
-		System.out.println(leftMt + " " + rightMt);
+		//System.out.println(leftMt + " " + rightMt);
         // Sets left and right motor speed.
 		rightMt = -rightMt;
 		leftMt = leftMt;  
