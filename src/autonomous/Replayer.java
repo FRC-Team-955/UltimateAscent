@@ -41,10 +41,11 @@ class Replayer {
     {                
         if(!m_bRepStarted)
         {
-			if(m_bVerboseMode)
-				System.out.println("Replaying!!!");
+            if(m_bVerboseMode)
+                System.out.println("Replaying!!!");
 				
-            Vars.fnDisableDrive();
+            Vars.fnSetAllowDrive(false);
+            Vars.fnSetAllowShooting(false);
             m_sFileName = sFileName;
             readAllData();
             m_botDataAuto = m_botDataArray[m_iCounter++];
@@ -77,8 +78,8 @@ class Replayer {
             m_tmReplay.stop();
             m_tmReplay.reset();
 			
-			if(m_bVerboseMode)
-				System.out.println("Replay Ended");
+            if(m_bVerboseMode)
+                System.out.println("Replay Ended");
         }
     }
     
@@ -89,7 +90,8 @@ class Replayer {
     {
         if(m_bRepStarted)
         {
-            Vars.fnEnableDrive();
+            Vars.fnSetAllowDrive(true);
+            Vars.fnSetAllowShooting(true);
             m_tmReplay.stop();
             m_tmReplay.reset();
             m_sFileName = "";

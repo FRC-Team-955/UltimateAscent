@@ -83,8 +83,9 @@ public class Vars {
     
 /******************************************************************************/
     // Booloeans
-    private static boolean bDrive = true;
-    public static boolean oneSpot = true;
+    private static boolean bAllowDrive = true;
+    private static boolean bAllowShooting = true; 
+    //public static boolean oneSpot = true;
     
 /******************************************************************************/
     // Functions
@@ -112,19 +113,12 @@ public class Vars {
     }
     
     /**
-     * Disables ability for user to drive robot.
+     * Allows/Disallows human controlled driving based on Argument.
+     * @param bVal 
      */
-    public static void fnDisableDrive()
+    public static void fnSetAllowDrive(boolean bVal)
     {
-        bDrive = false;
-    }
-    
-    /**
-     * Enables ability for the user to drive the robot.
-     */
-    public static void fnEnableDrive()
-    {
-        bDrive = true;
+        bAllowDrive = bVal;
     }
    
     /**
@@ -132,9 +126,25 @@ public class Vars {
      */
     public static boolean fnCanDrive()
     {
-        return bDrive;
+        return bAllowDrive;
     }
     
+    /**
+     * Allows/Disallows human controlled shooting based on Argument.
+     * @param bVal 
+     */
+    public static void fnSetAllowShooting(boolean bVal)
+    {
+        bAllowShooting = bVal;
+    }
+   
+    /**
+     * Checks if the user has the ability to shoot the robot.
+     */
+    public static boolean fnCanShoot()
+    {
+        return bAllowShooting;
+    }
     /**
      * Gets the button status from the driverstation, 1 - 8 available.
      * @param iChan

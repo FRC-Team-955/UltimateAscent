@@ -34,12 +34,7 @@ public class Robot {
 		
         m_lifter.run();
     }
-       public void auto() {
-        m_shooter.autoShoot(autoTime);
-    }
-    public void autoSet(){
-        autoTime.start();
-    }
+    
     /**
      * Stops the robot and sets everything to false or zero, does not disable 
      * the ability to use it though. 
@@ -113,5 +108,13 @@ public class Robot {
     public void setFeeder(boolean bStatus)
     {
         m_shooter.setFeeder(bStatus);
+    }
+    
+    /**
+     * This function resets the shooter.
+     */
+    public void resetShooter()
+    {
+        m_shooter.resetShooter();
     }
 }

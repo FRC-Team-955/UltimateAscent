@@ -136,15 +136,14 @@ public class Autonomous {
     {
         if(m_joy.gotPressed(Vars.btReplay))
             if(!m_joy.getSwitch(Vars.btRecord))
-				m_joy.flipSwitch(Vars.btReplay);
+                m_joy.flipSwitch(Vars.btReplay);
                 
         if(m_joy.gotPressed(Vars.btRecord))
             if(!m_joy.getSwitch(Vars.btReplay))
-				m_joy.flipSwitch(Vars.btRecord);
+                m_joy.flipSwitch(Vars.btRecord);
                         
         if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btRecord))
         {
-			Vars.fnEnableDrive();
             // Changes the ability for the user to edit the autonomous
             if(m_joy.gotPressed(Vars.btAllowEdit))
             {

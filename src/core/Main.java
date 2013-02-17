@@ -40,6 +40,7 @@ public class Main extends IterativeRobot
     {
         // Resets the replay to false if it was true before
         autonomous.resetAutonomous(); 
+        bot.resetShooter();
     }
     
     public void disabledPeriodic()
@@ -50,17 +51,15 @@ public class Main extends IterativeRobot
     /* Called once in autonomous, tells autonomous which file to play based on
      * the value of "iFileType"
      */
- public void autonomousInit()
+    public void autonomousInit()
     {
-        bot.autoSet();
-//        autonomous.setFileBasedOnDriverInput();
+        autonomous.setFileBasedOnDriverInput();
     }
     
     // This function is called periodically during autonomous
     public void autonomousPeriodic() 
     {
-//        autonomous.replay();
-        bot.auto();
+        autonomous.replay();
     }
 
     // This function is called periodically during operator control

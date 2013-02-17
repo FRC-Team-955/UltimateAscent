@@ -20,9 +20,9 @@ public class Drive {
     private Talon m_mtRight1 = new Talon(Vars.chnVicDrvRight1);
 	private Talon m_mtRight2 = new Talon(Vars.chnVicDrvRight2);
 	private Talon m_mtRight3 = new Talon(Vars.chnVicDrvRight3);
-	
-	private DigitalInput m_digInLifterLeft  = new DigitalInput(Vars.chnDigInLifterLeft);
-	private DigitalInput m_digInLifterRight = new DigitalInput(Vars.chnDigInLifterRight);
+
+    private DigitalInput m_digInLifterLeft  = new DigitalInput(Vars.chnDigInLifterLeft);
+    private DigitalInput m_digInLifterRight = new DigitalInput(Vars.chnDigInLifterRight);
 	
     private boolean m_bSlowMode = false;
     private double m_dSlowSpeed = 5;
@@ -41,10 +41,10 @@ public class Drive {
         if (Vars.fnCanDrive()) 
             arcadeDrive();
 		
-		if(joy.gotPressed(Vars.btSlow))
-			m_bSlowMode = !m_bSlowMode;
-		
-		Vars.fnPrintToDriverstation(Vars.drSlowMode, "Slow Mode: " + m_bSlowMode);
+        if(joy.gotPressed(Vars.btSlow))
+                m_bSlowMode = !m_bSlowMode;
+
+        Vars.fnPrintToDriverstation(Vars.drSlowMode, "Slow Mode: " + m_bSlowMode);
     }
 	
    /**
@@ -67,26 +67,27 @@ public class Drive {
     /**
      * Arcade drive. This is not tank drive
      */
-    private void arcadeDrive(){
+    private void arcadeDrive()
+    {
         joy.setAxisChannel(MyJoystick.AxisType.kX, 3);
         joy.setAxisChannel(MyJoystick.AxisType.kY, 2);
         double y = joy.getY();
         double x = joy.getX();
-	
+
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
         
-       double leftSpeed = y-x;
+        double leftSpeed = y-x;
         double rightSpeed = y+x;
-		leftSpeed = Vars.mod(leftSpeed, 1, -1);
-		rightSpeed = Vars.mod(rightSpeed, 1, -1);
-		leftSpeed = leftSpeed;
-		rightSpeed = -rightSpeed;
+        leftSpeed = Vars.mod(leftSpeed, 1, -1);
+        rightSpeed = Vars.mod(rightSpeed, 1, -1);
+        leftSpeed = leftSpeed;
+        rightSpeed = -rightSpeed;
         if(m_bSlowMode)
         {
                         
-					leftSpeed /= m_dSlowSpeed;
-					rightSpeed /= m_dSlowSpeed;
+            leftSpeed /= m_dSlowSpeed;
+            rightSpeed /= m_dSlowSpeed;
 //                        if (m_digInLifterLeft.get() && leftSpeed < 0){
 //                            leftSpeed = 0;
 //                        }
@@ -123,12 +124,12 @@ public class Drive {
      */
     public void setSpeed(double leftMt, double rightMt)
     {
-		m_mtLeft1.set(leftMt);
-		m_mtLeft2.set(leftMt);
-		m_mtLeft3.set(leftMt);
+        m_mtLeft1.set(leftMt);
+        m_mtLeft2.set(leftMt);
+        m_mtLeft3.set(leftMt);
 
         m_mtRight1.set(rightMt);
-		m_mtRight2.set(rightMt);
-		m_mtRight3.set(rightMt);
+        m_mtRight2.set(rightMt);
+        m_mtRight3.set(rightMt);
     }	
 }
