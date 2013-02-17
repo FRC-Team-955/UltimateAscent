@@ -19,6 +19,7 @@ public class Lifter
 	public Lifter(MyJoystick joy)
 	{
 		m_joy = joy;
+		m_joy.setSwitch(Vars.btLift, true);
 	}
 	
 	public void run()

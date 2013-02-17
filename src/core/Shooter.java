@@ -18,22 +18,18 @@ import edu.wpi.first.wpilibj.Talon;
 public class Shooter {
     
     // CONSTANTS
-    private final double m_dSpeedIncrease = 500;
-    
-    private boolean m_bGoodToShoot = false;
-	private double m_dTimePerShot = 1.3;
+	private double m_dTimePerShot = .75;
 	private double m_dSpeedUpTime = 1.5;
 	private double lastTime;
-    private double m_dShootSpeed = Vars.shooterValue;
+    private double m_dShootSpeed = 0;//= Vars.shooterValue;
 	public double rate = 0;
 	public double rateRadians = 0;
-	public double m_dTargetSpeed = 6000;//in RPM
-    private double m_dPrevPulseTime = 0;
+	public double m_dTargetSpeed = 5000;//in RPM
     private MySolenoid m_solFeeder = new MySolenoid(Vars.chnSolFeederDown, Vars.chnSolFeederUp, false);
     private Timer m_tmFeeder = new Timer();
     private Timer m_tmPulser = new Timer();
     private Talon m_mtShooter1 = new Talon(Vars.chnVicShooter1);
-	 private Talon m_mtShooter2 = new Talon(Vars.chnVicShooter2);
+	private Talon m_mtShooter2 = new Talon(Vars.chnVicShooter2);
     private Encoder m_encShooter = new Encoder(Vars.chnEncShooterA, Vars.chnEncShooterB,false, CounterBase.EncodingType.k4X);
     private MyJoystick m_joy;
 	private boolean UseDifEqController = false;
@@ -82,13 +78,15 @@ public class Shooter {
         // Sets the shooter to the specified speed.
         if(m_joy.getSwitch(Vars.btShootFrisbee))
         {
-			System.out.println("in swith true");
 			difEq.unfreeze();
 			
 			if(UseDifEqController)
-				setShooter(difEqOutput);
+				m_dShootSpeed = difEqOutput;
+			
 			else
-				setShooter(m_dTargetSpeed*12.0/DriverStation.getInstance().getBatteryVoltage()/6200.0);
+				m_dShootSpeed = m_dTargetSpeed*12.0/DriverStation.getInstance().getBatteryVoltage()/6200.0;
+			
+			setShooter(m_dShootSpeed);
 			
 			if(m_joy.getSwitch(Vars.btAutoShoot))
 			{
@@ -104,13 +102,14 @@ public class Shooter {
 				}
 			}
         }
-
+		
+		//// TODO: EERRROOOORRRR
 		else 
 			setShooter(0);
 	    
-		System.out.println("Enc:               " + rate);
-        Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
-		System.out.println("Timer Int: " + (int)m_tmPulser.get() + "Divided by 2: " + (((int) m_tmPulser.get()) % 2));
+		//System.out.println("Enc:               " + rate);
+		Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Auto: " + m_joy.getSwitch(Vars.btAutoShoot));
+        //Vars.fnPrintToDriverstation(Vars.drCanFeed, "Can Feed: " + m_bGoodToShoot);
     }
     
     /**
@@ -119,7 +118,7 @@ public class Shooter {
      */
     public double getShooterSpeed()
     {
-        return rate;
+        return m_dShootSpeed;//m_mtShooter1.get();
     }
     
 	/**
@@ -147,7 +146,7 @@ public class Shooter {
      */
     public boolean getFeedStatus()
     {
-        return m_solFeeder.getStatus();//m_joy.getSwitch(Vars.btFeedFrisbee);
+        return m_solFeeder.getStatus();
     }
     
     /**
@@ -168,6 +167,15 @@ public class Shooter {
     {
         m_solFeeder.set(bStatus);
     }
+	       public void autoShoot(Timer time){
+            double autoTime = time.get();
+				setShooter(m_dTargetSpeed*12.0/DriverStation.getInstance().getBatteryVoltage()/6200.0);
+				if(autoTime > 2) {
+					if((autoTime>= m_dSpeedUpTime))
+						m_solFeeder.set((((int) (m_tmFeeder.get()/(m_dTimePerShot) - m_dSpeedUpTime)) % 2) == 0 ? true : false);
+				}
+
+        }
 }
 
 

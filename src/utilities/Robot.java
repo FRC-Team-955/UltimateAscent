@@ -3,6 +3,7 @@ package utilities;
 import core.Drive;
 import core.Shooter;
 import core.Lifter;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This class encapsulates the robot systems.
@@ -13,6 +14,7 @@ public class Robot {
     private static Drive m_drive;
     private static Shooter m_shooter;
     private static Lifter m_lifter;
+	private Timer autoTime = new Timer();
     
     public Robot(MyJoystick joytick)
     {
@@ -32,7 +34,12 @@ public class Robot {
 		
         m_lifter.run();
     }
-    
+       public void auto() {
+        m_shooter.autoShoot(autoTime);
+    }
+    public void autoSet(){
+        autoTime.start();
+    }
     /**
      * Stops the robot and sets everything to false or zero, does not disable 
      * the ability to use it though. 

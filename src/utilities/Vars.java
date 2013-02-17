@@ -37,8 +37,10 @@ public class Vars {
     // Digital Sidecard 
     public static final int chnEncShooterA = 8;
     public static final int chnEncShooterB = 9;
-    public static final int chnDigiOutCompressor = 1;
-    public static final int chnDigiInSensor = 3;
+    public static final int chnDigOutCompressor = 1;
+    public static final int chnDigInSensor = 3;
+	public static final int chnDigInLifterLeft = 2;
+	public static final int chnDigInLifterRight = 1;
 
 /******************************************************************************/
     // Button channel on the joystick

@@ -20,6 +20,7 @@ class Replayer {
     private int m_iCounter = 0;
     private boolean m_bRepStarted = false;
     private boolean m_bDoneReplay = false;
+	private boolean m_bVerboseMode = true;
     private String m_sFileName = "";
     private Timer m_tmReplay = new Timer();
     private BotData m_botDataAuto = null;
@@ -40,6 +41,9 @@ class Replayer {
     {                
         if(!m_bRepStarted)
         {
+			if(m_bVerboseMode)
+				System.out.println("Replaying!!!");
+				
             Vars.fnDisableDrive();
             m_sFileName = sFileName;
             readAllData();
@@ -57,7 +61,13 @@ class Replayer {
             m_bot.setShooter(m_botDataAuto.getShooterSpeed());
             m_bot.setFeeder(m_botDataAuto.getFeederStatus());
             
-            if(EndOfFile())
+			if(m_bVerboseMode)
+				System.out.println("Left: " + m_botDataAuto.getMotorLeftSpeed() + 
+						" - Right: " + m_botDataAuto.getMotorRightSpeed() + 
+						" - Shooter: " + m_botDataAuto.getShooterSpeed() + 
+						" - Feed: " + m_botDataAuto.getFeederStatus()); 
+						
+			if(EndOfFile())
                 m_bDoneReplay = true;
         }
 
@@ -66,6 +76,9 @@ class Replayer {
             m_bot.stopRobot();
             m_tmReplay.stop();
             m_tmReplay.reset();
+			
+			if(m_bVerboseMode)
+				System.out.println("Replay Ended");
         }
     }
     

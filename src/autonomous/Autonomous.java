@@ -110,7 +110,7 @@ public class Autonomous {
     }
     
     /**
-     * Chooses the autonomous from the driverstation, for use right before 
+     * Chooses the ;autonomous from the driverstation, for use right before 
      * the actual autonomous begins.
      */
     public void setFileBasedOnDriverInput()
@@ -136,20 +136,15 @@ public class Autonomous {
     {
         if(m_joy.gotPressed(Vars.btReplay))
             if(!m_joy.getSwitch(Vars.btRecord))
-			{
 				m_joy.flipSwitch(Vars.btReplay);
-				System.out.println("Replaying!!!");
-			}
                 
         if(m_joy.gotPressed(Vars.btRecord))
             if(!m_joy.getSwitch(Vars.btReplay))
-			{
 				m_joy.flipSwitch(Vars.btRecord);
-				System.out.println("Recording!!!");
-			}
                         
         if(!m_joy.getSwitch(Vars.btReplay) && !m_joy.getSwitch(Vars.btRecord))
         {
+			Vars.fnEnableDrive();
             // Changes the ability for the user to edit the autonomous
             if(m_joy.gotPressed(Vars.btAllowEdit))
             {
@@ -215,7 +210,7 @@ public class Autonomous {
                 
             default:
             {
-                m_sFileTypeStat = "AutoCenter: ";
+                m_sFileTypeStat = "AutoC: ";
                 m_sFileName = m_sAutoCenter; 
                 break;
             }

@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.Relay;
  */
 public class Compressor {
 	
-    private DigitalInput m_digInSensor = new DigitalInput(Vars.chnDigiInSensor);
-    private Relay m_digOutCompressor = new Relay(Vars.chnDigiOutCompressor);
+    private DigitalInput m_digInSensor = new DigitalInput(Vars.chnDigInSensor);
+    private Relay m_digOutCompressor = new Relay(Vars.chnDigOutCompressor);
 	
     public void run()
     {

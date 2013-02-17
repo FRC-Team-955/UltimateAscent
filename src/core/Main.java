@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Main extends IterativeRobot 
 {
-    final String sCodeVersion = "Welcome to Falcon!";
+    final String sCodeVersion = "Welcome to Glassfrog!";
     MyJoystick ps3Joy = new MyJoystick(Vars.iPs3Port, Vars.iPs3Buttons);
     Robot bot = new Robot(ps3Joy);
     Compressor compressor = new Compressor();
@@ -50,15 +50,17 @@ public class Main extends IterativeRobot
     /* Called once in autonomous, tells autonomous which file to play based on
      * the value of "iFileType"
      */
-    public void autonomousInit()
+ public void autonomousInit()
     {
-        autonomous.setFileBasedOnDriverInput();
+        bot.autoSet();
+//        autonomous.setFileBasedOnDriverInput();
     }
     
     // This function is called periodically during autonomous
     public void autonomousPeriodic() 
     {
-        autonomous.replay();
+//        autonomous.replay();
+        bot.auto();
     }
 
     // This function is called periodically during operator control

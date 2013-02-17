@@ -17,6 +17,7 @@ class Recorder {
     private int m_Index = 0;
     private boolean m_bRecStarted = false;
     private boolean m_bRecDone = false;
+	private boolean m_bVerboseMode = true;
     private String m_sFile = "";
     private Timer m_tmRecorder = new Timer();
     private Vector m_List = new Vector();
@@ -37,6 +38,9 @@ class Recorder {
     {        
         if(!m_bRecStarted)
         {
+			if(m_bVerboseMode)
+				System.out.println("Recording!!!");
+			
             m_sFile = sFileName;
             m_tmRecorder.start();
             m_bRecStarted = true;
@@ -50,7 +54,7 @@ class Recorder {
              * So if the original is changed so will the data in the object list.
              */
             m_Index++;
-            m_botDataAuto = new BotData();
+            m_botDataAuto = new BotData();			
             m_botDataAuto.setValues(m_tmRecorder.get(), m_bot);
             m_List.addElement(m_botDataAuto);
         }
@@ -113,6 +117,13 @@ class Recorder {
         for(int iPos = 0; iPos < m_Index; iPos++)
         {
             m_botDataAuto.setValues((BotData) m_List.elementAt(iPos));
+			
+			if(m_bVerboseMode)
+				System.out.println("Left: " + m_botDataAuto.getMotorLeftSpeed() + 
+						" - Right: " + m_botDataAuto.getMotorRightSpeed() + 
+						" - Shooter: " + m_botDataAuto.getShooterSpeed() + 
+						" - Feed: " + m_botDataAuto.getFeederStatus()); 
+			
             m_fileWriter.writeDouble(m_botDataAuto.getTimer());
             m_fileWriter.writeDouble(m_botDataAuto.getMotorLeftSpeed());
             m_fileWriter.writeDouble(m_botDataAuto.getMotorRightSpeed());

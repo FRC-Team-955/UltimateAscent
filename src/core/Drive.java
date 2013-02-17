@@ -1,8 +1,9 @@
 package core;
+import edu.wpi.first.wpilibj.DigitalInput;
 import utilities.Vars;
 import utilities.MyJoystick;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 
 /**
  * This is a comment!
@@ -12,13 +13,16 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class Drive {       
     
-    private Talon m_mtLeft1 = new Talon(utilities.Vars.chnVicDrvLeft1);
-	private Talon m_mtLeft2 = new Talon(utilities.Vars.chnVicDrvLeft2);
-	private Talon m_mtLeft3 = new Talon(utilities.Vars.chnVicDrvLeft3);
+    private Talon m_mtLeft1 = new Talon(Vars.chnVicDrvLeft1);
+	private Talon m_mtLeft2 = new Talon(Vars.chnVicDrvLeft2);
+	private Talon m_mtLeft3 = new Talon(Vars.chnVicDrvLeft3);
 	
-    private Talon m_mtRight1 = new Talon(utilities.Vars.chnVicDrvRight1);
-	private Talon m_mtRight2 = new Talon(utilities.Vars.chnVicDrvRight2);
-	private Talon m_mtRight3 = new Talon(utilities.Vars.chnVicDrvRight3);
+    private Talon m_mtRight1 = new Talon(Vars.chnVicDrvRight1);
+	private Talon m_mtRight2 = new Talon(Vars.chnVicDrvRight2);
+	private Talon m_mtRight3 = new Talon(Vars.chnVicDrvRight3);
+	
+	private DigitalInput m_digInLifterLeft  = new DigitalInput(Vars.chnDigInLifterLeft);
+	private DigitalInput m_digInLifterRight = new DigitalInput(Vars.chnDigInLifterRight);
 	
     private boolean m_bSlowMode = false;
     private double m_dSlowSpeed = 5;
@@ -72,16 +76,26 @@ public class Drive {
         y *= Math.abs(y); // Squared Drive
         x *= Math.abs(x); // Squared Drive
         
+       double leftSpeed = y-x;
+        double rightSpeed = y+x;
+		leftSpeed = Vars.mod(leftSpeed, 1, -1);
+		rightSpeed = Vars.mod(rightSpeed, 1, -1);
+		leftSpeed = leftSpeed;
+		rightSpeed = -rightSpeed;
         if(m_bSlowMode)
         {
-			y = Vars.mod(y,1,-1);
-			x = Vars.mod(x,1,-1);
-			x /= m_dSlowSpeed;
-			y /= m_dSlowSpeed;
+                        
+					leftSpeed /= m_dSlowSpeed;
+					rightSpeed /= m_dSlowSpeed;
+//                        if (m_digInLifterLeft.get() && leftSpeed < 0){
+//                            leftSpeed = 0;
+//                        }
+//                         if (m_digInLifterRight.get() && rightSpeed > 0){
+//                            rightSpeed = 0;
+//                        }
+//						 System.out.println(m_digInLifterLeft.get() + "	" + leftSpeed);
+//                    
         }
-        
-        double leftSpeed = y-x;
-        double rightSpeed = y+x;
 		
         setSpeed(leftSpeed, rightSpeed);
     }
@@ -109,11 +123,6 @@ public class Drive {
      */
     public void setSpeed(double leftMt, double rightMt)
     {
-		//System.out.println(leftMt + " " + rightMt);
-        // Sets left and right motor speed.
-		rightMt = -rightMt;
-		leftMt = leftMt;  
-		
 		m_mtLeft1.set(leftMt);
 		m_mtLeft2.set(leftMt);
 		m_mtLeft3.set(leftMt);
