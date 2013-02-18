@@ -76,6 +76,8 @@ class Recorder {
     {
         if(m_bRecStarted)
         {
+            Vars.fnSetAllowDrive(true);
+            Vars.fnSetAllowShooting(true);
             writeDataToFile();
             m_List.removeAllElements();
             m_Index = 0;

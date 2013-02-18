@@ -20,9 +20,6 @@ public class Drive {
     private Talon m_mtRight1 = new Talon(Vars.chnVicDrvRight1);
 	private Talon m_mtRight2 = new Talon(Vars.chnVicDrvRight2);
 	private Talon m_mtRight3 = new Talon(Vars.chnVicDrvRight3);
-
-    private DigitalInput m_digInLifterLeft  = new DigitalInput(Vars.chnDigInLifterLeft);
-    private DigitalInput m_digInLifterRight = new DigitalInput(Vars.chnDigInLifterRight);
 	
     private boolean m_bSlowMode = false;
     private double m_dSlowSpeed = 5;
