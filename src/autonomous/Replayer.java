@@ -5,6 +5,7 @@ import utilities.FileReader;
 import utilities.Robot;
 import utilities.Vars;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * This class reads data from the specified file from the cRio and then 
@@ -59,7 +60,13 @@ class Replayer {
                 m_botDataAuto.setValues(m_botDataArray[m_iCounter++]);
             
             m_bot.setDriveSpeed(m_botDataAuto.getMotorLeftSpeed(), m_botDataAuto.getMotorRightSpeed());
-            m_bot.setShooter(m_botDataAuto.getShooterSpeed());
+			
+			if(m_botDataAuto.getShooterSpeed() > .5)
+				m_bot.setShooter(Vars.dTargetSpeed*12.0/DriverStation.getInstance().getBatteryVoltage()/6200.0);
+			
+			else 
+				m_bot.setShooter(0);
+			
             m_bot.setFeeder(m_botDataAuto.getFeederStatus());
             
 			if(m_bVerboseMode)

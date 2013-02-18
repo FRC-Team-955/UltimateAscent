@@ -44,9 +44,8 @@ public class Vars {
 
 /******************************************************************************/
     // Button channel on the joystick
-    public static final int btIncreaseSpeed = 1;
+	public static final int btShootOneFrisbee = 1;
     public static final int btFeedFrisbee = 2;
-    public static final int btDecreaseSpeed = 3;
     public static final int btShootFrisbee = 4;
     public static final int btSlow = 7;
     public static final int btLift = 8;
@@ -78,6 +77,7 @@ public class Vars {
     
 /******************************************************************************/
     // Doubles
+	public static final double dTargetSpeed = 5050;//in RPM used to be 5000
     public static final double dMinFeedTime = 1.0;
     public static final double shooterValue =  300;
     
