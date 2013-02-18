@@ -52,9 +52,8 @@ public class Shooter {
 
         if(Vars.fnCanShoot())
         {		
-			if(m_joy.gotPressed(Vars.btFeedFrisbee))
-				m_solFeeder.set(!m_solFeeder.getStatus());
-
+            if(m_joy.gotPressed(Vars.btFeedFrisbee))
+                    m_solFeeder.set(!m_solFeeder.getStatus());
 
             // When pressed, starts velocity controller so shooter motor can turn on.
             if(m_joy.gotPressed(Vars.btShootFrisbee))
@@ -63,23 +62,24 @@ public class Shooter {
                 m_tmFeeder.start();
             }
 
-			if(m_joy.gotPressed(Vars.btShootOneFrisbee))
-			{
-				m_joy.flipSwitch(Vars.btShootOneFrisbee);
-				m_tmFeeder.start();
-			}
-			
-			if(!m_joy.gotPressed(Vars.btShootOneFrisbee) && !m_joy.getSwitch(Vars.btShootFrisbee))
-			{
-				m_tmFeeder.stop();
+            if(m_joy.gotPressed(Vars.btShootOneFrisbee))
+            {
+                m_joy.flipSwitch(Vars.btShootOneFrisbee);
+                m_tmFeeder.start();
+            }
+
+            if(!m_joy.gotPressed(Vars.btShootOneFrisbee) && !m_joy.getSwitch(Vars.btShootFrisbee))
+            {
+                m_tmFeeder.stop();
                 m_tmFeeder.reset();
                 difEq.freeze();
-			}
+                setShooter(0);
+            }
 				
             // Auto shoots all 4 frisbees
             if(m_joy.getSwitch(Vars.btShootFrisbee))
             {
-				difEq.unfreeze();
+                difEq.unfreeze();
 				
                 if(UseDifEqController)
                     m_dShootSpeed = difEqOutput;
@@ -89,23 +89,23 @@ public class Shooter {
 
                 setShooter(m_dShootSpeed);
 
-				if((m_tmFeeder.get() < 10 * m_dTimePerShot + m_dSpeedUpTime))
-				{
-					if((m_tmFeeder.get() >= m_dSpeedUpTime))
-						m_solFeeder.set(((((int) ((m_tmFeeder.get() - m_dSpeedUpTime)/m_dTimePerShot)) % 2) == 0) ? true : false);
-				}
+                if((m_tmFeeder.get() < 10 * m_dTimePerShot + m_dSpeedUpTime))
+                {
+                    if((m_tmFeeder.get() >= m_dSpeedUpTime))
+                        m_solFeeder.set(((((int) ((m_tmFeeder.get() - m_dSpeedUpTime)/m_dTimePerShot)) % 2) == 0) ? true : false);
+                }
 
-				else
-				{
-					m_joy.setSwitch(Vars.btShootFrisbee, false);
-					m_solFeeder.set(false);
-				}
+                else
+                {
+                    m_joy.setSwitch(Vars.btShootFrisbee, false);
+                    m_solFeeder.set(false);
+                }
             }
             
-			// Autoshoots one frisbee
-			if(m_joy.getSwitch(Vars.btShootOneFrisbee))
-			{
-				difEq.unfreeze();
+            // Autoshoots one frisbee
+            if(m_joy.getSwitch(Vars.btShootOneFrisbee))
+            {
+                difEq.unfreeze();
 				
                 if(UseDifEqController)
                     m_dShootSpeed = difEqOutput;
@@ -115,21 +115,18 @@ public class Shooter {
 
                 setShooter(m_dShootSpeed);
 
-				if((m_tmFeeder.get() < 2 * m_dTimePerShot + m_dSpeedUpTime))
-				{
-					if((m_tmFeeder.get() >= m_dSpeedUpTime))
-						m_solFeeder.set(((((int) ((m_tmFeeder.get() - m_dSpeedUpTime)/m_dTimePerShot)) % 2) == 0) ? true : false);
-				}
+                if((m_tmFeeder.get() < 2 * m_dTimePerShot + m_dSpeedUpTime))
+                {
+                    if((m_tmFeeder.get() >= m_dSpeedUpTime))
+                        m_solFeeder.set(((((int) ((m_tmFeeder.get() - m_dSpeedUpTime)/m_dTimePerShot)) % 2) == 0) ? true : false);
+                }
 
-				else
-				{
-					m_joy.setSwitch(Vars.btShootOneFrisbee, false);
-					m_solFeeder.set(false);
-				}
-			}
-			
-            if(!m_joy.getSwitch(Vars.btShootOneFrisbee) && !m_joy.getSwitch(Vars.btShootFrisbee))
-                setShooter(0);
+                else
+                {
+                    m_joy.setSwitch(Vars.btShootOneFrisbee, false);
+                    m_solFeeder.set(false);
+                }
+            }
         }
 	    
         //System.out.println("Enc:               " + rate);
