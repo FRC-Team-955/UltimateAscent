@@ -71,29 +71,24 @@ public class Drive {
         double y = joy.getY();
         double x = joy.getX();
 
-        y *= Math.abs(y); // Squared Drive
-        x *= Math.abs(x); // Squared Drive
-        
-        double leftSpeed = y-x;
-        double rightSpeed = y+x;
-        leftSpeed = Vars.mod(leftSpeed, 1, -1);
-        rightSpeed = Vars.mod(rightSpeed, 1, -1);
-        leftSpeed = leftSpeed;
-        rightSpeed = -rightSpeed;
-        if(m_bSlowMode)
-        {
-                        
-            leftSpeed /= m_dSlowSpeed;
-            rightSpeed /= m_dSlowSpeed;
-//                        if (m_digInLifterLeft.get() && leftSpeed < 0){
-//                            leftSpeed = 0;
-//                        }
-//                         if (m_digInLifterRight.get() && rightSpeed > 0){
-//                            rightSpeed = 0;
-//                        }
-//						 System.out.println(m_digInLifterLeft.get() + "	" + leftSpeed);
-//                    
-        }
+		if(m_bSlowMode){
+			x /= m_dSlowSpeed;
+			y /= m_dSlowSpeed;
+		}
+		else
+		{
+			x*=(0.5*y+0.7);
+		}
+		
+		y *= Math.abs(y); // Squared Drive
+		x *= Math.abs(x); // Squared Drive
+
+		double leftSpeed = y-x;
+		double rightSpeed = y+x;
+		leftSpeed = Vars.mod(leftSpeed, 1, -1);
+		rightSpeed = Vars.mod(rightSpeed, 1, -1);
+		leftSpeed = leftSpeed;
+		rightSpeed = -rightSpeed;
 		
         setSpeed(leftSpeed, rightSpeed);
     }
