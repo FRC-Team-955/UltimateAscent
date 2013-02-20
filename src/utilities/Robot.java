@@ -109,12 +109,4 @@ public class Robot {
     {
         m_shooter.setFeeder(bStatus);
     }
-    
-    /**
-     * This function resets the shooter.
-     */
-    public void resetShooter()
-    {
-        m_shooter.resetShooter();
-    }
 }

@@ -40,7 +40,6 @@ public class Shooter {
     public Shooter(MyJoystick joystick)
     {
         m_joy = joystick;
-        m_joy.setSwitch(Vars.btAutoShoot, true);
         m_tmPulser.start();
         m_encShooter.start();
         difEq.freeze();
@@ -62,13 +61,7 @@ public class Shooter {
                 m_tmFeeder.start();
             }
 
-            if(m_joy.gotPressed(Vars.btShootOneFrisbee))
-            {
-                m_joy.flipSwitch(Vars.btShootOneFrisbee);
-                m_tmFeeder.start();
-            }
-
-            if(!m_joy.gotPressed(Vars.btShootOneFrisbee) && !m_joy.getSwitch(Vars.btShootFrisbee))
+            if(!m_joy.getSwitch(Vars.btShootFrisbee))
             {
                 m_tmFeeder.stop();
                 m_tmFeeder.reset();
@@ -101,36 +94,10 @@ public class Shooter {
                     m_solFeeder.set(false);
                 }
             }
-            
-            // Autoshoots one frisbee
-            if(m_joy.getSwitch(Vars.btShootOneFrisbee))
-            {
-                difEq.unfreeze();
-				
-                if(UseDifEqController)
-                    m_dShootSpeed = difEqOutput;
-
-                else
-                    m_dShootSpeed = Vars.dTargetSpeed*12.0/DriverStation.getInstance().getBatteryVoltage()/6200.0;
-
-                setShooter(m_dShootSpeed);
-
-                if((m_tmFeeder.get() < 2 * m_dTimePerShot + m_dSpeedUpTime))
-                {
-                    if((m_tmFeeder.get() >= m_dSpeedUpTime))
-                        m_solFeeder.set(((((int) ((m_tmFeeder.get() - m_dSpeedUpTime)/m_dTimePerShot)) % 2) == 0) ? true : false);
-                }
-
-                else
-                {
-                    m_joy.setSwitch(Vars.btShootOneFrisbee, false);
-                    m_solFeeder.set(false);
-                }
-            }
         }
 	    
         //System.out.println("Enc:               " + rate);
-        Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Auto: " + m_joy.getSwitch(Vars.btAutoShoot));
+        Vars.fnPrintToDriverstation(Vars.drShooterSpeed, "Shoot Auto: " + m_mtShooter1.get());
     }
     
     /**
@@ -191,15 +158,6 @@ public class Shooter {
     public void setFeeder(boolean bStatus)
     {
         m_solFeeder.set(bStatus);
-    }
-    
-    /**
-     * This function resets some things in the shooter class, like auto shoot
-     * to true.
-     */
-    public void resetShooter()
-    {
-        m_joy.setSwitch(Vars.btAutoShoot, true);
     }
 }
 

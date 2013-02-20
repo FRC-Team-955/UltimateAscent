@@ -70,15 +70,6 @@ public class Drive {
         joy.setAxisChannel(MyJoystick.AxisType.kY, 2);
         double y = joy.getY();
         double x = joy.getX();
-
-		if(m_bSlowMode){
-			x /= m_dSlowSpeed;
-			y /= m_dSlowSpeed;
-		}
-		else
-		{
-			x*=(0.5*y+0.7);
-		}
 		
 		y *= Math.abs(y); // Squared Drive
 		x *= Math.abs(x); // Squared Drive
@@ -89,6 +80,12 @@ public class Drive {
 		rightSpeed = Vars.mod(rightSpeed, 1, -1);
 		leftSpeed = leftSpeed;
 		rightSpeed = -rightSpeed;
+		
+		if(m_bSlowMode)
+		{
+			leftSpeed /= m_dSlowSpeed;
+			rightSpeed /= m_dSlowSpeed;
+		}
 		
         setSpeed(leftSpeed, rightSpeed);
     }

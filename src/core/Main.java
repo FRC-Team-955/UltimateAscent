@@ -40,7 +40,6 @@ public class Main extends IterativeRobot
     {
         // Resets the replay to false if it was true before
         autonomous.resetAutonomous(); 
-        bot.resetShooter();
     }
     
     public void disabledPeriodic()

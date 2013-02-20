@@ -44,14 +44,12 @@ public class Vars {
 
 /******************************************************************************/
     // Button channel on the joystick
-	public static final int btShootOneFrisbee = 1;
     public static final int btFeedFrisbee = 2;
     public static final int btShootFrisbee = 4;
     public static final int btSlow = 7;
     public static final int btLift = 8;
     public static final int btRecord = 9;
     public static final int btAllowEdit = 10;
-	public static final int btAutoShoot = 11;
     public static final int btReplay = 12;
     
 /******************************************************************************/
